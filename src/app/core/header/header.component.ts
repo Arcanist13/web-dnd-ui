@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  navCollapsed: boolean;
+
+  constructor() {
+    this.navCollapsed = true;
+  }
 
   ngOnInit(): void {
   }
