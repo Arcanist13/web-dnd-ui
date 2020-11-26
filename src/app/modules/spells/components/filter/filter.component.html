@@ -1,0 +1,6 @@
+<div class="text-center my-2">
+  <button *ngFor="let class of classes" type="button" class="btn mx-1" (click)="setClass(class)"
+    [ngClass]="{'btn-primary': class === currentClass, 'btn-outline-secondary': class !== currentClass}">
+    {{ class }}
+  </button>
+</div>

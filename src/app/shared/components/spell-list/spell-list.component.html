@@ -1,0 +1,23 @@
+<!-- Spell list -->
+<div *ngIf="spells.length > 0" class="table-responsive">
+  <table class="table table-sm table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col" class="col-md-6">Name</th>
+        <th scope="col" class="col-md-1">Casttime</th>
+        <th scope="col" class="col-md-2 d-none d-md-table-cell">DMG/EFCT</th>
+        <th scope="col" class="col-md-2 d-none d-md-table-cell">ATK/SAVE</th>
+        <th scope="col" class="col-md-1">Components</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let spell of spells; index as idx">
+        <td>{{ spell.NAME }}</td>
+        <td>{{ spell.CASTTIME }}</td>
+        <td class="d-none d-md-table-cell">{{ spell.DAMAGE }}</td>
+        <td class="d-none d-md-table-cell">{{ spell.ATTACKSAVE }}</td>
+        <td>{{ spell.COMPONENTS }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
