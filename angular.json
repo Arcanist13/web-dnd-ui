@@ -131,6 +131,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "web-dnd-ui"
+    }
+  },
+  "defaultProject": "web-dnd-ui",
+  "cli": {
+    "analytics": false
+  }
 }
