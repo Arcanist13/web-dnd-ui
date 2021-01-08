@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { SpellModel } from 'src/app/shared/models/spell.model';
 import { SpellService } from 'src/app/shared/services/spell.service';
 
@@ -9,21 +10,25 @@ import { SpellService } from 'src/app/shared/services/spell.service';
 })
 export class SpellsComponent implements OnInit {
 
+  private _subscriptions: Array<Subscription>;
   spells: Array<SpellModel>;
 
   constructor(
-    private _spellService: SpellService,
-    private _cd: ChangeDetectorRef
+    private _spellService: SpellService
   ) {
     this.spells = [];
+    this._subscriptions = [];
 
-    this._spellService.getSpells().subscribe((result: Array<SpellModel>) => {
-      this.spells = result;
-    });
+    // Subscribe to changes in the spell list
+    this._subscriptions.push(
+      this._spellService.onSpellUpdate().subscribe((result: Array<SpellModel>) => {
+        this.spells = result;
+      })
+    );
   }
 
   ngOnInit(): void {
-
+    this._spellService.getSpells();
   }
 
 }

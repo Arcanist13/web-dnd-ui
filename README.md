@@ -17,7 +17,12 @@ Location for the main views and associated components of the website, which are 
 Location for generic shared components, services and models. These are used in various places in the code base and should be extensible and able to be used/applied anywhere and in any project.
 
 ## How To
-### Development server
+
+### Install required packages
+
+As this is an angular project it used npm for package management, and stores required packages in the tracked `package.json` file. To make sure you have the packages required run `npm install`.
+
+### Start development server
 
 Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
