@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { SpellModel } from 'src/app/shared/models/spell.model';
 import { DndClassService } from './dnd-class.service';
 
@@ -38,7 +39,8 @@ export class SpellService {
       request = this._http.get<Array<SpellModel>>(environment.backendUri + '/spell/class/' + currentClass);
     }
 
-    request.subscribe((result: Array<SpellModel>) => {
+    request.pipe(catchError(this.handleError))
+      .subscribe((result: Array<SpellModel>) => {
       this._spellUpdate.next(result);
     })
   }
@@ -52,6 +54,7 @@ export class SpellService {
    */
   getSpell(id: number): Observable<SpellModel> {
     return this._http.get<SpellModel>(environment.backendUri + '/spell/' + id)
+      .pipe(catchError(this.handleError));
   }
 
   /**
@@ -61,6 +64,21 @@ export class SpellService {
    */
   onSpellUpdate(): Subject<Array<SpellModel>> {
     return this._spellUpdate;
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('ERROR (spell.service): Client Error ', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `ERROR (spell.service): HTTP Error ${error.status}, ` +
+        `Message: ${error.error}`);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError('Request failed.');
   }
 
 }
