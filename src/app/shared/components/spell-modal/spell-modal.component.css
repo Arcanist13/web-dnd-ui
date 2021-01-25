@@ -1,0 +1,12 @@
+.modal-row-title {
+  width: 20%;
+  font-weight: bold;
+}
+
+.modal-row-data {
+  width: auto;
+}
+
+.modal-row-level {
+  font-style: italic;
+}

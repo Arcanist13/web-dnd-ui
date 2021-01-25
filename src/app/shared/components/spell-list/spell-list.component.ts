@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { SpellModalService } from 'src/app/modules/spells/services/spell-modal.service';
 import { SpellModel } from '../../models/spell.model';
 
 @Component({
@@ -8,11 +9,21 @@ import { SpellModel } from '../../models/spell.model';
 })
 export class SpellListComponent implements OnInit {
 
-  @Input() spells: Array<SpellModel>;
+  @Input() spells!: Array<SpellModel>;
+  @Input() leveled!: boolean;
 
-  constructor() { }
+  constructor(private _spellModalService: SpellModalService) {}
 
   ngOnInit(): void {
+  }
+
+  /**
+   * Trigger a spell modal popup
+   *
+   * @param id  spell id
+   */
+  openSpellModal(id: number): void {
+    this._spellModalService.openSpellModal(id);
   }
 
 }
