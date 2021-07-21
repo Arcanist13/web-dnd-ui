@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendUri: 'http://192.168.1.21:5000'
+  backendUri: 'http://' + window.location.hostname + ':5000'
 };
 
 /*
