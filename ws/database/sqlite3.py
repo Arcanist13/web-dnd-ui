@@ -11,10 +11,10 @@ def get_db_all(query):
     db_connection = connect_db(DATABASE_PATH)
     cur = db_connection.execute(query)
     rows = cur.fetchall()
-  except sqlite3.OperationalError as e:
+  except sqlite3.OperationalError as exception:
     rows = None
     print('ERROR (get_db_all): Failed to fetch all rows, query = "' + query + '".')
-    print(e)
+    print(exception)
   return rows
 
 def get_db_one(query):
@@ -23,10 +23,10 @@ def get_db_one(query):
     db_connection = connect_db(DATABASE_PATH)
     cur = db_connection.execute(query)
     row = cur.fetchone()
-  except sqlite3.OperationalError as e:
+  except sqlite3.OperationalError as exception:
     row = None
     print('ERROR (get_db_one): Failed to fetch row, query = "' + query + '".')
-    print(e)
+    print(exception)
   return row
 
 def connect_db(path):

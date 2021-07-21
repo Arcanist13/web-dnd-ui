@@ -3,9 +3,9 @@
 import sqlite3
 from datetime import datetime
 
-from .sqlite3 import connect_db, DATABASE_PATH, get_db_one
 from auth.auth_helpers import get_password_hash
 from models.user_model import UserRegister
+from .sqlite3 import connect_db, DATABASE_PATH, get_db_one
 
 def create_user(user: UserRegister):
   '''Create a new database user'''
@@ -25,10 +25,10 @@ def create_user(user: UserRegister):
     cur = db_connection.execute(query, db_user)
     db_connection.commit()
     res = cur.lastrowid
-  except sqlite3.OperationalError as e:
+  except sqlite3.OperationalError as exception:
     res = None
     print('ERROR (create_user): Failed to create the user.')
-    print(e)
+    print(exception)
   return res
 
 def get_db_user(username: str):

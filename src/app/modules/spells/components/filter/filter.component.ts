@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DndClassService } from 'src/app/shared/services/dnd-class.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { DndClassService } from 'src/app/shared/services/dnd-class.service';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']
 })
-export class FilterComponent implements OnInit, OnDestroy {
+export class FilterComponent {
 
   classes: Array<string>;
   currentClass: string;
@@ -17,10 +17,6 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.classes = this._dndClassService.getSpellClasses();
     this.currentClass = this.classes[0];
   }
-
-  ngOnInit(): void { }
-
-  ngOnDestroy(): void { }
 
   /**
    * Update the currently selected class filter

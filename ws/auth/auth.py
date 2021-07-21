@@ -1,18 +1,18 @@
 '''Authentication module managing OAuth authentication and verification'''
 
+from datetime import datetime, timedelta
+from typing import Optional
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 
-from datetime import datetime, timedelta
 from jose import JWTError, jwt
 
-from typing import Optional
-
-from models.user_model import User, UserInDB
 from database.user import get_db_user
+from models.user_model import User, UserInDB
+from models.auth import TokenData
 
 from .auth_helpers import verify_password
-from models.auth import TokenData
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -25,6 +25,7 @@ def get_user(username: str):
   db_user = get_db_user(username)
   if db_user is not None:
     return UserInDB(**db_user)
+  return None
 
 def authenticate_user(username: str, password: str):
   '''Get the user information and check if their password authenticates'''
@@ -49,10 +50,10 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
       raise credentials_exception
     token_data = TokenData(username=username)
   except JWTError:
-    raise credentials_exception
+    raise HTTPException from credentials_exception
   user = get_user(username=token_data.username)
   if user is None:
-    raise credentials_exception
+    raise HTTPException from credentials_exception
   return user
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):

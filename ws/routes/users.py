@@ -1,9 +1,9 @@
 '''Router class for user related queries.'''
 
+from datetime import timedelta
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
-
-from datetime import timedelta
 
 from auth.auth import authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, get_current_user, get_current_admin_user
 from database.user import create_user
@@ -44,5 +44,4 @@ async def register_user(user_data: UserRegister):
   res = create_user(user_data)
   if res is not None:
     return {"res": res}
-  else:
-    raise HTTPException(status_code=500, detail='Failed to create user')
+  raise HTTPException(status_code=500, detail='Failed to create user')
