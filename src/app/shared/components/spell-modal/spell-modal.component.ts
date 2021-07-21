@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpellModel } from 'src/app/shared/models/spell.model';
 import { SpellService } from 'src/app/shared/services/spell.service';
@@ -9,7 +9,7 @@ import { SpellModalService } from '../../../modules/spells/services/spell-modal.
   templateUrl: './spell-modal.component.html',
   styleUrls: ['./spell-modal.component.css']
 })
-export class SpellModalComponent implements OnInit {
+export class SpellModalComponent  {
 
   spell!: SpellModel;
   @ViewChild("content", {static: false}) modalRef!: HTMLElement;
@@ -33,8 +33,6 @@ export class SpellModalComponent implements OnInit {
       }
     );
   }
-
-  ngOnInit(): void {}
 
   startModal(): void {
     this._modalService.open(

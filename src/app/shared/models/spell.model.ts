@@ -1,16 +1,17 @@
 export interface SpellModel {
-  ID: number;
-  NAME: string;
-  CLASS: string;
-  LEVEL: string;
-  RITUAL: string;
-  CASTTIME: string;
-  RANGE: string;
-  COMPONENTS: string;
-  DURATION: string;
-  DESCRIPTION: string;
-  VISUAL: string;
-  PAGE: string;
-  DAMAGE: string;
-  ATTACKSAVE: string;
+  id: number;
+  name: string;
+  school: string;
+  level: string;
+  ritual: string;
+  cast_time: string;
+  range: string;
+  components: string;
+  duration: string;
+  description: string;
+  visual: string;
+  page: string;
+  damage: string;
+  attack_save: string;
+  classes: string;
 }

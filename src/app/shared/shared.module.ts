@@ -8,6 +8,8 @@ import { SpellModalComponent } from './components/spell-modal/spell-modal.compon
 import { SpellLevelPipe } from './pipes/spell-level.pipe';
 import { SpellComponentsPipe } from './pipes/spell-components.pipe';
 import { SpellCasttimePipe } from './pipes/spell-casttime.pipe';
+import { SpellClassesPipe } from './pipes/spell-classes.pipe';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { SpellCasttimePipe } from './pipes/spell-casttime.pipe';
     SpellLevelPipe,
     SpellComponentsPipe,
     SpellCasttimePipe,
+    SpellClassesPipe,
   ],
   imports: [
     CommonModule,
     NgbModule,
     HttpClientModule,
+    MatSortModule,
   ],
   exports: [
     NgbModule,
@@ -28,6 +32,8 @@ import { SpellCasttimePipe } from './pipes/spell-casttime.pipe';
     SpellListComponent,
     SpellModalComponent,
     SpellLevelPipe,
+    SpellCasttimePipe,
+    SpellClassesPipe
   ]
 })
 export class SharedModule { }

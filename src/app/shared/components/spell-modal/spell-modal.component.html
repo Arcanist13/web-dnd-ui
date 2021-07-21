@@ -1,6 +1,6 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">{{ spell.NAME }}</h4>
+    <h4 class="modal-title">{{ spell.name }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -8,28 +8,32 @@
   <div class="modal-body">
     <table class="table table-bordered table-hover">
       <tbody>
-        <tr><td colspan="2" class="modal-row-level">{{ spell.LEVEL | spellLevel: spell.CLASS: spell.RITUAL }}</td></tr>
+        <tr><td colspan="2" class="modal-row-level">{{ spell.level | spellLevel: spell.class: spell.ritual }}</td></tr>
         <tr>
           <td class="modal-row-title">Casting Time</td>
-          <td class="modal-row-data">{{ spell.CASTTIME }}</td>
+          <td class="modal-row-data">{{ spell.cast_time }}</td>
         </tr>
         <tr>
           <td class="modal-row-title">Range</td>
-          <td class="modal-row-data">{{ spell.RANGE }}</td>
+          <td class="modal-row-data">{{ spell.range }}</td>
         </tr>
         <tr>
           <td class="modal-row-title">Components</td>
-          <td class="modal-row-data">{{ spell.COMPONENTS }}</td>
+          <td class="modal-row-data">{{ spell.components }}</td>
         </tr>
         <tr>
           <td class="modal-row-title">Duration</td>
-          <td class="modal-row-data">{{ spell.DURATION }}</td>
+          <td class="modal-row-data">{{ spell.duration }}</td>
         </tr>
-        <tr><td [innerHTML]="spell.DESCRIPTION" colspan="2"></td></tr>
-        <tr *ngIf="spell.VISUAL"><td colspan="2">{{ spell.VISUAL }}</td></tr>
+        <tr><td [innerHTML]="spell.description" colspan="2"></td></tr>
+        <tr *ngIf="spell.visual"><td colspan="2">{{ spell.visual }}</td></tr>
+        <tr>
+          <td class="modal-row-title">Classes</td>
+          <td class="modal-row-data">{{ spell.classes | spellClasses }}</td>
+        </tr>
         <tr>
           <td class="modal-row-title">Reference</td>
-          <td class="modal-row-data">{{ spell.PAGE }}</td>
+          <td class="modal-row-data">{{ spell.page }}</td>
         </tr>
       </tbody>
     </table>

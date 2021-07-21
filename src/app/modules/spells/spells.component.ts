@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SpellModel } from 'src/app/shared/models/spell.model';
 import { SpellService } from 'src/app/shared/services/spell.service';
@@ -8,7 +8,7 @@ import { SpellService } from 'src/app/shared/services/spell.service';
   templateUrl: './spells.component.html',
   styleUrls: ['./spells.component.css']
 })
-export class SpellsComponent implements OnInit {
+export class SpellsComponent implements OnInit, OnDestroy {
 
   private _subscriptions: Array<Subscription>;
   spells: Array<SpellModel>;
@@ -29,6 +29,12 @@ export class SpellsComponent implements OnInit {
 
   ngOnInit(): void {
     this._spellService.getSpells();
+  }
+
+  ngOnDestroy(): void {
+    this._subscriptions.forEach((sub: Subscription) => {
+      sub.unsubscribe();
+    });
   }
 
 }

@@ -7,8 +7,6 @@ export class SpellLevelPipe implements PipeTransform {
 
   transform(level: number, domain: string, ritual: string): string {
     let result = '';
-    console.log(level, domain);
-    console.log(ritual);
     if (level == 0) {
       console.log("Cantrip");
       result = domain + ' cantrip';

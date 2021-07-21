@@ -33,7 +33,7 @@ export class SpellService {
     let request: Observable<Array<SpellModel>>;
 
     if (!currentClass || currentClass === 'All Spells') {
-      request = this._http.get<Array<SpellModel>>(environment.backendUri + '/spell');
+      request = this._http.get<Array<SpellModel>>(environment.backendUri + '/spells');
     }
     else {
       request = this._http.get<Array<SpellModel>>(environment.backendUri + '/spell/class/' + currentClass);
@@ -66,7 +66,13 @@ export class SpellService {
     return this._spellUpdate;
   }
 
-  private handleError(error: HttpErrorResponse) {
+  /**
+   * Handle HTTP request errors
+   *
+   * @param error HTTP error message
+   * @returns     empty observable error
+   */
+  private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('ERROR (spell.service): Client Error ', error.error.message);
