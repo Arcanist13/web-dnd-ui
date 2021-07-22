@@ -19,7 +19,7 @@ export class SpellModalComponent  {
     private _spellService: SpellService,
     private _modalService: NgbModal,
   ) {
-    // Listen for spell modal calls
+    // Listen for spell modal calls and load the spell information
     this._spellModalService.onSpellModal().subscribe(
       (id: number) => {
         this._spellService.getSpell(id).subscribe(
@@ -34,6 +34,9 @@ export class SpellModalComponent  {
     );
   }
 
+  /**
+   * Open the modal interface
+   */
   startModal(): void {
     this._modalService.open(
       this.modalRef,

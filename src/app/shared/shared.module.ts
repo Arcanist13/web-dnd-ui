@@ -22,6 +22,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { SearchComponent } from './components/search/search.component';
 
 const MATERIAL_IMPORTS = [
   MatSortModule,
@@ -37,6 +38,7 @@ const MATERIAL_IMPORTS = [
 const SHARED_COMPONENTS = [
   SpellListComponent,
   SpellModalComponent,
+  SearchComponent,
 ];
 
 const SHARED_PIPES = [

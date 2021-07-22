@@ -1,5 +1,7 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import {Sort} from '@angular/material/sort';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { Sort } from '@angular/material/sort';
+import { Subject } from 'rxjs';
+import { ObservableService } from 'src/app/core/services/observable.service';
 import { SpellModalService } from 'src/app/modules/spells/services/spell-modal.service';
 import { SpellModel } from '../../models/spell.model';
 
@@ -8,14 +10,34 @@ import { SpellModel } from '../../models/spell.model';
   templateUrl: './spell-list.component.html',
   styleUrls: ['./spell-list.component.css']
 })
-export class SpellListComponent {
+export class SpellListComponent implements AfterViewInit {
 
-  @Input() spells!: Array<SpellModel>;
+  @Input() spellUpdate!: Subject<Array<SpellModel>>;
+  @Input() filter!: string;
   @Input() leveled!: boolean;
 
+  private sortSettings: Sort | undefined;
+  public spells: Array<SpellModel>;
   baseSpells: Array<SpellModel> | undefined;
 
-  constructor(private _spellModalService: SpellModalService) {}
+  constructor(
+    private _spellModalService: SpellModalService,
+    private _observableService: ObservableService
+  ) {
+    this.spells = [];
+  }
+
+  ngAfterViewInit(): void {
+    this._observableService.subscribe(
+      this.spellUpdate,
+      (spells: Array<SpellModel>) => {
+        this.spells = spells.slice();
+        if (this.sortSettings !== undefined) {
+          this.sortData(this.sortSettings);
+        }
+      }
+    );
+  }
 
   /**
    * Trigger a spell modal popup
@@ -32,6 +54,8 @@ export class SpellListComponent {
    * @param sort
    */
   sortData(sort: Sort): void {
+    this.sortSettings = sort;
+
     // Save the initial array order
     if (this.baseSpells === undefined) {
       this.baseSpells = this.spells.slice();

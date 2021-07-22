@@ -10,7 +10,7 @@ router = APIRouter()
 @router.get('/classes', tags=["classes"])
 async def get_all_classes():
   '''Get all classes.'''
-  classes = get_db_all("SELECT * FROM Class")
+  classes = get_db_all("SELECT * FROM Class ORDER BY name ASC")
   if classes is not None:
     return classes
   raise HTTPException(status_code=500, detail="An error occurred. Unable to load classes.")

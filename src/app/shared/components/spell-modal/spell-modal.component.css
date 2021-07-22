@@ -1,3 +1,8 @@
+.modal-title {
+  color: rgb(130, 0, 0) !important;
+  font-size: 2rem;
+}
+
 .modal-row-title {
   width: 20%;
   font-weight: bold;

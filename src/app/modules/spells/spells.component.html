@@ -2,7 +2,12 @@
 
 <!-- Filters -->
 <app-filter></app-filter>
+<div class="mt-2 text-center">
+  <div class="w-50 mx-auto">
+    <app-search (filterUpdate)="filter=$event"></app-search>
+  </div>
+</div>
 
 <!-- Show all spells -->
-<app-spell-list [spells]="spells"></app-spell-list>
+<app-spell-list [spellUpdate]="spellUpdate" [filter]="filter"></app-spell-list>
 <app-spell-modal></app-spell-modal>

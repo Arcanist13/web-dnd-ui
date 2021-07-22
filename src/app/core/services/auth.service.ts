@@ -14,6 +14,11 @@ export const authCodeFlowConfig: AuthConfig = {
   requireHttps: false
 };
 
+/**
+ * Provides OAuth2 authentication services to the application.
+ *
+ * https://manfredsteyer.github.io/angular-oauth2-oidc/docs/
+ */
 @Injectable({
   providedIn: 'root'
 })

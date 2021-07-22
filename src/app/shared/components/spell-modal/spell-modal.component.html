@@ -1,6 +1,6 @@
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">{{ spell.name }}</h4>
+  <div class="modal-header align-text-bottom">
+    <h4 class="modal-title my-0">{{ spell.name }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -8,7 +8,7 @@
   <div class="modal-body">
     <table class="table table-bordered table-hover">
       <tbody>
-        <tr><td colspan="2" class="modal-row-level">{{ spell.level | spellLevel: spell.class: spell.ritual }}</td></tr>
+        <tr><td colspan="2" class="modal-row-level">{{ spell.level | spellLevel: spell.school: spell.ritual }}</td></tr>
         <tr>
           <td class="modal-row-title">Casting Time</td>
           <td class="modal-row-data">{{ spell.cast_time }}</td>
