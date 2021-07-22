@@ -49,11 +49,17 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     if username is None:
       raise credentials_exception
     token_data = TokenData(username=username)
-  except JWTError:
-    raise HTTPException from credentials_exception
+  except JWTError as exp:
+    raise HTTPException(
+      status_code=status.HTTP_403_FORBIDDEN,
+      detail="Could not validate credentials"
+    )
   user = get_user(username=token_data.username)
   if user is None:
-    raise HTTPException from credentials_exception
+    raise HTTPException(
+      status_code=status.HTTP_400_BAD_REQUEST,
+      detail="Could not find user"
+    )
   return user
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):

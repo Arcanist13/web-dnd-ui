@@ -18,8 +18,9 @@
     </ul>
 
     <div class="navbar-nav ml-auto">
-      <button class="btn btn-outline-primary navbar-btn mr-1" [routerLink]="'.'">Login</button>
-      <button class="btn btn-outline-primary navbar-btn" [routerLink]="'.'">Register</button>
+      <button *ngIf="!loggedIn" class="btn btn-outline-primary navbar-btn mr-1" [routerLink]="'/login'">Login</button>
+      <button *ngIf="loggedIn" class="btn btn-outline-primary navbar-btn mr-1" (click)="logout()">Logout</button>
+      <button *ngIf="!loggedIn" class="btn btn-outline-primary navbar-btn" [routerLink]="'/register'">Register</button>
     </div>
   </div>
 </nav>

@@ -4,9 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SpellsModule } from './modules/spells/spells.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   declarations: [
@@ -16,9 +15,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    NgbModule,
-    SpellsModule,
-    BrowserAnimationsModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://192.168.1.21:5000/'],
+        sendAccessToken: true
+      }
+    }
+    ),
+    SpellsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
