@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterSpellLevelComponent } from './filter-level.component';
+import { FilterSpellCasttimeComponent } from './spell-casttime.component';
 
-describe('FilterSpellLevelComponent', () => {
-  let component: FilterSpellLevelComponent;
-  let fixture: ComponentFixture<FilterSpellLevelComponent>;
+describe('FilterSpellCasttimeComponent', () => {
+  let component: FilterSpellCasttimeComponent;
+  let fixture: ComponentFixture<FilterSpellCasttimeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FilterSpellLevelComponent ]
+      declarations: [ FilterSpellCasttimeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilterSpellLevelComponent);
+    fixture = TestBed.createComponent(FilterSpellCasttimeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

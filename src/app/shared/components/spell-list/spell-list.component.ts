@@ -32,7 +32,6 @@ export class SpellListComponent implements AfterViewInit {
     this._observableService.subscribe(
       this._spellFilterService.filterClear,
       () => {
-        console.log("Filter clear");
         this.filter = {};
       }
     )
@@ -41,7 +40,6 @@ export class SpellListComponent implements AfterViewInit {
     this._observableService.subscribe(
       this._spellFilterService.filterUpdate,
       (newFilter: ISpellFilter) => {
-        console.log("Filter update");
         this.filter = {
           ...this.filter,
           ...newFilter

@@ -24,6 +24,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchComponent } from './components/filter/search/search.component';
 import { SpellLevelDisplayPipe } from './pipes/spell-level-display.pipe';
+import { FilterSpellCasttimeComponent } from './components/filter/spell-casttime/spell-casttime.component';
+import { FilterSpellClassComponent } from './components/filter/spell-class/spell-class.component';
+import { FilterSpellLevelComponent } from './components/filter/spell-level/spell-level.component';
 
 const MATERIAL_IMPORTS = [
   MatSortModule,
@@ -40,6 +43,9 @@ const SHARED_COMPONENTS = [
   SpellListComponent,
   SpellModalComponent,
   SearchComponent,
+  FilterSpellCasttimeComponent,
+  FilterSpellClassComponent,
+  FilterSpellLevelComponent
 ];
 
 const SHARED_PIPES = [

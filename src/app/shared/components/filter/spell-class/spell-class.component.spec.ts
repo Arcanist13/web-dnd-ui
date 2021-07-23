@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterSpellClassComponent } from './filter-class.component';
+import { FilterSpellClassComponent } from './spell-class.component';
 
 describe('FilterSpellClassComponent', () => {
   let component: FilterSpellClassComponent;

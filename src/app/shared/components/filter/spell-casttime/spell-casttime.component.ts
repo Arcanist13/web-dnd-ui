@@ -2,17 +2,18 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ObservableService } from 'src/app/core/services/observable.service';
 import { Filter } from 'src/app/shared/interfaces/filter';
+import { CSpellCasttime } from 'src/app/shared/models/spell.model';
 import { SpellFilterService } from 'src/app/shared/services/spell-filter.service';
 
 @Component({
-  selector: 'app-filter-spell-level',
-  templateUrl: './filter-level.component.html',
-  styleUrls: ['./filter-level.component.css']
+  selector: 'app-filter-spell-casttime',
+  templateUrl: './spell-casttime.component.html',
+  styleUrls: ['./spell-casttime.component.css']
 })
-export class FilterSpellLevelComponent implements Filter<void> {
+export class FilterSpellCasttimeComponent implements Filter<void> {
 
-  public filterLevel = new FormControl();
-  public filterLevels = [...Array(10).keys()];
+  public filterCasttime = new FormControl();
+  public filterCasttimes: Array<string> = CSpellCasttime;
 
   constructor(
     private _spellFilterService: SpellFilterService,
@@ -25,18 +26,12 @@ export class FilterSpellLevelComponent implements Filter<void> {
     );
   }
 
-  /**
-   * Emit a filter change event
-   */
   filterChange(): void {
-    this._spellFilterService.updateFilters({level: this.filterLevel.value});
+    this._spellFilterService.updateFilters({cast_time: this.filterCasttime.value});
   }
 
-  /**
-   * Clear the filter
-   */
   filterClear(): void {
-    this.filterLevel.reset();
+    this.filterCasttime.reset();
   }
 
 }

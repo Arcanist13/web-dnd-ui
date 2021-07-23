@@ -6,8 +6,8 @@ import { SpellFilterService } from 'src/app/shared/services/spell-filter.service
 
 @Component({
   selector: 'app-filter-spell-class',
-  templateUrl: './filter-class.component.html',
-  styleUrls: ['./filter-class.component.css']
+  templateUrl: './spell-class.component.html',
+  styleUrls: ['./spell-class.component.css']
 })
 export class FilterSpellClassComponent implements Filter<string> {
 
