@@ -1,13 +1,29 @@
 <!-- Search -->
 
 <!-- Filters -->
-<app-filter></app-filter>
-<div class="mt-2 text-center">
-  <div class="w-50 mx-auto">
-    <app-search (filterUpdate)="filter=$event"></app-search>
+<app-filter-spell-class></app-filter-spell-class>
+
+<div class="mt-2 row">
+  <!-- Name filter -->
+  <div class="col-lg-8 col-12">
+    <app-search></app-search>
+  </div>
+  <!-- Level filter -->
+  <div class="col-lg-2 col-6">
+    <app-filter-spell-level></app-filter-spell-level>
+  </div>
+  <!-- Cast time filter -->
+  <div class="col-lg-2 col-6">
+    <app-filter-spell-casttime></app-filter-spell-casttime>
+  </div>
+</div>
+<!-- Reset filter -->
+<div class="row pb-2">
+  <div class="col text-right">
+    <button mat-button color="primary" (click)="clearSpellFilter()">Reset Filter</button>
   </div>
 </div>
 
 <!-- Show all spells -->
-<app-spell-list [spellUpdate]="spellUpdate" [filter]="filter"></app-spell-list>
+<app-spell-list [spellUpdate]="spellUpdate"></app-spell-list>
 <app-spell-modal></app-spell-modal>

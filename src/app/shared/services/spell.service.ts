@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { SpellModel } from 'src/app/shared/models/spell.model';
+import { ISpellModel } from 'src/app/shared/models/spell.model';
 import { DndClassService } from './dnd-class.service';
 
 @Injectable({
@@ -11,13 +11,13 @@ import { DndClassService } from './dnd-class.service';
 })
 export class SpellService {
 
-  private _spellUpdate: Subject<Array<SpellModel>>;
+  private _spellUpdate: Subject<Array<ISpellModel>>;
 
   constructor(
     private _http: HttpClient,
     private _classService: DndClassService
   ) {
-    this._spellUpdate = new Subject<Array<SpellModel>>();
+    this._spellUpdate = new Subject<Array<ISpellModel>>();
 
     this._classService.onSpellClassChange().subscribe((newClass: string) => {
       this.getSpells(newClass);
@@ -30,17 +30,17 @@ export class SpellService {
    * @param currentClass  the current spell class filter
    */
   getSpells(currentClass: string = ''): void {
-    let request: Observable<Array<SpellModel>>;
+    let request: Observable<Array<ISpellModel>>;
 
     if (!currentClass || currentClass === 'All Spells') {
-      request = this._http.get<Array<SpellModel>>(environment.backendUri + '/spells');
+      request = this._http.get<Array<ISpellModel>>(environment.backendUri + '/spells');
     }
     else {
-      request = this._http.get<Array<SpellModel>>(environment.backendUri + '/spell/class/' + currentClass);
+      request = this._http.get<Array<ISpellModel>>(environment.backendUri + '/spell/class/' + currentClass);
     }
 
     request.pipe(catchError(this.handleError))
-      .subscribe((result: Array<SpellModel>) => {
+      .subscribe((result: Array<ISpellModel>) => {
       this._spellUpdate.next(result);
     })
   }
@@ -52,8 +52,8 @@ export class SpellService {
    *
    * @return    spell information promise
    */
-  getSpell(id: number): Observable<SpellModel> {
-    return this._http.get<SpellModel>(environment.backendUri + '/spell/' + id)
+  getSpell(id: number): Observable<ISpellModel> {
+    return this._http.get<ISpellModel>(environment.backendUri + '/spell/' + id)
       .pipe(catchError(this.handleError));
   }
 
@@ -62,7 +62,7 @@ export class SpellService {
    *
    * @return    spell list observable
    */
-  onSpellUpdate(): Subject<Array<SpellModel>> {
+  onSpellUpdate(): Subject<Array<ISpellModel>> {
     return this._spellUpdate;
   }
 

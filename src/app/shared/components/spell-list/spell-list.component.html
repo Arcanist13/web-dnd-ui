@@ -13,10 +13,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let spell of spells; index as idx" (click)="openSpellModal(spell.id)" class="d-flex">
-        <ng-container *ngIf="filter === '' || spell.name.toLowerCase().includes(filter.toLowerCase())">
+        <ng-container *ngIf="checkFilter(spell)">
           <td class="col-md-4 col-sm-5 col-5">{{ spell.name }}</td>
           <td class="col-md-1 col-sm-1 col-1">{{ spell.level }}</td>
-          <td class="col-md-2 col-sm-3 col-3">{{ spell.cast_time | spellCasttime: spell.duration }}</td>
+          <td class="col-md-2 col-sm-3 col-3">{{ spell.cast_time | spellCasttime }}</td>
           <td class="col-md-2 d-none d-md-table-cell">{{ spell.damage }}</td>
           <td class="col-md-2 d-none d-md-table-cell">{{ spell.attack_save }}</td>
           <td class="col-md-1 col-sm-3 col-3">{{ spell.components | spellComponents }}</td>

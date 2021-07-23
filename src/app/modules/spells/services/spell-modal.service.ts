@@ -12,10 +12,20 @@ export class SpellModalService {
     this._spellModal = new Subject<number>();
   }
 
+  /**
+   * Open the spell modal for the given spell id
+   *
+   * @param id  spell id
+   */
   openSpellModal(id: number): void {
     this._spellModal.next(id);
   }
 
+  /**
+   * Modal open event
+   *
+   * @returns modal
+   */
   onSpellModal(): Subject<number> {
     return this._spellModal;
   }

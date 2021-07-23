@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'character', component: CharacterComponent },
   { path: 'spells', component: SpellsComponent },
   { path: 'feats', component: FeatsComponent },
-  { path: '**', component: SpellsComponent }
+  { path: '**', redirectTo: '/spells' }
 ];
 
 @NgModule({

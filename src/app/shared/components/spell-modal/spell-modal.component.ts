@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SpellModel } from 'src/app/shared/models/spell.model';
+import { ISpellModel } from 'src/app/shared/models/spell.model';
 import { SpellService } from 'src/app/shared/services/spell.service';
 import { SpellModalService } from '../../../modules/spells/services/spell-modal.service';
 
@@ -11,7 +11,7 @@ import { SpellModalService } from '../../../modules/spells/services/spell-modal.
 })
 export class SpellModalComponent  {
 
-  spell!: SpellModel;
+  spell!: ISpellModel;
   @ViewChild("content", {static: false}) modalRef!: HTMLElement;
 
   constructor(
@@ -23,7 +23,7 @@ export class SpellModalComponent  {
     this._spellModalService.onSpellModal().subscribe(
       (id: number) => {
         this._spellService.getSpell(id).subscribe(
-          (res: SpellModel) => {
+          (res: ISpellModel) => {
             if (res) {
               this.spell = res;
               this.startModal();
@@ -47,8 +47,9 @@ export class SpellModalComponent  {
     )
   }
 
-  closeModal(): void {
-
-  }
+  /**
+   * Close the modal
+   */
+  closeModal(): void { }
 
 }

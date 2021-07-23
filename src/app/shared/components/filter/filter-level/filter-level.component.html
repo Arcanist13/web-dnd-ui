@@ -1,0 +1,9 @@
+<mat-form-field class="w-100" appearance="fill">
+  <mat-label>Spell Level</mat-label>
+  <mat-select [formControl]="filterLevel" (selectionChange)="filterChange()" multiple>
+    <mat-select-trigger>
+      {{filterLevel.value ? filterLevel.value.length + ' selected' : ''}}
+    </mat-select-trigger>
+    <mat-option *ngFor="let filterLevel of filterLevels" [value]="filterLevel">{{ filterLevel | spellLevel }}</mat-option>
+  </mat-select>
+</mat-form-field>

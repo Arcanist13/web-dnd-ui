@@ -1,7 +1,0 @@
-<mat-form-field class="search-form-field" appearance="fill">
-  <mat-label>Search Spells</mat-label>
-  <input matInput type="text" [(ngModel)]="filter" (change)="filterUpdate.next(filter);">
-  <button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="filter='';filterUpdate.next(filter);">
-    <mat-icon>close</mat-icon>
-  </button>
-</mat-form-field>

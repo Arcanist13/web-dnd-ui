@@ -1,0 +1,9 @@
+<mat-form-field class="w-100" appearance="fill">
+  <mat-label>Casting Time</mat-label>
+  <mat-select [formControl]="filterCasttime" (selectionChange)="filterChange()" multiple>
+    <mat-select-trigger>
+      {{filterCasttime.value ? filterCasttime.value.length + ' selected' : ''}}
+    </mat-select-trigger>
+    <mat-option *ngFor="let filterCasttime of filterCasttimes" [value]="filterCasttime">{{ filterCasttime }}</mat-option>
+  </mat-select>
+</mat-form-field>

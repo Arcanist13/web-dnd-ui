@@ -5,11 +5,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SpellLevelPipe implements PipeTransform {
 
-  transform(level: number, school: string, ritual: string): string {
-    console.log("Level = " + level + ", school = " + school + " ritual = " + ritual);
+  /**
+   * Get the spell level string with prefix
+   *
+   * @param level spell level
+   * @returns     level string prefix
+   */
+  transform(level: number): string {
     let result = '';
     if (level == 0) {
-      result = school + ' cantrip';
+      result = 'Cantrip';
     }
     else {
       let post = '';
@@ -25,12 +30,8 @@ export class SpellLevelPipe implements PipeTransform {
       else {
         post = 'th';
       }
-      result = level + post + '-level ' + school;
+      result = level + post;
     }
-    if (ritual && ritual !== '') {
-      result += ' (ritual)';
-    }
-    console.log(result);
     return result;
   }
 

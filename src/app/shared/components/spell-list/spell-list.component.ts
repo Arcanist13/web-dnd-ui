@@ -3,7 +3,8 @@ import { Sort } from '@angular/material/sort';
 import { Subject } from 'rxjs';
 import { ObservableService } from 'src/app/core/services/observable.service';
 import { SpellModalService } from 'src/app/modules/spells/services/spell-modal.service';
-import { SpellModel } from '../../models/spell.model';
+import { ISpellFilter, ISpellModel } from '../../models/spell.model';
+import { SpellFilterService } from '../../services/spell-filter.service';
 
 @Component({
   selector: 'app-spell-list',
@@ -12,31 +13,80 @@ import { SpellModel } from '../../models/spell.model';
 })
 export class SpellListComponent implements AfterViewInit {
 
-  @Input() spellUpdate!: Subject<Array<SpellModel>>;
-  @Input() filter!: string;
+  @Input() spellUpdate!: Subject<Array<ISpellModel>>;
+  @Input() filter!: ISpellFilter;
   @Input() leveled!: boolean;
 
   private sortSettings: Sort | undefined;
-  public spells: Array<SpellModel>;
-  baseSpells: Array<SpellModel> | undefined;
+  public spells: Array<ISpellModel>;
+  baseSpells: Array<ISpellModel> | undefined;
 
   constructor(
     private _spellModalService: SpellModalService,
-    private _observableService: ObservableService
+    private _observableService: ObservableService,
+    private _spellFilterService: SpellFilterService
   ) {
     this.spells = [];
+
+    // Subscribe to filter clear
+    this._observableService.subscribe(
+      this._spellFilterService.filterClear,
+      () => {
+        console.log("Filter clear");
+        this.filter = {};
+      }
+    )
+
+    // Subscribe to filter changes
+    this._observableService.subscribe(
+      this._spellFilterService.filterUpdate,
+      (newFilter: ISpellFilter) => {
+        console.log("Filter update");
+        this.filter = {
+          ...this.filter,
+          ...newFilter
+        };
+      }
+    );
   }
 
+  /**
+   * After the view is initialised subscribe to spell changes
+   */
   ngAfterViewInit(): void {
     this._observableService.subscribe(
       this.spellUpdate,
-      (spells: Array<SpellModel>) => {
+      (spells: Array<ISpellModel>) => {
         this.spells = spells.slice();
         if (this.sortSettings !== undefined) {
           this.sortData(this.sortSettings);
         }
       }
     );
+  }
+
+  /**
+   * Check if the given spell passes the current feature
+   *
+   * @param spell spell to check
+   * @returns     filter pass status
+   */
+  checkFilter(spell: ISpellModel): boolean {
+    if (this.filter) {
+      if (this.filter.name && (this.filter.name !== '' && !spell.name.toLowerCase().includes(this.filter.name.toLowerCase()))) {
+        return false;
+      }
+      else if (this.filter.level && (this.filter.level.length !== 0 && !this.filter.level.includes(+(spell.level)))) {
+        return false;
+      }
+      else if (this.filter.cast_time && (this.filter.cast_time.length !== 0 && !this.casttimeMatch(this.filter.cast_time, spell.cast_time))) {
+        return false;
+      }
+      else if (this.filter.ritual && (spell.ritual === this.filter.ritual)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -49,9 +99,26 @@ export class SpellListComponent implements AfterViewInit {
   }
 
   /**
+   * Check if the spell cast time is in the given list
+   *
+   * @param list  list to check against
+   * @param value cast time to check
+   * @returns     match result
+   */
+  casttimeMatch(list: Array<string>, value: string): boolean {
+    let match = false;
+    for (let casttime of list) {
+      if (value.toLowerCase().includes(casttime.toLowerCase())) {
+        return true;
+      }
+    }
+    return match;
+  }
+
+  /**
    * Sort the spells array based on the column
    *
-   * @param sort
+   * @param sort  Material sort object
    */
   sortData(sort: Sort): void {
     this.sortSettings = sort;
@@ -69,7 +136,7 @@ export class SpellListComponent implements AfterViewInit {
       // Sort on category
       this.spells.sort((a, b) => {
         const isAsc = sort.direction === 'asc';
-        return this.compare(a[sort.active as keyof SpellModel], b[sort.active as keyof SpellModel], isAsc);
+        return this.compare(a[sort.active as keyof ISpellModel], b[sort.active as keyof ISpellModel], isAsc);
       });
     }
   }

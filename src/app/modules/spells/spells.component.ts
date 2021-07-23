@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { SpellModel } from 'src/app/shared/models/spell.model';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { ObservableService } from 'src/app/core/services/observable.service';
+import { ISpellModel } from 'src/app/shared/models/spell.model';
+import { SpellFilterService } from 'src/app/shared/services/spell-filter.service';
 import { SpellService } from 'src/app/shared/services/spell.service';
 
 @Component({
@@ -8,35 +10,38 @@ import { SpellService } from 'src/app/shared/services/spell.service';
   templateUrl: './spells.component.html',
   styleUrls: ['./spells.component.css']
 })
-export class SpellsComponent implements OnInit, OnDestroy {
+export class SpellsComponent implements OnInit {
 
-  public filter = '';
-
-  private _subscriptions: Array<Subscription>;
-  spellUpdate: Subject<Array<SpellModel>>;
+  spellUpdate: Subject<Array<ISpellModel>>;
 
   constructor(
-    private _spellService: SpellService
+    private _spellService: SpellService,
+    private _spellFilterService: SpellFilterService,
+    private _observableService: ObservableService
   ) {
-    this.spellUpdate = new Subject<Array<SpellModel>>();
-    this._subscriptions = [];
+    this.spellUpdate = new Subject<Array<ISpellModel>>();
 
     // Subscribe to changes in the spell list
-    this._subscriptions.push(
-      this._spellService.onSpellUpdate().subscribe((result: Array<SpellModel>) => {
+    this._observableService.subscribe(
+      this._spellService.onSpellUpdate(),
+      (result: Array<ISpellModel>) => {
         this.spellUpdate.next(result);
-      })
+      }
     );
   }
 
-  ngOnInit(): void {
-    this._spellService.getSpells();
+  /**
+   * Clear the spell filters
+   */
+  clearSpellFilter(): void {
+    this._spellFilterService.clearFilters();
   }
 
-  ngOnDestroy(): void {
-    this._subscriptions.forEach((sub: Subscription) => {
-      sub.unsubscribe();
-    });
+  /**
+   * Get the initial spell set
+   */
+  ngOnInit(): void {
+    this._spellService.getSpells();
   }
 
 }

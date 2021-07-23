@@ -22,7 +22,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { SearchComponent } from './components/search/search.component';
+import { SearchComponent } from './components/filter/search/search.component';
+import { SpellLevelDisplayPipe } from './pipes/spell-level-display.pipe';
 
 const MATERIAL_IMPORTS = [
   MatSortModule,
@@ -42,10 +43,11 @@ const SHARED_COMPONENTS = [
 ];
 
 const SHARED_PIPES = [
-  SpellLevelPipe,
+  SpellLevelDisplayPipe,
   SpellComponentsPipe,
   SpellCasttimePipe,
   SpellClassesPipe,
+  SpellLevelPipe
 ];
 
 @NgModule({

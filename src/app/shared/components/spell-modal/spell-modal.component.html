@@ -8,7 +8,7 @@
   <div class="modal-body">
     <table class="table table-bordered table-hover">
       <tbody>
-        <tr><td colspan="2" class="modal-row-level">{{ spell.level | spellLevel: spell.school: spell.ritual }}</td></tr>
+        <tr><td colspan="2" class="modal-row-level">{{ spell.level | spellLevelDisplay: spell.school: spell.ritual }}</td></tr>
         <tr>
           <td class="modal-row-title">Casting Time</td>
           <td class="modal-row-data">{{ spell.cast_time }}</td>
