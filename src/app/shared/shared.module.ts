@@ -12,7 +12,7 @@ import { SpellModalComponent } from './components/spell-modal/spell-modal.compon
 import { SpellLevelPipe } from './pipes/spell-level.pipe';
 import { SpellComponentsPipe } from './pipes/spell-components.pipe';
 import { SpellCasttimePipe } from './pipes/spell-casttime.pipe';
-import { SpellClassesPipe } from './pipes/spell-classes.pipe';
+import { ListSplitPipe } from './pipes/list-split.pipe';
 
 import { MatSortModule } from '@angular/material/sort';
 import { MatOptionModule } from '@angular/material/core';
@@ -24,9 +24,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchComponent } from './components/filter/search/search.component';
 import { SpellLevelDisplayPipe } from './pipes/spell-level-display.pipe';
-import { FilterSpellCasttimeComponent } from './components/filter/spell-casttime/spell-casttime.component';
 import { FilterSpellClassComponent } from './components/filter/spell-class/spell-class.component';
-import { FilterSpellLevelComponent } from './components/filter/spell-level/spell-level.component';
+import { FilterSpellRitualComponent } from './components/filter/spell-ritual/spell-ritual.component';
+import { FilterSpellListGenericComponent } from './components/filter/spell-list-generic/spell-list-generic.component';
 
 const MATERIAL_IMPORTS = [
   MatSortModule,
@@ -43,16 +43,16 @@ const SHARED_COMPONENTS = [
   SpellListComponent,
   SpellModalComponent,
   SearchComponent,
-  FilterSpellCasttimeComponent,
+  FilterSpellListGenericComponent,
   FilterSpellClassComponent,
-  FilterSpellLevelComponent
+  FilterSpellRitualComponent,
 ];
 
 const SHARED_PIPES = [
   SpellLevelDisplayPipe,
   SpellComponentsPipe,
   SpellCasttimePipe,
-  SpellClassesPipe,
+  ListSplitPipe,
   SpellLevelPipe
 ];
 

@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'spellClasses'
+  name: 'listSplit'
 })
-export class SpellClassesPipe implements PipeTransform {
+export class ListSplitPipe implements PipeTransform {
 
   transform(classes: string): string {
     return classes.split(',').join(', ');

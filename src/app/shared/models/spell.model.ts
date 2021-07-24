@@ -11,9 +11,11 @@ export interface ISpellModel {
   description: string;
   visual: string;
   page: string;
-  damage: string;
-  attack_save: string;
+  damage_type: string;
+  save_type: string;
   classes: string;
+  attack_type: string;
+  condition_type: string;
 }
 
 export interface ISpellFilter {
@@ -21,16 +23,70 @@ export interface ISpellFilter {
   level?: Array<number>;
   cast_time?: Array<string>;
   ritual?: number;
+  damage_type?: Array<string>;
+  save_type?: Array<string>;
+  attack_type?: Array<string>;
+  condition_type?: Array<string>;
 }
 
+export const CSpellLevel = [...Array(10).keys()];
+
 export const CSpellCasttime = [
-  "1 Action",
-  "1 Bonus Action",
-  "1 Reaction",
-  "1 Minute",
-  "10 Minutes",
-  "1 Hour",
-  "8 Hours",
-  "12 Hours",
-  "24 Hours"
+  '1 Action',
+  '1 Bonus Action',
+  '1 Reaction',
+  '1 Minute',
+  '10 Minutes',
+  '1 Hour',
+  '8 Hours',
+  '12 Hours',
+  '24 Hours'
+]
+
+export const CSpellAttack = [
+  'Melee',
+  'Ranged'
+]
+
+export const CSpellDamage = [
+  'Acid',
+  'Bludgeoning',
+  'Cold',
+  'Fire',
+  'Force',
+  'Lightning',
+  'Necrotic',
+  'Piercing',
+  'Poison',
+  'Psychic',
+  'Radiant',
+  'Slashing',
+  'Thunder'
+]
+
+export const CSpellSave = [
+  'Dexterity',
+  'Strength',
+  'Constitution',
+  'Intelligence',
+  'Charisma',
+  'Wisdom'
+]
+
+export const CSpellCondition = [
+  'Blinded',
+  'Charmed',
+  'Deafened',
+  'Exhaustion',
+  'Frightened',
+  'Grappled',
+  'Incapacitated',
+  'Invisible',
+  'Paralyzed',
+  'Petrified',
+  'Poisoned',
+  'Prone',
+  'Restrained',
+  'Stunned',
+  'Unconscious'
 ]

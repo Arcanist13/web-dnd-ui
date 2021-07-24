@@ -8,11 +8,13 @@ from models.spell import Spell
 
 router = APIRouter()
 
+spell_partial = 'id, name, school, level, ritual, cast_time, range, components, duration, damage_type, save_type, attack_type, condition_type'
+
 ### Spells
 @router.get('/spells', tags=["spell"], response_model=List[Spell])
 async def get_spells():
   '''Get all spells.'''
-  spells = get_db_all("SELECT id, name, level, cast_time, damage, attack_save, components, duration FROM spells ORDER BY name ASC")
+  spells = get_db_all("SELECT " + spell_partial + " FROM spells ORDER BY name ASC")
   if spells is not None:
     return spells
   raise HTTPException(status_code=500, detail="An error occurred. Unable to load spells.")
@@ -31,9 +33,9 @@ async def get_spell_id(spell_id: int):
 async def get_class_spells(class_str: str):
   '''Get spell list by class.'''
   spell = get_db_all('''
-    SELECT id, name, level, cast_time, damage, attack_save, components, duration FROM spells
+    SELECT {partial} FROM spells
     WHERE name IN (SELECT name FROM {class_name}_spells NOCASE) COLLATE NOCASE ORDER BY name ASC
-    '''.format(class_name=class_str.lower()))
+    '''.format(class_name=class_str.lower()), partial=spell_partial)
   if spell is not None:
     return spell
   msg = "Spells under class " + class_str + " not found."

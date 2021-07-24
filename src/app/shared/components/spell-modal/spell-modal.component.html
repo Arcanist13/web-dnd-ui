@@ -29,7 +29,7 @@
         <tr *ngIf="spell.visual"><td colspan="2">{{ spell.visual }}</td></tr>
         <tr>
           <td class="modal-row-title">Classes</td>
-          <td class="modal-row-data">{{ spell.classes | spellClasses }}</td>
+          <td class="modal-row-data">{{ spell.classes | listSplit }}</td>
         </tr>
         <tr>
           <td class="modal-row-title">Reference</td>

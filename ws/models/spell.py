@@ -17,6 +17,8 @@ class Spell(BaseModel):
   description:    Optional[str] = None
   visual:         Optional[str] = None
   page:           Optional[str] = None
-  damage:         Optional[str] = None
-  attack_save:    Optional[str] = None
+  damage_type:    Optional[str] = None
+  save_type:      Optional[str] = None
   classes:        Optional[str] = None
+  attack_type:    Optional[str] = None
+  condition_type: Optional[str] = None

@@ -1,24 +1,28 @@
 <!-- Spell list -->
 <div *ngIf="spells.length > 0" class="table-responsive">
-  <table matSort (matSortChange)="sortData($event)" class="table table-sm table-hover">
+  <table matSort (matSortChange)="sortData($event)" class="table table-sm table-hover no-select">
     <thead class="thead-light">
       <tr class="d-flex">
-        <th mat-sort-header="name" class="col-md-4 col-sm-5 col-5">Name</th>
+        <th mat-sort-header="name" class="col-md-3 col-sm-5 col-5">Name</th>
         <th mat-sort-header="level" class="col-md-1 col-sm-1 col-1">Lvl</th>
-        <th mat-sort-header="cast_time" class="col-md-2 col-sm-3 col-3">Casttime</th>
-        <th mat-sort-header="damage" class="col-md-2 d-none d-md-table-cell">DMG/EFCT</th>
-        <th mat-sort-header="attack_save" class="col-md-2 d-none d-md-table-cell">ATK/SAVE</th>
+        <th mat-sort-header="cast_time" class="col-md-1 col-sm-3 col-3">Casttime</th>
+        <th mat-sort-header="attack_type" class="col-md-1 d-none d-md-table-cell">Attack</th>
+        <th mat-sort-header="save_type" class="col-md-2 d-none d-md-table-cell">Save</th>
+        <th mat-sort-header="damage_type" class="col-md-1 d-none d-md-table-cell">Damage</th>
+        <th mat-sort-header="condition_type" class="col-md-2 d-none d-md-table-cell">Condition</th>
         <th mat-sort-header="components" class="col-md-1 col-sm-3 col-3">Comp</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let spell of spells; index as idx" (click)="openSpellModal(spell.id)" class="d-flex">
         <ng-container *ngIf="checkFilter(spell)">
-          <td class="col-md-4 col-sm-5 col-5">{{ spell.name }}</td>
+          <td class="col-md-3 col-sm-5 col-5">{{ spell.name }}</td>
           <td class="col-md-1 col-sm-1 col-1">{{ spell.level }}</td>
-          <td class="col-md-2 col-sm-3 col-3">{{ spell.cast_time | spellCasttime }}</td>
-          <td class="col-md-2 d-none d-md-table-cell">{{ spell.damage }}</td>
-          <td class="col-md-2 d-none d-md-table-cell">{{ spell.attack_save }}</td>
+          <td class="col-md-1 col-sm-3 col-3">{{ spell.cast_time | spellCasttime }}</td>
+          <td class="col-md-1 d-none d-md-table-cell">{{ spell.attack_type | listSplit }}</td>
+          <td class="col-md-2 d-none d-md-table-cell">{{ spell.save_type | listSplit }}</td>
+          <td class="col-md-1 d-none d-md-table-cell">{{ spell.damage_type | listSplit }}</td>
+          <td class="col-md-2 d-none d-md-table-cell">{{ spell.condition_type | listSplit }}</td>
           <td class="col-md-1 col-sm-3 col-3">{{ spell.components | spellComponents }}</td>
         </ng-container>
       </tr>

@@ -57,26 +57,35 @@ INSERT INTO race VALUES (NULL, "Hobgoblin"); -- 19
 INSERT INTO race VALUES (NULL, "Kobold"); -- 20
 INSERT INTO race VALUES (NULL, "Orc"); -- 21
 INSERT INTO race VALUES (NULL, "Yuan-ti"); -- 22
+INSERT INTO race VALUES (NULL, "Gith"); -- 23
 
 -- SUBRACE
 DELETE FROM sub_race;
 -- Dwarf
 INSERT INTO sub_race VALUES (NULL, 1, "Hill Dwarf", NULL); -- 1
 INSERT INTO sub_race VALUES (NULL, 1, "Mountain Dwarf", NULL); -- 2
+INSERT INTO sub_race VALUES (NULL, 3, "Duergar", NULL); -- 3
 -- Elf
-INSERT INTO sub_race VALUES (NULL, 2, "High Elf", NULL); -- 3
-INSERT INTO sub_race VALUES (NULL, 2, "Wood Elf", NULL); -- 4
-INSERT INTO sub_race VALUES (NULL, 2, "Dark Elf (Drow)", NULL); -- 5
+INSERT INTO sub_race VALUES (NULL, 2, "High Elf", NULL); -- 4
+INSERT INTO sub_race VALUES (NULL, 2, "Wood Elf", NULL); -- 5
+INSERT INTO sub_race VALUES (NULL, 2, "Dark Elf (Drow)", NULL); -- 6
+INSERT INTO sub_race VALUES (NULL, 2, "Eladrin", NULL); -- 7
+INSERT INTO sub_race VALUES (NULL, 2, "Sea Elf", NULL); -- 8
+INSERT INTO sub_race VALUES (NULL, 2, "Shadar-kai", NULL); --9
 -- Halfling
-INSERT INTO sub_race VALUES (NULL, 3, "Lightfoot", NULL); -- 6
-INSERT INTO sub_race VALUES (NULL, 3, "Stout", NULL); -- 7
+INSERT INTO sub_race VALUES (NULL, 3, "Lightfoot", NULL); -- 10
+INSERT INTO sub_race VALUES (NULL, 3, "Stout", NULL); -- 11
 -- Gnome
-INSERT INTO sub_race VALUES (NULL, 6, "Forest Gnome", NULL); -- 8
-INSERT INTO sub_race VALUES (NULL, 6, "Rock Gnome", NULL); -- 9
+INSERT INTO sub_race VALUES (NULL, 6, "Forest Gnome", NULL); -- 12
+INSERT INTO sub_race VALUES (NULL, 6, "Rock Gnome", NULL); -- 13
+INSERT INTO sub_race VALUES (NULL, 6, "Deep Gnome", NULL); -- 14
 -- Aasimar
-INSERT INTO sub_race VALUES (NULL, 10, "Protector Aasimar", NULL); -- 10
-INSERT INTO sub_race VALUES (NULL, 10, "Scourge Aasimar", NULL); -- 11
-INSERT INTO sub_race VALUES (NULL, 10, "Fallen Aasimar", NULL); -- 12
+INSERT INTO sub_race VALUES (NULL, 10, "Protector Aasimar", NULL); -- 15
+INSERT INTO sub_race VALUES (NULL, 10, "Scourge Aasimar", NULL); -- 16
+INSERT INTO sub_race VALUES (NULL, 10, "Fallen Aasimar", NULL); -- 17
+-- Gith
+INSERT INTO sub_race VALUES (NULL, 23, "Githyanki", NULL); -- 18
+INSERT INTO sub_race VALUES (NULL, 23, "Githzerai", NULL); -- 19
 
 -- RACE FEATURES
 DELETE FROM race_feature;
@@ -91,6 +100,11 @@ INSERT INTO race_feature VALUES (NULL, 1, "Stonecunning", "Double proficiency wh
 INSERT INTO sub_race_feature VALUES (NULL, 1, "Dwarven Toughness", "Hit point increase on level up.", "Your hit point maximum increases by 1, and it increases by 1 every time you gain a level."); -- 1
 ------ Mountain
 INSERT INTO sub_race_feature VALUES (NULL, 2, "Dwarven Armor Training", "Proficient with light and medium armor.", "You have proficiency with light and medium armor."); -- 2
+------ Duergar
+INSERT INTO sub_race_feature VALUES (NULL, 3, "Superior Darkvision", "You darkvision has a radius of 120 feet.", "You darkvision has a radius of 120 feet."); --
+INSERT INTO sub_race_feature VALUES (NULL, 3, "Duergar Resilience", "You have advantage on saving throws against illusions and against being charmed or paralyzed.", "You have advantage on saving throws against illusions and against being charmed or paralyzed."); --
+INSERT INTO sub_race_feature VALUES (NULL, 3, "Duergar Magic", "You gain additional spells at 3rd and 5th level.", "When you reach 3rd level, you can cast the <i>enlarge/reduce</i> spell on yourself once with this trait, using only the spell's enlarge option. When you reach 5th level, you can cast the <i>invisibility</i> spell on yourself once with this trait. You don't need material components for either spell, and you can't cast them whilte you're in direct sunlight, althought sunlight has no effect on them once cast. You regain the ability to cast these spells with this trait when you finish a long rest. Intelligence is your spellcasting ability for these spells."); --
+INSERT INTO sub_race_feature VALUES (NULL, 3, "Sunlight Sensitivity", "Disadvantage on attacks and Perception checks against targets in direct sunlight.", "You have disadvantage on attack rolls and on Wisdom (Perception) checks that rely on sight when you, the target of your attack, or whatever you are trying to perceive is in direct sunlight."); --
 
 -- Elf
 ---- race
@@ -100,17 +114,25 @@ INSERT INTO race_feature VALUES (NULL, 2, "Fey Ancestry", "Advantage against bei
 INSERT INTO race_feature VALUES (NULL, 2, "Trance", "Don't sleep, meditate deeply for 4 hours.", "Elves don't need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep."); -- 7
 ---- Sub race
 ------ High Elf
-INSERT INTO sub_race_feature VALUES (NULL, 3, "Elf Weapon Training", "Proficient with longsword, shortsword, shortbow and longbow.", "You have proficiency with the longsword, shortsword, shortbow and a longbow."); -- 3
-INSERT INTO sub_race_feature VALUES (NULL, 3, "Cantrip", "You know a wizard cantrip.", "You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it."); -- 4
+INSERT INTO sub_race_feature VALUES (NULL, 4, "Elf Weapon Training", "Proficient with longsword, shortsword, shortbow and longbow.", "You have proficiency with the longsword, shortsword, shortbow and a longbow."); -- 3
+INSERT INTO sub_race_feature VALUES (NULL, 4, "Cantrip", "You know a wizard cantrip.", "You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it."); -- 4
 ------ Wood Elf
-INSERT INTO sub_race_feature VALUES (NULL, 4, "Elf Weapon Training", "Proficient with longsword, shortsword, shortbow and longbow.", "You have proficiency with the longsword, shortsword, shortbow and a longbow."); -- 5
-INSERT INTO sub_race_feature VALUES (NULL, 4, "Fleet of Foot", "Walking speed 35ft.", "Your base walking speed increases to 35 feet."); -- 6
-INSERT INTO sub_race_feature VALUES (NULL, 4, "Mask of the Wild", "Hide when lightly obscured.", "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."); -- 7
+INSERT INTO sub_race_feature VALUES (NULL, 5, "Elf Weapon Training", "Proficient with longsword, shortsword, shortbow and longbow.", "You have proficiency with the longsword, shortsword, shortbow and a longbow."); -- 5
+INSERT INTO sub_race_feature VALUES (NULL, 5, "Fleet of Foot", "Walking speed 35ft.", "Your base walking speed increases to 35 feet."); -- 6
+INSERT INTO sub_race_feature VALUES (NULL, 5, "Mask of the Wild", "Hide when lightly obscured.", "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."); -- 7
 ------ Dark Elf
-INSERT INTO sub_race_feature VALUES (NULL, 5, "Superior Darkvision", "Darkvision to 120ft.", "Your darkvision has a radius of 120 feet."); -- 8
-INSERT INTO sub_race_feature VALUES (NULL, 5, "Sunlight Sensitivity", "Disadvantage on attacks and Perception in sunlight.", " You have disadvantage on attack rolls and Wisdom (Perception) checks that rely on sight when you, the target of your attack, or whatever you are trying to perceive is in direct sunlight."); -- 9
-INSERT INTO sub_race_feature VALUES (NULL, 5, "Drow Magic", "You gain spells as you reach certain levels.", "You know the <i>dancing lights</i> cantrip. When you reach 3rd level, you can cast the <i>faerie fire</i> spell once with this trait and regain the ability to do so when you finish a log rest. When you reach 5th level, you can cast the <i>darkness</i> spell once with this trait and regain the ability to do so when you finish a long rest. Charisma is your spellcasting ability for these spells."); -- 10
-INSERT INTO sub_race_feature VALUES (NULL, 5, "Drow Weapon Training", "Proficient with rapiers, shortswords, and hand crossbows.", "You have proficiency with rapiers, shortswords, and hand crossbows."); -- 11
+INSERT INTO sub_race_feature VALUES (NULL, 6, "Superior Darkvision", "Darkvision to 120ft.", "Your darkvision has a radius of 120 feet."); -- 8
+INSERT INTO sub_race_feature VALUES (NULL, 6, "Sunlight Sensitivity", "Disadvantage on attacks and Perception in sunlight.", " You have disadvantage on attack rolls and Wisdom (Perception) checks that rely on sight when you, the target of your attack, or whatever you are trying to perceive is in direct sunlight."); -- 9
+INSERT INTO sub_race_feature VALUES (NULL, 6, "Drow Magic", "You gain spells as you reach certain levels.", "You know the <i>dancing lights</i> cantrip. When you reach 3rd level, you can cast the <i>faerie fire</i> spell once with this trait and regain the ability to do so when you finish a log rest. When you reach 5th level, you can cast the <i>darkness</i> spell once with this trait and regain the ability to do so when you finish a long rest. Charisma is your spellcasting ability for these spells."); -- 10
+INSERT INTO sub_race_feature VALUES (NULL, 6, "Drow Weapon Training", "Proficient with rapiers, shortswords, and hand crossbows.", "You have proficiency with rapiers, shortswords, and hand crossbows."); -- 11
+------ Eladrin
+INSERT INTO sub_race_feature VALUES (NULL, 7, "Fey Step", "As a bonus action, magically teleport 30ft to a space you can see, at 3rd level you gain an additional effect.", "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. Once you use this trait, you cna't do so again until you finish a short or long rest.<br>When you reach 3rd level, your Fey Step gains an additional effect based on your season; if the effect requires a saving throw, the DC equals 8 + your proficiency bonus + your Charisma modifier:<br><br><b>Autumn.</b> Immediately after you use your Fey Step, up to two creatures of your choice that you can see within 10 feet of you must succeed on a Wisdom saving throw or be charmed by you for 1 minute, or until you or your companions deal any damage to it.<br><b>Winter.</b> When you use your Fey Step, one creature of your choice that you can see within 5 feet of you before you teleport must succeed on a Wisdom saving throw or be frightened of you until the end of your next turn.<br><b>Spring.</b> When you sue your Fey Step, you can touch one willing creature within 5 feet of you. That creature then teleports instead of you, appearing in an unoccupied space of your choice that you can see within 30 feet of you.<br><b>Summer.</b> Immediately after you use your Fey Step, each creature of your choice that you can see within 5 feet of you takes fire damage equal to your Charisma modifier (minimum of 1 damage)."); --
+------ Sea elf
+INSERT INTO sub_race_feature VALUES (NULL, 8, "Child of the Sea", "You have a swimming speed of 30 feet, and you can breath air and water.", "You have a swimming speed of 30 feet, and you can breath air and water."); --
+INSERT INTO sub_race_feature VALUES (NULL, 8, "Friend of the Sea", "Using gestures and sounds, you can communicate simple ideas with any beast that has an innate swimming speed.", "Using gestures and sounds, you can communicate simple ideas with any beast that has an innate swimming speed."); --
+------ Shadar-kai
+INSERT INTO sub_race_feature VALUES (NULL, 9, "Necrotic Resistance", "You have resistance to necrotic damage.", "You have resistance to necrotic damage."); --
+INSERT INTO sub_race_feature VALUES (NULL, 9, "Blessing of the Raven Queen", "As a bonus action, magically teleport 30ft to unoccupied space. At 3rd level, after doing so gain resistance to damage until the start of your next turn.", "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. Once you use this trait, you can't do so again until you finish a long rest.<br>Starting at 3rd level, you also gain resistance to all damage when you teleport using this trait. The resistance lasts until the start of your next turn. During that time, you appear ghostly and translucent."); --
 
 -- Halfling
 ---- race
@@ -119,9 +141,9 @@ INSERT INTO race_feature VALUES (NULL, 3, "Brave", "Advantage against frightened
 INSERT INTO race_feature VALUES (NULL, 3, "Halfling Nimbleness", "Move through larger creatures space.", "You can move through the space of any creature that is of a size larger than yours."); -- 10
 ---- Subrace
 ------ Lightfoot
-INSERT INTO sub_race_feature VALUES (NULL, 6, "Naturally Stealthy", "Hide behind larger creatures.", "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you."); -- 12
+INSERT INTO sub_race_feature VALUES (NULL, 10, "Naturally Stealthy", "Hide behind larger creatures.", "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you."); -- 12
 ------ Stout
-INSERT INTO sub_race_feature VALUES (NULL, 7, "Stout Resilience", "Advantage and resistance against poison.", "You have advantage on saving throws against poison, and you have resistance against poison damage."); -- 13
+INSERT INTO sub_race_feature VALUES (NULL, 11, "Stout Resilience", "Advantage and resistance against poison.", "You have advantage on saving throws against poison, and you have resistance against poison damage."); -- 13
 
 -- Human
 ---- race
@@ -138,11 +160,14 @@ INSERT INTO race_feature VALUES (NULL, 6, "Darkvision", "Can see in darkness wit
 INSERT INTO race_feature VALUES (NULL, 6, "Gnome Cunning", "Advantage against magic based saving throws (INT, WIS, CHA).", "You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic."); -- 15
 ---- Subrace
 ------ Forest
-INSERT INTO sub_race_feature VALUES (NULL, 8, "Natural Illusionist", "You know <i>minor illusion</i>.", "You know the <i>minor illusion</i> cantrip. Intelligence is your spellcasting ability for it."); -- 14
-INSERT INTO sub_race_feature VALUES (NULL, 8, "Speak with Small Beasts", "Can communicate with Small or smaller beasts.", "Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets."); -- 15
+INSERT INTO sub_race_feature VALUES (NULL, 12, "Natural Illusionist", "You know <i>minor illusion</i>.", "You know the <i>minor illusion</i> cantrip. Intelligence is your spellcasting ability for it."); -- 14
+INSERT INTO sub_race_feature VALUES (NULL, 12, "Speak with Small Beasts", "Can communicate with Small or smaller beasts.", "Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts. Forest gnomes love animals and often keep squirrels, badgers, rabbits, moles, woodpeckers, and other creatures as beloved pets."); -- 15
 ------ Rock
-INSERT INTO sub_race_feature VALUES (NULL, 9, "Artificer's Lore", "Add double proficiency to tinker based knowledge checks.", "Whenever you make an Intelligence (History) check related to magical items, alchemical objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonuses you normally apply."); -- 16
-INSERT INTO sub_race_feature VALUES (NULL, 9, "Tinker", "Spend time and resources to build a device.", "You have proficiency with artisan's tools (tinker's tools). Using these tools, you can spend 1 hour and 10gp worth of materials to construct a Tiny clockwork device (AD 5, 1 hp). The device ceases to function after 24 hours (unless you spend 1 hour repairing it to keep the device functioning), or when you use your action to dismantle it; at that time, you can reclaim the material used to create it. You can have up to three such devices active at a time.<br>When you create a device, choose one of the following options:</br><i>Clockwork Toy.</i> This toy is a clockwork animal, monster, or person, such as a frog, mouse, bird, dragon, or soldier. When placed on the ground, the toy moves 5 feet across the ground on each of your turns in a random direction. It makes noises as appropriate to the creature it represents.<br><i>Fire Starter.</i> The device produces a miniature flame, which you can use to light a candle, torch, or campfire. Using the device requires your action.<br><i>Music Box.</i> When opened, this music box plays a single song at a moderate volume. The box stops playing when it reaches the song's end or when it is closed."); -- 17
+INSERT INTO sub_race_feature VALUES (NULL, 13, "Artificer's Lore", "Add double proficiency to tinker based knowledge checks.", "Whenever you make an Intelligence (History) check related to magical items, alchemical objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonuses you normally apply."); -- 16
+INSERT INTO sub_race_feature VALUES (NULL, 13, "Tinker", "Spend time and resources to build a device.", "You have proficiency with artisan's tools (tinker's tools). Using these tools, you can spend 1 hour and 10gp worth of materials to construct a Tiny clockwork device (AD 5, 1 hp). The device ceases to function after 24 hours (unless you spend 1 hour repairing it to keep the device functioning), or when you use your action to dismantle it; at that time, you can reclaim the material used to create it. You can have up to three such devices active at a time.<br>When you create a device, choose one of the following options:</br><i>Clockwork Toy.</i> This toy is a clockwork animal, monster, or person, such as a frog, mouse, bird, dragon, or soldier. When placed on the ground, the toy moves 5 feet across the ground on each of your turns in a random direction. It makes noises as appropriate to the creature it represents.<br><i>Fire Starter.</i> The device produces a miniature flame, which you can use to light a candle, torch, or campfire. Using the device requires your action.<br><i>Music Box.</i> When opened, this music box plays a single song at a moderate volume. The box stops playing when it reaches the song's end or when it is closed."); -- 17
+------ Deep
+INSERT INTO sub_race_feature VALUES (NULL, 14, "Superior Darkvision", "Your darkvision has a radius of 120 feet."); -- 16
+INSERT INTO sub_race_feature VALUES (NULL, 14, "Stone Camouflage", "You have advantage on Dexterity (Stealth) checks to hide in rocky terrain and underground."); -- 17
 
 -- Half-Elf
 INSERT INTO race_feature VALUES (NULL, 7, "Darkvision", "Can see in darkness within 60ft. as though dim light.", "Thanks to your elf blood, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."); -- 16
@@ -165,11 +190,11 @@ INSERT INTO race_feature VALUES (NULL, 10, "Darkvision", "Can see in darkness wi
 INSERT INTO race_feature VALUES (NULL, 10, "Celestial Resistance", "Resistance to necrotic and radiant damage.", "You have resistance to radiant damage and necrotic damage."); -- 26
 INSERT INTO race_feature VALUES (NULL, 10, "Healing Hands", "Touch a creature as an action to heal it hit points equal to your level.", "As an action, you can touch a creature and cause it to regain a number of hit points equal to your level. Once you use this trait, you can't use it again until you finish a long rest."); -- 27
 ------ Protector
-INSERT INTO sub_race_feature VALUES (NULL, 10, "Radiant Soul", "After 3rd level use your action to grow wings for 1 minute and do extra radiant damage on attacks. Flying speed of 30ft.", "Starting at 3rd level, you can use your action to unleash the divine energy within yourself, causing your eyes to glimmer and two luminous, incorporeal wings to sprout from your back.<br>Your transformation lasts for 1 minute or until you end it as a bonus action. During it, you have a flying speed of 30 feet, and once on each of your turns, you can deal extra radiant damage to one target when you deal damage to it with an attack or a spell. The extra radiant damage equals your level.<br>Once you use this trait, you can't use it again until you finish a long rest."); -- 18
+INSERT INTO sub_race_feature VALUES (NULL, 15, "Radiant Soul", "After 3rd level use your action to grow wings for 1 minute and do extra radiant damage on attacks. Flying speed of 30ft.", "Starting at 3rd level, you can use your action to unleash the divine energy within yourself, causing your eyes to glimmer and two luminous, incorporeal wings to sprout from your back.<br>Your transformation lasts for 1 minute or until you end it as a bonus action. During it, you have a flying speed of 30 feet, and once on each of your turns, you can deal extra radiant damage to one target when you deal damage to it with an attack or a spell. The extra radiant damage equals your level.<br>Once you use this trait, you can't use it again until you finish a long rest."); -- 18
 ------ Scourge
-INSERT INTO sub_race_feature VALUES (NULL, 10, "Radiant Consumption", "After 3rd level use your action to cause AoE damage within 10ft. and do extra radiant damage on attacks", "Starting at 3rd level, you can use your action to unleash the divine energy within yourself, causing a searing light to radiate from you, pour out of your eyes and mouth, and threaten to char you.<br>Your transformation lasts for 1 minute or until you end it as a bonus action. During it, you shed bright light in a 10-foot radius and dim light for an additional 10 feet, and at the end of each of your turns, you and each creature within 10 feet of you take radiant damage equal to half your level (rounded up). In addition, once on each of your turns, you can deal extra radiant damage to one target when you deal damage to it with an attack or a spell. The extra radiant damage equals your level.<br>Once you use this trait, you can't use it again until you finish a long rest."); -- 19
+INSERT INTO sub_race_feature VALUES (NULL, 16, "Radiant Consumption", "After 3rd level use your action to cause AoE damage within 10ft. and do extra radiant damage on attacks", "Starting at 3rd level, you can use your action to unleash the divine energy within yourself, causing a searing light to radiate from you, pour out of your eyes and mouth, and threaten to char you.<br>Your transformation lasts for 1 minute or until you end it as a bonus action. During it, you shed bright light in a 10-foot radius and dim light for an additional 10 feet, and at the end of each of your turns, you and each creature within 10 feet of you take radiant damage equal to half your level (rounded up). In addition, once on each of your turns, you can deal extra radiant damage to one target when you deal damage to it with an attack or a spell. The extra radiant damage equals your level.<br>Once you use this trait, you can't use it again until you finish a long rest."); -- 19
 ------ Fallen
-INSERT INTO sub_race_feature VALUES (NULL, 10, "Necrotic Shroud", "After 3rd level use your action to frighten creatures within 10ft. and do extra necrotic damage on attacks.", "Starting at 3rd level, you can use your action to unleash the divine energy within yourself, causing your eyes to turn into pools of darkness and two skeletal, ghostly, flightless wings to sprout from your back. The instant you transform, other creatures within 10 feet of you that can see you must each succeed on a Charisma saving throw (DC 8 + your proficiency bonus + your Charisma modifier) or become frightened of you until the end of your next turn.<br>Your transformation lasts for 1 minute or until you end it as a bonus action. During it, once on each of your turns, you can deal extra necrotic damage to one target when you deal damage to it with an attack or a spell. The extra necrotic damage equals your level.<br>Once you use this trait, you can't use it again until you finish a long rest."); -- 20
+INSERT INTO sub_race_feature VALUES (NULL, 17, "Necrotic Shroud", "After 3rd level use your action to frighten creatures within 10ft. and do extra necrotic damage on attacks.", "Starting at 3rd level, you can use your action to unleash the divine energy within yourself, causing your eyes to turn into pools of darkness and two skeletal, ghostly, flightless wings to sprout from your back. The instant you transform, other creatures within 10 feet of you that can see you must each succeed on a Charisma saving throw (DC 8 + your proficiency bonus + your Charisma modifier) or become frightened of you until the end of your next turn.<br>Your transformation lasts for 1 minute or until you end it as a bonus action. During it, once on each of your turns, you can deal extra necrotic damage to one target when you deal damage to it with an attack or a spell. The extra necrotic damage equals your level.<br>Once you use this trait, you can't use it again until you finish a long rest."); -- 20
 
 -- Firbolg
 INSERT INTO race_feature VALUES (NULL, 11, "Firbolg Magic", "You can cast either <i>detect magic</i> or <i>disguise self</i> once per rest.", "You can cast <i>detect magic</i> and <i>disguise self</i> with this trait, using Wisdom as your spellcasting ability for them. Once you cast either spell, you can't cast it again with this trait until you finish a short or long rest. When you use this version of <i>disguise self</i>, you can seem up to 3 feet shorter than normal, allowing you to more easily blend in with humans and elves."); -- 28
@@ -234,3 +259,12 @@ INSERT INTO race_feature VALUES (NULL, 22, "Darkvision", "Can see in darkness wi
 INSERT INTO race_feature VALUES (NULL, 22, "Innate Spellcasting", "You can cast <i>poison spray</i>, <i>animal friendship</i> (on snakes), and at 3rd level <i>suggestion</i>.", "You know the <i>poison spray</i> cantrip. You can cast <i>animal friendship</i> an unlimited number of times with this trait, but you can target only snakes with it. Starting at 3rd level, you can also cast <i>suggestion</i> with this trait. Once you cast it, you can't do so again until you finish a long rest. Charisma is your spellcasting ability for these spells."); -- 65
 INSERT INTO race_feature VALUES (NULL, 22, "Magic Resistance", "You have advantage on saving throws against spells and other magical effects.", "You have advantage on saving throws against spells and other magical effects."); -- 66
 INSERT INTO race_feature VALUES (NULL, 22, "Poison Immunity", "You are immune to poison damage and the poisoned condition.", "You are immune to poison damage and the poisoned condition."); -- 67
+
+-- Gith
+-- Githyanki
+INSERT INTO sub_race_feature VALUES (NULL, 18, "Decadent Mastery", "You learn a language and a skill or tool proficiency.", "You learn on language of your choice, and you are proficient with one skill or tool of your choice."); --
+INSERT INTO sub_race_feature VALUES (NULL, 18, "Martial Prodigy", "You gain additional armour and weapon proficiencies.", "You are proficient with light and medium armour and with shortswords, longswords, and greatswords."); --
+INSERT INTO sub_race_feature VALUES (NULL, 18, "Githyanki Psionics", "You gain additional spells at 1st, 3rd, and 5th level.", "You know the <i>mage hand</i> cantrip, and the hand is invisible when you cast the cantrip with this trait.<br>When you reach 3rd level, you cna cast the <i>jump</i> spell once with this trait, and you regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast the <i>misty step</i> spell once with this trait, and you regain the ability to do so when you finish a long rest.<br>Intelligence is your spellcasting ability for these spells. When you cast them with this trait, they don't require components."); --
+-- Githzerai
+INSERT INTO sub_race_feature VALUES (NULL, 19, "Mental Discipline", "You have advantage on saving throws against the charmed and frightened conditions.", "You have advantage on saving throws against the charmed and frightened conditions."); --
+INSERT INTO sub_race_feature VALUES (NULL, 19, "Githzerai Psionics", "You gain additional spells at 1st, 3rd, and 5th level.", "You know the <i>mage hand</i> cantrip, and the hand is invisible when you cast the cantrip with this trait.<br>When you reach 3rd level, you cna cast the <i>shield</i> spell once with this trait, and you regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast the <i>detect thoughts</i> spell once with this trait, and you regain the ability to do so when you finish a long rest.<br>Intelligence is your spellcasting ability for these spells. When you cast them with this trait, they don't require components."); --
