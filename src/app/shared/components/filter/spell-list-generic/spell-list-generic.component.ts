@@ -31,8 +31,6 @@ export class FilterSpellListGenericComponent implements Filter<void> {
 
   filterChange(): void {
     if (this.filterKey !== undefined && this.filterOptions !== undefined) {
-      console.log("Update filter");
-      console.log({[this.filterKey]: this.filterForm.value});
       this._spellFilterService.updateFilters({[this.filterKey]: this.filterForm.value});
     }
   }

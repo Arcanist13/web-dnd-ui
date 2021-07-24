@@ -70,21 +70,7 @@ export class SpellListComponent implements AfterViewInit {
    * @returns     filter pass status
    */
   checkFilter(spell: ISpellModel): boolean {
-    if (this.filter) {
-      if (this.filter.name && (this.filter.name !== '' && !spell.name.toLowerCase().includes(this.filter.name.toLowerCase()))) {
-        return false;
-      }
-      else if (this.filter.level && (this.filter.level.length !== 0 && !this.filter.level.includes(+(spell.level)))) {
-        return false;
-      }
-      else if (this.filter.cast_time && (this.filter.cast_time.length !== 0 && !this.casttimeMatch(this.filter.cast_time, spell.cast_time))) {
-        return false;
-      }
-      else if (this.filter.ritual && (spell.ritual === this.filter.ritual)) {
-        return false;
-      }
-    }
-    return true;
+    return this._spellFilterService.checkSpellFilter(spell, this.filter);
   }
 
   /**
@@ -94,23 +80,6 @@ export class SpellListComponent implements AfterViewInit {
    */
   openSpellModal(id: number): void {
     this._spellModalService.openSpellModal(id);
-  }
-
-  /**
-   * Check if the spell cast time is in the given list
-   *
-   * @param list  list to check against
-   * @param value cast time to check
-   * @returns     match result
-   */
-  casttimeMatch(list: Array<string>, value: string): boolean {
-    let match = false;
-    for (let casttime of list) {
-      if (value.toLowerCase().includes(casttime.toLowerCase())) {
-        return true;
-      }
-    }
-    return match;
   }
 
   /**

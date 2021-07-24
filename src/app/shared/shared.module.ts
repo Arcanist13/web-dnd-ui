@@ -25,7 +25,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { SearchComponent } from './components/filter/search/search.component';
 import { SpellLevelDisplayPipe } from './pipes/spell-level-display.pipe';
 import { FilterSpellClassComponent } from './components/filter/spell-class/spell-class.component';
-import { FilterSpellRitualComponent } from './components/filter/spell-ritual/spell-ritual.component';
 import { FilterSpellListGenericComponent } from './components/filter/spell-list-generic/spell-list-generic.component';
 
 const MATERIAL_IMPORTS = [
@@ -45,7 +44,6 @@ const SHARED_COMPONENTS = [
   SearchComponent,
   FilterSpellListGenericComponent,
   FilterSpellClassComponent,
-  FilterSpellRitualComponent,
 ];
 
 const SHARED_PIPES = [
