@@ -24,7 +24,6 @@ export class FeatService {
    */
   getFeats(): void {
     if (!!this._feats) {
-      console.log("Using feat memory map");
       this._featUpdate.next(this._feats);
     }
     else {

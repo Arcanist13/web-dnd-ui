@@ -32,17 +32,18 @@ export class FeatsComponent implements OnInit, OnDestroy {
     this._subscriptions.push(
       this._featService.featUpdate.subscribe(
         (_feats: Array<IFeatModel>) => {
-          console.log(_feats);
           this.feats = _feats;
         }
       )
     );
 
     // Subscribe to changes in the filter
-    this._spellFilterService.filterUpdate.subscribe(
-      (filter: ISpellFilter) => {
-        this.featFilter = filter.name ? filter.name.toLowerCase() : '';
-      }
+    this._subscriptions.push(
+      this._spellFilterService.filterUpdate.subscribe(
+        (filter: ISpellFilter) => {
+          this.featFilter = filter.name ? filter.name.toLowerCase() : '';
+        }
+      )
     );
   }
 

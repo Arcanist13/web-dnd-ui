@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable, Subject, throwError } from 'rxjs';
+import { Observable, Subject, Subscription, throwError } from 'rxjs';
 import { ISpellModel } from 'src/app/shared/models/spell.model';
 import { DndClassService } from './dnd-class.service';
 import { HttpService } from 'src/app/core/services/http.service';
@@ -8,8 +8,9 @@ import { HttpService } from 'src/app/core/services/http.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SpellService {
+export class SpellService implements OnDestroy {
 
+  private _subscriptions: Array<Subscription>;
   private _spellUpdate: Subject<Array<ISpellModel>>;
 
   // Memory storage
@@ -19,13 +20,17 @@ export class SpellService {
     private _httpService: HttpService,
     private _classService: DndClassService
   ) {
+    this._subscriptions = [];
+
     this._spellUpdate = new Subject<Array<ISpellModel>>();
 
     this._classSpellMap = new Map<string, Array<ISpellModel>>();
 
-    this._classService.onSpellClassChange().subscribe((newClass: string) => {
-      this.getSpells(newClass);
-    })
+    this._subscriptions.push(
+      this._classService.onSpellClassChange().subscribe((newClass: string) => {
+        this.getSpells(newClass);
+      })
+    );
   }
 
   /**
@@ -36,7 +41,6 @@ export class SpellService {
   getSpells(currentClass: string = ''): void {
     // Check if we've already loaded the spells
     if (this._classSpellMap.has(currentClass)) {
-      console.log("Using memory map for " + currentClass);
       this._spellUpdate.next(this._classSpellMap.get(currentClass));
       return;
     }
@@ -76,6 +80,13 @@ export class SpellService {
    */
   onSpellUpdate(): Subject<Array<ISpellModel>> {
     return this._spellUpdate;
+  }
+
+  /**
+   * Clear subscriptions
+   */
+  ngOnDestroy(): void {
+    this._subscriptions.forEach((sub: Subscription) => sub.unsubscribe() );
   }
 
 }
