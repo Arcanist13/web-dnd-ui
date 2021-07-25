@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ObservableService } from 'src/app/core/services/observable.service';
+import { Component, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Filter } from 'src/app/shared/interfaces/filter';
 import { SpellFilterService } from '../../../services/spell-filter.service';
 
@@ -8,20 +8,26 @@ import { SpellFilterService } from '../../../services/spell-filter.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements Filter<void> {
+export class SearchComponent implements OnDestroy, Filter<void> {
+
+  @Input() searchTitle?: string;
+
+  private _subscriptions: Array<Subscription>;
 
   filter: string;
 
   constructor(
     private _spellFilterService: SpellFilterService,
-    private _observableService: ObservableService
   ) {
+    this._subscriptions = [];
+
     this.filter = '';
 
     // Subscribe to filter clears
-    this._observableService.subscribe(
-      this._spellFilterService.filterClear,
-      () => { this.filterClear(); }
+    this._subscriptions.push(
+      this._spellFilterService.filterClear.subscribe(
+        () => { this.filterClear(); }
+      )
     );
   }
 
@@ -38,6 +44,13 @@ export class SearchComponent implements Filter<void> {
   filterClear(): void {
     this.filter = '';
     this.filterChange();
+  }
+
+  /**
+   * Clear subs
+   */
+   ngOnDestroy(): void {
+    this._subscriptions.forEach((sub: Subscription) => sub.unsubscribe() );
   }
 
 }

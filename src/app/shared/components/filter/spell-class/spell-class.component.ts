@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ObservableService } from 'src/app/core/services/observable.service';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Filter } from 'src/app/shared/interfaces/filter';
 import { DndClassService } from 'src/app/shared/services/dnd-class.service';
 import { SpellFilterService } from 'src/app/shared/services/spell-filter.service';
@@ -9,7 +9,9 @@ import { SpellFilterService } from 'src/app/shared/services/spell-filter.service
   templateUrl: './spell-class.component.html',
   styleUrls: ['./spell-class.component.css']
 })
-export class FilterSpellClassComponent implements Filter<string> {
+export class FilterSpellClassComponent implements OnDestroy, Filter<string> {
+
+  private _subscriptions: Array<Subscription>;
 
   classes: Array<string>;
   currentClass: string;
@@ -17,15 +19,17 @@ export class FilterSpellClassComponent implements Filter<string> {
   constructor(
     private _dndClassService: DndClassService,
     private _spellFilterService: SpellFilterService,
-    private _observableService: ObservableService
   ) {
+    this._subscriptions = [];
+
     this.classes = this._dndClassService.getSpellClasses();
     this.currentClass = this.classes[0];
 
     // Subscribe to filter clears
-    this._observableService.subscribe(
-      this._spellFilterService.filterClear,
-      () => { this.filterClear(); }
+    this._subscriptions.push(
+      this._spellFilterService.filterClear.subscribe(
+        () => { this.filterClear(); }
+      )
     );
   }
 
@@ -36,6 +40,13 @@ export class FilterSpellClassComponent implements Filter<string> {
 
   filterClear(): void {
     this.filterChange(this.classes[0]);
+  }
+
+  /**
+   * Clear subs
+   */
+   ngOnDestroy(): void {
+    this._subscriptions.forEach((sub: Subscription) => sub.unsubscribe() );
   }
 
 }

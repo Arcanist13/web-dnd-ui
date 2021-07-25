@@ -35,7 +35,7 @@ async def get_class_spells(class_str: str):
   spell = get_db_all('''
     SELECT {partial} FROM spells
     WHERE name IN (SELECT name FROM {class_name}_spells NOCASE) COLLATE NOCASE ORDER BY name ASC
-    '''.format(class_name=class_str.lower()), partial=spell_partial)
+    '''.format(partial=spell_partial,class_name=class_str.lower()))
   if spell is not None:
     return spell
   msg = "Spells under class " + class_str + " not found."

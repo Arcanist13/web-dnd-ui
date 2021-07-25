@@ -1,1 +1,32 @@
-<p>feats works!</p>
+<!-- Search bar -->
+<div class="row justify-content-center mt-4">
+  <div class="col-8">
+    <app-search searchTitle='Search Feats'></app-search>
+  </div>
+</div>
+
+<!-- Feats list -->
+<div class="row justify-content-center mt-2">
+  <div class="col-lg-8 col-12">
+    <div *ngIf="feats.length > 0" class="table table-responsive">
+      <table matSort (matSortChange)="sortData($event)" class="table table-sm table-hover no-select">
+        <thead class="thead-light">
+          <tr class="d-flex">
+            <th mat-sort-header="name" class="col-8">Name</th>
+            <th mat-sort-header="requirement" class="col-4">Prerequisite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let feat of feats; index as idx" (click)="openFeatModal(feat.id)" class="d-flex">
+            <ng-container *ngIf="checkFilter(feat)">
+              <td class="col-8">{{ feat.name }}</td>
+              <td class="col-4">{{ feat.prerequisite }}</td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<app-feat-modal></app-feat-modal>

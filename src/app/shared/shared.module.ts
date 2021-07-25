@@ -26,6 +26,7 @@ import { SearchComponent } from './components/filter/search/search.component';
 import { SpellLevelDisplayPipe } from './pipes/spell-level-display.pipe';
 import { FilterSpellClassComponent } from './components/filter/spell-class/spell-class.component';
 import { FilterSpellListGenericComponent } from './components/filter/spell-list-generic/spell-list-generic.component';
+import { FeatModalComponent } from './components/feat-modal/feat-modal.component';
 
 const MATERIAL_IMPORTS = [
   MatSortModule,
@@ -41,6 +42,7 @@ const MATERIAL_IMPORTS = [
 const SHARED_COMPONENTS = [
   SpellListComponent,
   SpellModalComponent,
+  FeatModalComponent,
   SearchComponent,
   FilterSpellListGenericComponent,
   FilterSpellClassComponent,

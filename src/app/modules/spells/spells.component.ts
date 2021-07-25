@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { ObservableService } from 'src/app/core/services/observable.service';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { ISpellModel, CSpellAttack, CSpellCasttime, CSpellDamage, CSpellSave, CSpellCondition, CSpellLevel } from 'src/app/shared/models/spell.model';
 import { SpellLevelPipe } from 'src/app/shared/pipes/spell-level.pipe';
 import { SpellFilterService } from 'src/app/shared/services/spell-filter.service';
@@ -11,7 +10,9 @@ import { SpellService } from 'src/app/shared/services/spell.service';
   templateUrl: './spells.component.html',
   styleUrls: ['./spells.component.css']
 })
-export class SpellsComponent implements OnInit {
+export class SpellsComponent implements AfterViewInit, OnDestroy {
+
+  private _subscriptions: Array<Subscription>;
 
   // Define constants
   public _CSpellAttack = CSpellAttack;
@@ -25,22 +26,11 @@ export class SpellsComponent implements OnInit {
     {title: 'Condition', key: 'condition_type', list: CSpellCondition},
   ]
 
-  spellUpdate: Subject<Array<ISpellModel>>;
-
   constructor(
     private _spellService: SpellService,
-    private _spellFilterService: SpellFilterService,
-    private _observableService: ObservableService
+    private _spellFilterService: SpellFilterService
   ) {
-    this.spellUpdate = new Subject<Array<ISpellModel>>();
-
-    // Subscribe to changes in the spell list
-    this._observableService.subscribe(
-      this._spellService.onSpellUpdate(),
-      (result: Array<ISpellModel>) => {
-        this.spellUpdate.next(result);
-      }
-    );
+    this._subscriptions = [];
   }
 
   /**
@@ -53,8 +43,15 @@ export class SpellsComponent implements OnInit {
   /**
    * Get the initial spell set
    */
-  ngOnInit(): void {
-    this._spellService.getSpells();
+  ngAfterViewInit(): void {
+    this._spellService.getSpells('All Spells');
+  }
+
+  /**
+   * Clear subs
+   */
+  ngOnDestroy(): void {
+    this._subscriptions.forEach((sub: Subscription) => sub.unsubscribe() );
   }
 
 }

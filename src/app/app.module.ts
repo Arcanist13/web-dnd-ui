@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SpellsModule } from './modules/spells/spells.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { FeatsModule } from './modules/feats/feats.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { OAuthModule } from 'angular-oauth2-oidc';
       }
     }
     ),
-    SpellsModule
+    SpellsModule,
+    FeatsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

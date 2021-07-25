@@ -12,7 +12,7 @@ import { SpellModalService } from '../../../modules/spells/services/spell-modal.
 export class SpellModalComponent  {
 
   spell!: ISpellModel;
-  @ViewChild("content", {static: false}) modalRef!: HTMLElement;
+  @ViewChild("spellModalContent", {static: false}) modalRef!: HTMLElement;
 
   constructor(
     private _spellModalService: SpellModalService,

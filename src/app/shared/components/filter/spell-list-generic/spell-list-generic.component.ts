@@ -1,6 +1,6 @@
-import { Component, Input, PipeTransform } from '@angular/core';
+import { Component, Input, OnDestroy, PipeTransform } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ObservableService } from 'src/app/core/services/observable.service';
+import { Subscription } from 'rxjs';
 import { Filter } from 'src/app/shared/interfaces/filter';
 import { SpellFilterService } from 'src/app/shared/services/spell-filter.service';
 
@@ -9,23 +9,27 @@ import { SpellFilterService } from 'src/app/shared/services/spell-filter.service
   templateUrl: './spell-list-generic.component.html',
   styleUrls: ['./spell-list-generic.component.css']
 })
-export class FilterSpellListGenericComponent implements Filter<void> {
+export class FilterSpellListGenericComponent implements OnDestroy, Filter<void> {
 
   @Input() filterTitle!: string;
   @Input() filterKey!: string;
   @Input() filterOptions!: Array<string | number>;
   @Input() filterPipe?: PipeTransform;
 
+  private _subscriptions: Array<Subscription>;
+
   public filterForm = new FormControl();
 
   constructor(
     private _spellFilterService: SpellFilterService,
-    private _observableService: ObservableService
   ) {
+    this._subscriptions = [];
+
     // Subscribe to filter clears
-    this._observableService.subscribe(
-      this._spellFilterService.filterClear,
-      () => { this.filterClear(); }
+    this._subscriptions.push(
+      this._spellFilterService.filterClear.subscribe(
+        () => { this.filterClear(); }
+      )
     );
   }
 
@@ -37,6 +41,13 @@ export class FilterSpellListGenericComponent implements Filter<void> {
 
   filterClear(): void {
     this.filterForm.reset();
+  }
+
+  /**
+   * Clear subs
+   */
+   ngOnDestroy(): void {
+    this._subscriptions.forEach((sub: Subscription) => sub.unsubscribe() );
   }
 
 }

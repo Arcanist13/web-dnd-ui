@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, Subject, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { ISpellModel } from 'src/app/shared/models/spell.model';
 import { DndClassService } from './dnd-class.service';
+import { HttpService } from 'src/app/core/services/http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +12,16 @@ export class SpellService {
 
   private _spellUpdate: Subject<Array<ISpellModel>>;
 
+  // Memory storage
+  private _classSpellMap: Map<string, Array<ISpellModel>>;
+
   constructor(
-    private _http: HttpClient,
+    private _httpService: HttpService,
     private _classService: DndClassService
   ) {
     this._spellUpdate = new Subject<Array<ISpellModel>>();
+
+    this._classSpellMap = new Map<string, Array<ISpellModel>>();
 
     this._classService.onSpellClassChange().subscribe((newClass: string) => {
       this.getSpells(newClass);
@@ -30,19 +34,28 @@ export class SpellService {
    * @param currentClass  the current spell class filter
    */
   getSpells(currentClass: string = ''): void {
-    let request: Observable<Array<ISpellModel>>;
+    // Check if we've already loaded the spells
+    if (this._classSpellMap.has(currentClass)) {
+      console.log("Using memory map for " + currentClass);
+      this._spellUpdate.next(this._classSpellMap.get(currentClass));
+      return;
+    }
 
+    // Build the request string
+    let addr = '';
     if (!currentClass || currentClass === 'All Spells') {
-      request = this._http.get<Array<ISpellModel>>(environment.backendUri + '/spells');
+      addr = environment.backendUri + '/spells';
     }
     else {
-      request = this._http.get<Array<ISpellModel>>(environment.backendUri + '/spell/class/' + currentClass);
+      addr = environment.backendUri + '/spell/class/' + currentClass;
     }
 
-    request.pipe(catchError(this.handleError))
+    this._httpService.get<Array<ISpellModel>>(addr)
       .subscribe((result: Array<ISpellModel>) => {
-      this._spellUpdate.next(result);
-    })
+        this._spellUpdate.next(result);
+        this._classSpellMap.set(currentClass, result);
+      }
+    );
   }
 
   /**
@@ -53,8 +66,7 @@ export class SpellService {
    * @return    spell information promise
    */
   getSpell(id: number): Observable<ISpellModel> {
-    return this._http.get<ISpellModel>(environment.backendUri + '/spell/' + id)
-      .pipe(catchError(this.handleError));
+    return this._httpService.get<ISpellModel>(environment.backendUri + '/spell/' + id);
   }
 
   /**
@@ -64,27 +76,6 @@ export class SpellService {
    */
   onSpellUpdate(): Subject<Array<ISpellModel>> {
     return this._spellUpdate;
-  }
-
-  /**
-   * Handle HTTP request errors
-   *
-   * @param error HTTP error message
-   * @returns     empty observable error
-   */
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('ERROR (spell.service): Client Error ', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      console.error(
-        `ERROR (spell.service): HTTP Error ${error.status}, ` +
-        `Message: ${error.error}`);
-    }
-    // Return an observable with a user-facing error message.
-    return throwError('Request failed.');
   }
 
 }
