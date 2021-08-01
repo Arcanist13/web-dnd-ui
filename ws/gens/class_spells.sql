@@ -1,3 +1,9 @@
+DROP TABLE artificer_spells;
+CREATE TABLE artificer_spells(
+	id INTEGER PRIMARY KEY NOT NULL,
+	name TEXT NOT NULL
+);
+
 DROP TABLE bard_spells;
 CREATE TABLE bard_spells(
 	id INTEGER PRIMARY KEY NOT NULL,
@@ -45,6 +51,104 @@ CREATE TABLE wizard_spells(
 	id INTEGER PRIMARY KEY NOT NULL,
 	name TEXT NOT NULL
 );
+
+-- artificer_spells
+-- TCE
+INSERT INTO artificer_spells VALUES (NULL, "Acid Splash");          -- 0
+INSERT INTO artificer_spells VALUES (NULL, "Booming Blade");
+INSERT INTO artificer_spells VALUES (NULL, "Create Bonfire");
+INSERT INTO artificer_spells VALUES (NULL, "Dancing Lights");
+INSERT INTO artificer_spells VALUES (NULL, "Fire Bolt");
+INSERT INTO artificer_spells VALUES (NULL, "Frostbite");
+INSERT INTO artificer_spells VALUES (NULL, "Greenflame Blade");
+INSERT INTO artificer_spells VALUES (NULL, "Guidance");
+INSERT INTO artificer_spells VALUES (NULL, "Light");
+INSERT INTO artificer_spells VALUES (NULL, "Lightning Lure");
+INSERT INTO artificer_spells VALUES (NULL, "Mage Hand");
+INSERT INTO artificer_spells VALUES (NULL, "Magic Stone");
+INSERT INTO artificer_spells VALUES (NULL, "Mending");
+INSERT INTO artificer_spells VALUES (NULL, "Message");
+INSERT INTO artificer_spells VALUES (NULL, "Poison Spray");
+INSERT INTO artificer_spells VALUES (NULL, "Prestidigitation");
+INSERT INTO artificer_spells VALUES (NULL, "Ray of Frost");
+INSERT INTO artificer_spells VALUES (NULL, "Resistance");
+INSERT INTO artificer_spells VALUES (NULL, "Shocking Grasp");
+INSERT INTO artificer_spells VALUES (NULL, "Spare the Dying");
+INSERT INTO artificer_spells VALUES (NULL, "Sword Burst");
+INSERT INTO artificer_spells VALUES (NULL, "Thorn Whip");
+INSERT INTO artificer_spells VALUES (NULL, "Thunderclap");
+INSERT INTO artificer_spells VALUES (NULL, "Absorb Elements");    -- 1
+INSERT INTO artificer_spells VALUES (NULL, "Alarm");
+INSERT INTO artificer_spells VALUES (NULL, "Catapult");
+INSERT INTO artificer_spells VALUES (NULL, "Cure Wounds");
+INSERT INTO artificer_spells VALUES (NULL, "Detect Magic");
+INSERT INTO artificer_spells VALUES (NULL, "Disguise Self");
+INSERT INTO artificer_spells VALUES (NULL, "Expeditious Retreat");
+INSERT INTO artificer_spells VALUES (NULL, "Faerie Fire");
+INSERT INTO artificer_spells VALUES (NULL, "False Life");
+INSERT INTO artificer_spells VALUES (NULL, "Feather Fall");
+INSERT INTO artificer_spells VALUES (NULL, "Grease");
+INSERT INTO artificer_spells VALUES (NULL, "Identify");
+INSERT INTO artificer_spells VALUES (NULL, "Jump");
+INSERT INTO artificer_spells VALUES (NULL, "Longstrider");
+INSERT INTO artificer_spells VALUES (NULL, "Purify Food and Drink");
+INSERT INTO artificer_spells VALUES (NULL, "Sanctuary");
+INSERT INTO artificer_spells VALUES (NULL, "Snare");
+INSERT INTO artificer_spells VALUES (NULL, "Tasha's Caustic Brew");
+INSERT INTO artificer_spells VALUES (NULL, "Aid");          -- 2
+INSERT INTO artificer_spells VALUES (NULL, "Alter Self");
+INSERT INTO artificer_spells VALUES (NULL, "Arcane Lock");
+INSERT INTO artificer_spells VALUES (NULL, "Blur");
+INSERT INTO artificer_spells VALUES (NULL, "Continual Flame");
+INSERT INTO artificer_spells VALUES (NULL, "Darkvision");
+INSERT INTO artificer_spells VALUES (NULL, "Enhance Ability");
+INSERT INTO artificer_spells VALUES (NULL, "Enlarge/Reduce");
+INSERT INTO artificer_spells VALUES (NULL, "Heat Metal");
+INSERT INTO artificer_spells VALUES (NULL, "Invisibility");
+INSERT INTO artificer_spells VALUES (NULL, "Lesser Restoration");
+INSERT INTO artificer_spells VALUES (NULL, "Levitate");
+INSERT INTO artificer_spells VALUES (NULL, "Magic Mouth");
+INSERT INTO artificer_spells VALUES (NULL, "Magic Weapon");
+INSERT INTO artificer_spells VALUES (NULL, "Protection from Poison");
+INSERT INTO artificer_spells VALUES (NULL, "Pyrotechnics");
+INSERT INTO artificer_spells VALUES (NULL, "Rope Trick");
+INSERT INTO artificer_spells VALUES (NULL, "See Invisibility");
+INSERT INTO artificer_spells VALUES (NULL, "Skywrite");
+INSERT INTO artificer_spells VALUES (NULL, "Spider Climb");
+INSERT INTO artificer_spells VALUES (NULL, "Web");
+INSERT INTO artificer_spells VALUES (NULL, "Blink");        -- 3
+INSERT INTO artificer_spells VALUES (NULL, "Catnap");
+INSERT INTO artificer_spells VALUES (NULL, "Create Food and Water");
+INSERT INTO artificer_spells VALUES (NULL, "Dispel Magic");
+INSERT INTO artificer_spells VALUES (NULL, "Elemental Weapon");
+INSERT INTO artificer_spells VALUES (NULL, "Flame Arrows");
+INSERT INTO artificer_spells VALUES (NULL, "Fly");
+INSERT INTO artificer_spells VALUES (NULL, "Glyph of Warding");
+INSERT INTO artificer_spells VALUES (NULL, "Haste");
+INSERT INTO artificer_spells VALUES (NULL, "Intellect Fortress");
+INSERT INTO artificer_spells VALUES (NULL, "Protection from Energy");
+INSERT INTO artificer_spells VALUES (NULL, "Revivify");
+INSERT INTO artificer_spells VALUES (NULL, "Tiny Servant");
+INSERT INTO artificer_spells VALUES (NULL, "Water Breathing");
+INSERT INTO artificer_spells VALUES (NULL, "Water Walk");
+INSERT INTO artificer_spells VALUES (NULL, "Arcane Eye");     -- 4
+INSERT INTO artificer_spells VALUES (NULL, "Elemental Bane");
+INSERT INTO artificer_spells VALUES (NULL, "Fabricate");
+INSERT INTO artificer_spells VALUES (NULL, "Freedom of Movement");
+INSERT INTO artificer_spells VALUES (NULL, "Leomund's Secret Chest");
+INSERT INTO artificer_spells VALUES (NULL, "Mordenkainen's Faithful Hound");
+INSERT INTO artificer_spells VALUES (NULL, "Mordenkainen's Private Sanctum");
+INSERT INTO artificer_spells VALUES (NULL, "Otiluke's Resilient Sphere");
+INSERT INTO artificer_spells VALUES (NULL, "Stone Shape");
+INSERT INTO artificer_spells VALUES (NULL, "Stoneskin");
+INSERT INTO artificer_spells VALUES (NULL, "Summon Construct");
+INSERT INTO artificer_spells VALUES (NULL, "Animate Pbjects");    -- 5
+INSERT INTO artificer_spells VALUES (NULL, "Bigby's Hand");
+INSERT INTO artificer_spells VALUES (NULL, "Creation");
+INSERT INTO artificer_spells VALUES (NULL, "Greater Restoration");
+INSERT INTO artificer_spells VALUES (NULL, "Skill Empowerment");
+INSERT INTO artificer_spells VALUES (NULL, "Transmute Rock");
+INSERT INTO artificer_spells VALUES (NULL, "Wall of Stone");
 
 -- bard_spells SPELLS
 -- PHB

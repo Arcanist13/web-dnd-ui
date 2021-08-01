@@ -1,0 +1,10 @@
+DROP TABLE campaigns;
+CREATE TABLE campaigns(
+  id INTEGER PRIMARY KEY NOT NULL,
+  name TEXT NOT NULL,
+  brief TEXT
+);
+
+INSERT INTO campaigns VALUES (NULL, "KK", NULL);
+INSERT INTO campaigns VALUES (NULL, "C5", NULL);
+INSERT INTO campaigns VALUES (NULL, "C6", NULL);
