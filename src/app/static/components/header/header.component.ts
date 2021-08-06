@@ -12,6 +12,7 @@ export class HeaderComponent {
 
   navCollapsed: boolean;
   loggedIn: boolean;
+  admin: boolean;
 
   constructor(
     private _observableService: ObservableService,
@@ -19,11 +20,15 @@ export class HeaderComponent {
   ) {
     this.navCollapsed = true;
     this.loggedIn = this._userService.userInfo ? true : false;
+    this.admin = this._userService.isAdmin;
 
     // Listen for changes in user login state
     this._observableService.subscribe(
       this._userService.loginUpdate,
-      (state: boolean) => { this.loggedIn = state; }
+      (state: boolean) => {
+        this.loggedIn = state;
+        this.admin = this._userService.isAdmin;
+      }
     );
   }
 

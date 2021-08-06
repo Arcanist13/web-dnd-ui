@@ -10,12 +10,14 @@ import { SpellsModule } from './modules/spells/spells.module';
 import { FeatsModule } from './modules/feats/feats.module';
 import { CharacterModule } from './modules/character/character.module';
 import { UserModule } from './modules/user/user.module';
+import { AdminModule } from './modules/admin/admin.module';
 
-const MODULES = [
+const APP_MODULES = [
+  AdminModule,
   UserModule,
   SpellsModule,
   FeatsModule,
-  CharacterModule
+  CharacterModule,
 ]
 
 @NgModule({
@@ -32,9 +34,11 @@ const MODULES = [
         sendAccessToken: true
       }
     }),
-    MODULES
+    APP_MODULES
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

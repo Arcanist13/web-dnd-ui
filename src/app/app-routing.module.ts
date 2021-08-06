@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './modules/user/components/login/login.component';
-import { FeatsComponent } from './modules/feats/feats.component';
-import { SpellsComponent } from './modules/spells/spells.component';
-import { RegisterComponent } from './modules/user/components/register/register.component';
 
 const CORE_ROUTES: Routes = [
   {
     path: 'user',
     loadChildren: () => import('src/app/modules/user/user-routing.module').then(m => m.UserRoutingModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('src/app/modules/admin/admin-routing.module').then(m => m.AdminRoutingModule)
   },
   {
     path: 'character',

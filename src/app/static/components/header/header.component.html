@@ -6,6 +6,9 @@
 
   <div class="collapse navbar-collapse" [ngbCollapse]="navCollapsed">
     <ul class="navbar-nav mr-auto">
+      <li *ngIf="admin" class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="'/admin'">Admin</a>
+      </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="'/character'">Character</a>
       </li>

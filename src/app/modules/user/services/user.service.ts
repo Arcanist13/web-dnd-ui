@@ -111,4 +111,12 @@ export class UserService {
     return this._loggedIn;
   }
 
+  /**
+   * Check if the current user is an admin
+   */
+  public get isAdmin() : boolean {
+    return this._userInfo?.admin === 1 ? true : false;
+  }
+
+
 }
