@@ -26,7 +26,8 @@ export class SpellModalService {
    *
    * @returns modal
    */
-  onSpellModal(): Subject<number> {
+
+  public get onSpellModal() : Subject<number> {
     return this._spellModal;
   }
 

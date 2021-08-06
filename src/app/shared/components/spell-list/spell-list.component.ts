@@ -1,67 +1,62 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Sort } from '@angular/material/sort';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { SpellModalService } from 'src/app/modules/spells/services/spell-modal.service';
 import { ISpellFilter, ISpellModel } from '../../models/spell.model';
+import { ObservableService } from '../../services/observable.service';
 import { SpellFilterService } from '../../services/spell-filter.service';
 import { SpellService } from '../../services/spell.service';
 
 @Component({
   selector: 'app-spell-list',
   templateUrl: './spell-list.component.html',
-  styleUrls: ['./spell-list.component.css']
+  styleUrls: ['./spell-list.component.css'],
+  providers: [ObservableService]
 })
-export class SpellListComponent implements OnDestroy {
+export class SpellListComponent {
 
   @Input() spellUpdate!: Subject<Array<ISpellModel>>;
   @Input() filter!: ISpellFilter;
   @Input() leveled!: boolean;
-
-  private _subscriptions: Array<Subscription>;
 
   private sortSettings: Sort | undefined;
   public spells: Array<ISpellModel>;
   baseSpells: Array<ISpellModel> | undefined;
 
   constructor(
+    private _observableService: ObservableService,
     private _spellModalService: SpellModalService,
     private _spellFilterService: SpellFilterService,
     private _spellService: SpellService
   ) {
-    this._subscriptions = [];
     this.spells = [];
 
     // Subscribe to filter clear
-    this._subscriptions.push(
-      this._spellFilterService.filterClear.subscribe(
-        () => {
-          this.filter = {};
-        }
-      )
+    this._observableService.subscribe(
+      this._spellFilterService.filterClear,
+      () => { this.filter = {}; }
     );
 
     // Subscribe to filter changes
-    this._subscriptions.push(
-      this._spellFilterService.filterUpdate.subscribe(
-        (newFilter: ISpellFilter) => {
-          this.filter = {
-            ...this.filter,
-            ...newFilter
-          };
-        }
-      )
+    this._observableService.subscribe(
+      this._spellFilterService.filterUpdate,
+      (newFilter: ISpellFilter) => {
+        this.filter = {
+          ...this.filter,
+          ...newFilter
+        };
+      }
     );
 
     // Subscribe to spell list changes
-    this._subscriptions.push(
-      this._spellService.onSpellUpdate().subscribe(
-        (spells: Array<ISpellModel>) => {
-          this.spells = spells.slice();
-          if (this.sortSettings !== undefined) {
-            this.sortData(this.sortSettings);
-          }
+    this._observableService.subscribe(
+      this._spellService.onSpellUpdate,
+      (spells: Array<ISpellModel>) => {
+        this.spells = spells.slice();
+        if (this.sortSettings !== undefined) {
+          this.sortData(this.sortSettings);
         }
-      )
+      }
     );
   }
 
@@ -123,13 +118,6 @@ export class SpellListComponent implements OnDestroy {
       return (a.toLowerCase() < b.toLowerCase() ? -1 : 1) * (isAsc ? 1 : -1);
     }
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  }
-
-  /**
-   * Clear subs
-   */
-  ngOnDestroy(): void {
-    this._subscriptions.forEach((sub: Subscription) => sub.unsubscribe() );
   }
 
 }

@@ -1,37 +1,35 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs';
 import { FeatModalService } from 'src/app/modules/feats/services/feat-modal.service';
 import { IFeatModel } from '../../models/feat.model';
 import { FeatService } from '../../services/feat.service';
+import { ObservableService } from '../../services/observable.service';
 
 @Component({
   selector: 'app-feat-modal',
   templateUrl: './feat-modal.component.html',
-  styleUrls: ['./feat-modal.component.css']
+  styleUrls: ['./feat-modal.component.css'],
+  providers: [ObservableService]
 })
-export class FeatModalComponent implements OnDestroy {
-
-  private _subscriptions: Array<Subscription>;
+export class FeatModalComponent {
 
   feat?: IFeatModel;
   @ViewChild("featModalContent", {static: false}) modalRef!: HTMLElement;
 
   constructor(
+    private _observableService: ObservableService,
     private _featModalService: FeatModalService,
     private _featService: FeatService,
     private _modalService: NgbModal,
   ) {
-    this._subscriptions = [];
 
     // Listen for spell modal calls and load the spell information
-    this._subscriptions.push(
-      this._featModalService.onFeatModal.subscribe(
-        (id: number) => {
-          this.feat = this._featService.getFeat(id);
-          this.startModal();
-        }
-      )
+    this._observableService.subscribe(
+      this._featModalService.onFeatModal,
+      (id: number) => {
+        this.feat = this._featService.getFeat(id);
+        this.startModal();
+      }
     );
   }
 
@@ -52,12 +50,5 @@ export class FeatModalComponent implements OnDestroy {
    * Close the modal
    */
   closeModal(): void { }
-
-  /**
-   * Clear subscriptions
-   */
-  ngOnDestroy(): void {
-    this._subscriptions.forEach((sub: Subscription) => sub.unsubscribe() );
-  }
 
 }

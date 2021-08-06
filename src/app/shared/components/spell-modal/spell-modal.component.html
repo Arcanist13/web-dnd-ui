@@ -25,8 +25,14 @@
           <td class="modal-row-title">Duration</td>
           <td class="modal-row-data">{{ spell.duration }}</td>
         </tr>
-        <tr><td [innerHTML]="spell.description" colspan="2"></td></tr>
-        <tr *ngIf="spell.visual"><td colspan="2">{{ spell.visual }}</td></tr>
+        <tr>
+          <td class="modal-row-title">Description</td>
+          <td [innerHTML]="spell.description"></td>
+        </tr>
+        <tr *ngIf="spell.visual">
+          <td class="modal-row-title">Visual</td>
+          <td [innerHTML]="spell.visual"></td>
+        </tr>
         <tr>
           <td class="modal-row-title">Classes</td>
           <td class="modal-row-data">{{ spell.classes | listSplit }}</td>

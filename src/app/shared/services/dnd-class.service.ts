@@ -58,7 +58,7 @@ export class DndClassService {
    *
    * @return  event emitter
    */
-  public onSpellClassChange(): Subject<string> {
+  public get onSpellClassChange() : Subject<string> {
     return this._classChangeEvent;
   }
 

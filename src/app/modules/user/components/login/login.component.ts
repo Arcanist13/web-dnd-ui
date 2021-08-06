@@ -1,36 +1,35 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/modules/user/services/user.service';
+import { ObservableService } from 'src/app/shared/services/observable.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [ObservableService]
 })
-export class LoginComponent implements OnDestroy {
-
-  private _subscriptions: Array<Subscription>;
+export class LoginComponent {
 
   form: FormGroup;
   public loginInvalid = false;
   private formSubmitAttempt = false;
 
   constructor(
+    private _observableService: ObservableService,
     private _fb: FormBuilder,
     private _userService: UserService,
     private _router: Router
   ) {
-    this._subscriptions = [];
-
     // Check if already logged in, redirect to previous page
-    this._subscriptions.push(
-      this._userService.loginUpdate.subscribe((state: boolean) => {
+    this._observableService.subscribe(
+      this._userService.loginUpdate,
+      (state: boolean) => {
         if (state) {
           this._router.navigate([sessionStorage.getItem('previousPage')]);
         }
-      })
+      }
     );
 
     this.form = this._fb.group({
@@ -67,13 +66,6 @@ export class LoginComponent implements OnDestroy {
     } else {
       this.formSubmitAttempt = true;
     }
-  }
-
-  /**
-   * Clear subscriptions
-   */
-  ngOnDestroy(): void {
-    this._subscriptions.forEach((sub: Subscription) => sub.unsubscribe() );
   }
 
 }

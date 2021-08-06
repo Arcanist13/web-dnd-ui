@@ -1,16 +1,16 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ISpellModel } from 'src/app/shared/models/spell.model';
 import { DndClassService } from './dnd-class.service';
 import { HttpService } from 'src/app/static/services/http.service';
+import { ObservableService } from './observable.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SpellService implements OnDestroy {
+export class SpellService extends ObservableService {
 
-  private _subscriptions: Array<Subscription>;
   private _spellUpdate: Subject<Array<ISpellModel>>;
 
   // Memory storage
@@ -20,16 +20,17 @@ export class SpellService implements OnDestroy {
     private _httpService: HttpService,
     private _classService: DndClassService
   ) {
-    this._subscriptions = [];
+    super();
 
     this._spellUpdate = new Subject<Array<ISpellModel>>();
 
     this._classSpellMap = new Map<string, Array<ISpellModel>>();
 
-    this._subscriptions.push(
-      this._classService.onSpellClassChange().subscribe((newClass: string) => {
+    this.subscribe(
+      this._classService.onSpellClassChange,
+      (newClass: string) => {
         this.getSpells(newClass);
-      })
+      }
     );
   }
 
@@ -78,15 +79,9 @@ export class SpellService implements OnDestroy {
    *
    * @return    spell list observable
    */
-  onSpellUpdate(): Subject<Array<ISpellModel>> {
-    return this._spellUpdate;
-  }
 
-  /**
-   * Clear subscriptions
-   */
-  ngOnDestroy(): void {
-    this._subscriptions.forEach((sub: Subscription) => sub.unsubscribe() );
+  public get onSpellUpdate() :  Subject<Array<ISpellModel>> {
+    return this._spellUpdate
   }
 
 }
