@@ -1,9 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ObservableService implements OnDestroy {
 
   private readonly _subscriptions: Array<Subscription>;

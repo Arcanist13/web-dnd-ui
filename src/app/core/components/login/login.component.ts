@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -8,7 +9,10 @@ import { UserService } from '../../services/user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
+
+  private _subscriptions: Array<Subscription>;
+
   form: FormGroup;
   public loginInvalid = false;
   private formSubmitAttempt = false;
@@ -18,6 +22,17 @@ export class LoginComponent {
     private _userService: UserService,
     private _router: Router
   ) {
+    this._subscriptions = [];
+
+    // Check if already logged in, redirect to previous page
+    this._subscriptions.push(
+      this._userService.loginUpdate.subscribe((state: boolean) => {
+        if (state) {
+          this._router.navigate([sessionStorage.getItem('previousPage')]);
+        }
+      })
+    );
+
     this.form = this._fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -38,13 +53,27 @@ export class LoginComponent {
         const username = this.form.get('username')?.value;
         const password = this.form.get('password')?.value;
         await this._userService.login(username, password);
-        this._router.navigate(['spells']);
+        // Navigate to the previous page
+        const previousPage = sessionStorage.getItem('previousPage');
+        if (!!previousPage) {
+          this._router.navigate([previousPage]);
+        }
+        else {
+          this._router.navigate(['spells']);
+        }
       } catch (err) {
         this.loginInvalid = true;
       }
     } else {
       this.formSubmitAttempt = true;
     }
+  }
+
+  /**
+   * Clear subscriptions
+   */
+  ngOnDestroy(): void {
+    this._subscriptions.forEach((sub: Subscription) => sub.unsubscribe() );
   }
 
 }

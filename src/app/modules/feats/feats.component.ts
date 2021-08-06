@@ -45,6 +45,9 @@ export class FeatsComponent implements OnInit, OnDestroy {
         }
       )
     );
+
+    // Update the previousPage session storage
+    sessionStorage.setItem('previousPage', 'feats');
   }
 
   ngOnInit(): void {

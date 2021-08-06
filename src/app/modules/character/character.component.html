@@ -1,1 +1,16 @@
-<p>character works!</p>
+<div class="mt-4">
+  <!-- General information -->
+  <div class="row justify-content-center">
+    <div class="col-4">Character</div>
+    <div class="col-4">Campaign</div>
+    <div class="col-1">
+      <button mat-mini-fab color="success" aria-label="Create Character" [routerLink]="['./new']">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <router-outlet></router-outlet>
+  </div>
+</div>

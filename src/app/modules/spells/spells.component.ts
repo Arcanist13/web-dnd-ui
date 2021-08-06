@@ -31,6 +31,9 @@ export class SpellsComponent implements AfterViewInit, OnDestroy {
     private _spellFilterService: SpellFilterService
   ) {
     this._subscriptions = [];
+
+    // Update the previousPage session storage
+    sessionStorage.setItem('previousPage', 'spells');
   }
 
   /**

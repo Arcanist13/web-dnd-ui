@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable, Subject, Subscription, throwError } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { ISpellModel } from 'src/app/shared/models/spell.model';
 import { DndClassService } from './dnd-class.service';
 import { HttpService } from 'src/app/core/services/http.service';

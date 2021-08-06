@@ -10,14 +10,16 @@ import { AuthService } from './auth.service';
 })
 export class UserService {
 
-  private _loggedIn: Subject<boolean>;
+  private _loggedIn: boolean;
+  private _loginUpdate: Subject<boolean>;
   private _userInfo: IUser | undefined;
 
   constructor(
     private _authService: AuthService,
     private _http: HttpClient,
   ) {
-    this._loggedIn = new Subject<boolean>();
+    this._loggedIn = false;
+    this._loginUpdate = new Subject<boolean>();
     this._userInfo = undefined;
 
     // On init check if already logged in and have a valid token
@@ -80,7 +82,8 @@ export class UserService {
    */
   private updateUser(user?: IUser): void {
     this._userInfo = user;
-    this._loggedIn.next(!!this._userInfo);
+    this._loggedIn = !!this._userInfo;
+    this._loginUpdate.next(!!this._userInfo);
   }
 
   /**
@@ -88,8 +91,8 @@ export class UserService {
    *
    * @returns login state observable
    */
-  public get loggedIn(): Subject<boolean> {
-    return this._loggedIn;
+  public get loginUpdate(): Subject<boolean> {
+    return this._loginUpdate;
   }
   /**
    * Get the current user information.
@@ -98,6 +101,14 @@ export class UserService {
    */
   public get userInfo() : IUser | undefined {
     return this._userInfo
+  }
+  /**
+   * Get the current logged in status
+   *
+   * @returns current logged in status
+   */
+  public get loggedIn() : boolean {
+    return this._loggedIn;
   }
 
 }

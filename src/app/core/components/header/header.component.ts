@@ -24,7 +24,7 @@ export class HeaderComponent implements OnDestroy {
 
     // Listen for changes in user login state
     this._subscriptions.push(
-      this._userService.loggedIn.subscribe(
+      this._userService.loginUpdate.subscribe(
         (state: boolean) => { this.loggedIn = state; }
       )
     );

@@ -4,9 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { SpellsModule } from './modules/spells/spells.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
+
+import { SpellsModule } from './modules/spells/spells.module';
 import { FeatsModule } from './modules/feats/feats.module';
+import { CharacterModule } from './modules/character/character.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { FeatsModule } from './modules/feats/feats.module';
     }
     ),
     SpellsModule,
-    FeatsModule
+    FeatsModule,
+    CharacterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
