@@ -37,7 +37,7 @@ export class CharacterComponent {
    */
   checkLoggedIn(state: boolean): void {
     if (!state) {
-      this._router.navigate(['/login']);
+      this._router.navigate(['/user/login']);
     }
   }
 
