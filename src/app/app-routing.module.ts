@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './core/components/login/login.component';
-import { RegisterComponent } from './core/components/register/register.component';
+import { LoginComponent } from './modules/user/components/login/login.component';
 import { CharacterComponent } from './modules/character/character.component';
 import { NewCharacterComponent } from './modules/character/components/new-character/new-character.component';
 import { FeatsComponent } from './modules/feats/feats.component';
 import { SpellsComponent } from './modules/spells/spells.component';
+import { RegisterComponent } from './modules/user/components/register/register.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

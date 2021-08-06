@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { HttpService } from 'src/app/core/services/http.service';
+import { HttpService } from 'src/app/static/services/http.service';
 import { environment } from 'src/environments/environment';
 import { IFeatModel } from '../models/feat.model';
 
