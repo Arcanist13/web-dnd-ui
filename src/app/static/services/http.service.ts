@@ -12,8 +12,37 @@ export class HttpService {
     private _http: HttpClient,
   ) { }
 
+  /**
+   * Wrapper for the HttpClient get request
+   *
+   * @param addr    backend address
+   * @param options options
+   * @returns       reponse
+   */
   public get<T>(addr: string, options?: object): Observable<T> {
     return this._http.get<T>(addr, options).pipe(catchError(this.handleError));
+  }
+
+  /**
+   * Delete a record
+   *
+   * @param addr    delete address
+   * @param options delete options
+   * @returns       response
+   */
+  public delete<T>(addr: string, options?: object): Observable<T> {
+    return this._http.delete<T>(addr, options).pipe(catchError(this.handleError));
+  }
+
+  /**
+   * Post a request
+   *
+   * @param addr    address
+   * @param options options
+   * @returns       response
+   */
+  public post<T>(addr: string, options?: object): Observable<T> {
+    return this._http.post<T>(addr, options).pipe(catchError(this.handleError));
   }
 
   /**

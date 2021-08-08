@@ -14,6 +14,8 @@ import { SpellComponentsPipe } from './pipes/spell-components.pipe';
 import { SpellCasttimePipe } from './pipes/spell-casttime.pipe';
 import { ListSplitPipe } from './pipes/list-split.pipe';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { MatOptionModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
@@ -22,6 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+
 import { SearchComponent } from './components/filter/search/search.component';
 import { SpellLevelDisplayPipe } from './pipes/spell-level-display.pipe';
 import { FilterSpellClassComponent } from './components/filter/spell-class/spell-class.component';
@@ -29,6 +32,7 @@ import { FilterSpellListGenericComponent } from './components/filter/spell-list-
 import { FeatModalComponent } from './components/feat-modal/feat-modal.component';
 
 const MATERIAL_IMPORTS = [
+  MatTabsModule,
   MatSortModule,
   MatCardModule,
   MatInputModule,
@@ -37,6 +41,7 @@ const MATERIAL_IMPORTS = [
   MatSelectModule,
   MatOptionModule,
   MatButtonModule,
+  MatDialogModule,
 ];
 
 const SHARED_COMPONENTS = [

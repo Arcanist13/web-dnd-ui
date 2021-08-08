@@ -1,15 +1,20 @@
 '''Sqlite3 data manager.'''
 
 import sqlite3
+from sqlite3.dbapi2 import connect
+from typing import Iterable
 
 DATABASE_PATH = 'dbs/dnd.db'
 
 ### Database interactions
-def get_db_all(query):
+def get_db_all(query: str, params: Iterable = None):
   '''Gets a list of results from the DB.'''
   try:
     db_connection = connect_db(DATABASE_PATH)
-    cur = db_connection.execute(query)
+    if params is not None:
+      cur = db_connection.execute(query, params)
+    else:
+      cur = db_connection.execute(query)
     rows = cur.fetchall()
   except sqlite3.OperationalError as exception:
     rows = None
@@ -17,17 +22,50 @@ def get_db_all(query):
     print(exception)
   return rows
 
-def get_db_one(query):
+def get_db_one(query: str, params: Iterable = None):
   '''Gets a single result from the DB.'''
   try:
     db_connection = connect_db(DATABASE_PATH)
-    cur = db_connection.execute(query)
+    if params is not None:
+      cur = db_connection.execute(query, params)
+    else:
+      cur = db_connection.execute(query)
     row = cur.fetchone()
   except sqlite3.OperationalError as exception:
     row = None
     print('ERROR (get_db_one): Failed to fetch row, query = "' + query + '".')
     print(exception)
   return row
+
+def execute(query: str, params: Iterable):
+  '''Execute a generic query'''
+  result = True
+  try:
+    db_connection = connect_db(DATABASE_PATH)
+    if params is not None:
+      db_connection.execute(query, params)
+    else:
+      db_connection.execute(query)
+    db_connection.commit()
+  except sqlite3.OperationalError as exception:
+    print('ERROR (execute): Failed to execute query = ' + query + ', params = ' + str(params) + '.')
+    print(exception)
+    result = False
+  return result
+
+def delete_id(table: str, id: int):
+  '''Delete a table element by id'''
+  result = True
+  try:
+    query = 'DELETE FROM ' + table + ' WHERE id=?'
+    db_connection = connect_db(DATABASE_PATH)
+    db_connection.execute(query, [id])
+    db_connection.commit()
+  except sqlite3.OperationalError as exception:
+    print('ERROR (delete_id): Failed to delete.')
+    print(exception)
+    result = False
+  return result
 
 def connect_db(path):
   '''Connect to the DB'''

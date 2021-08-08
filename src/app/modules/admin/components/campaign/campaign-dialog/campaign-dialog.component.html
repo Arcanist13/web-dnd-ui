@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>New Campaign</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput [formControl]="name">
+    <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Brief</mat-label>
+    <textarea matInput [(ngModel)]="brief"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+  <button mat-button [mat-dialog-close]="getData()" cdkFocusInitial>{{ data && data.id ? 'Submit' : 'Create' }}</button>
+</div>

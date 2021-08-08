@@ -43,4 +43,4 @@ def create_user(user: UserRegister):
 
 def get_db_user(username: str):
   '''Get a user from the database'''
-  return get_db_one("SELECT * FROM users WHERE username = '" + username + "'")
+  return get_db_one("SELECT * FROM users WHERE username = ?", [username])
