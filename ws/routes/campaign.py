@@ -25,7 +25,7 @@ async def remove_campaign(campaign_id: int, user: User = Depends(get_current_adm
   '''Remove a campaign'''
   if campaign_id is not None:
     if not delete_id('campaigns', campaign_id):
-      raise HTTPException(status_code=500, detail='Failed to create user')
+      raise HTTPException(status_code=500, detail='Failed to delete campaign')
   return
 
 @router.post("/campaign/edit/{campaign_id}", tags=["campaigns"])

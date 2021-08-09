@@ -4,11 +4,12 @@ from pydantic import BaseModel
 
 class User(BaseModel):
   '''Base user information'''
+  id:               int
   username:         str
   email:            str
   admin:            int
-  created:          str
-  activity:         str
+  created:          int
+  activity:         int
   characters:       str
 
 class UserInDB(User):

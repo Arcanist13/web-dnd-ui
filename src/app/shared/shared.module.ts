@@ -30,6 +30,8 @@ import { SpellLevelDisplayPipe } from './pipes/spell-level-display.pipe';
 import { FilterSpellClassComponent } from './components/filter/spell-class/spell-class.component';
 import { FilterSpellListGenericComponent } from './components/filter/spell-list-generic/spell-list-generic.component';
 import { FeatModalComponent } from './components/feat-modal/feat-modal.component';
+import { StringListCountPipe } from './pipes/string-list-count.pipe';
+import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 
 const MATERIAL_IMPORTS = [
   MatTabsModule,
@@ -53,18 +55,25 @@ const SHARED_COMPONENTS = [
   FilterSpellClassComponent,
 ];
 
+const SHARED_DIALOG = [
+  ConfirmDialogComponent
+]
+
 const SHARED_PIPES = [
   SpellLevelDisplayPipe,
   SpellComponentsPipe,
   SpellCasttimePipe,
   ListSplitPipe,
-  SpellLevelPipe
+  SpellLevelPipe,
+  StringListCountPipe,
 ];
 
 @NgModule({
   declarations: [
     ...SHARED_COMPONENTS,
     ...SHARED_PIPES,
+    ...SHARED_DIALOG,
+    StringListCountPipe,
   ],
   imports: [
     CommonModule,
@@ -83,7 +92,8 @@ const SHARED_PIPES = [
     ReactiveFormsModule,
     ...SHARED_COMPONENTS,
     ...SHARED_PIPES,
-    ...MATERIAL_IMPORTS
+    ...MATERIAL_IMPORTS,
+    ...SHARED_DIALOG,
   ]
 })
 export class SharedModule { }

@@ -40,12 +40,12 @@ export class AuthService {
    * @param password  user password
    * @returns         login result
    */
-  async login(username?: string, password?: string): Promise<IUser> {
+  async login(username?: string, password?: string): Promise<{info: IUser}> {
     if (username !== undefined && password !== undefined) {
       const res: ITokenUser = await this.oAuthService.fetchTokenUsingPasswordFlowAndLoadUserProfile(username, password) as ITokenUser;
-      return res.info;
+      return res;
     }
-    return this.oAuthService.loadUserProfile() as Promise<IUser>;
+    return this.oAuthService.loadUserProfile() as Promise<{info: IUser}>;
   }
 
   /**

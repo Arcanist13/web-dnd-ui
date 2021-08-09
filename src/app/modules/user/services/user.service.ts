@@ -24,8 +24,8 @@ export class UserService {
 
     // On init check if already logged in and have a valid token
     this._authService.login()
-    .then((user: IUser) => {
-      this.updateUser(user);
+    .then((user: {info: IUser}) => {
+      this.updateUser(user.info);
     })
     .catch(() => {
       this.logout();
@@ -40,8 +40,8 @@ export class UserService {
    * @returns         promise result
    */
   login(username: string, password: string): Promise<void> {
-    return this._authService.login(username, password).then((user: IUser) => {
-      this.updateUser(user);
+    return this._authService.login(username, password).then((user: {info: IUser}) => {
+      this.updateUser(user.info);
     });
   }
 

@@ -9,11 +9,12 @@ export interface ITokenUser {
  * User information
  */
 export interface IUser {
+  id: number;
   username: string;
   email: string;
   admin: number;
-  created: string;
-  activity: string;
+  created: number;
+  activity: number;
   characters: string;
 }
 

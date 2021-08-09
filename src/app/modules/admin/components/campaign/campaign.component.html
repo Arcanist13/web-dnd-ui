@@ -3,8 +3,8 @@
     <thead class='thead-light'>
       <tr>
         <th class="align-middle col-1 text-center">ID</th>
-        <th class="align-middle col-9">Name</th>
-        <th class="col-2 text-center">
+        <th class="align-middle col-7">Name</th>
+        <th class="col-4 text-center">
           <button mat-icon-button aria-label="Create campaign" class="text-success" (click)="openCreateDialog()">
             <mat-icon>add_circle_outline</mat-icon>
           </button>
@@ -14,8 +14,8 @@
     <tbody>
       <tr *ngFor="let campaign of campaigns">
         <td class="align-middle col-1 text-center">{{ campaign.id }}</td>
-        <td class="align-middle col-9">{{ campaign.name }}</td>
-        <td class="col-2 text-center">
+        <td class="align-middle col-7">{{ campaign.name }}</td>
+        <td class="col-4 text-center">
           <button mat-icon-button aria-label="Edit campaign" (click)="openEditDialog(campaign)">
             <mat-icon>edit</mat-icon>
           </button>
