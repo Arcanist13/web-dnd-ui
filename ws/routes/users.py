@@ -38,7 +38,7 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
 @router.get("/users", response_model=List[User], tags=['user'])
 async def get_all_users(current_user: User = Depends(get_current_admin_user)):
   '''Get all user information '''
-  users = get_db_all('SELECT id, username, email, admin, created, activity, characters FROM users ORDER BY id ASC')
+  users = get_db_all('SELECT id, username, email, admin, created, activity FROM users ORDER BY id ASC')
   if users is not None:
     return users
   raise HTTPException(status_code=500, detail="An error occurred. Unable to load users.")

@@ -19,8 +19,8 @@ def create_user(user: UserRegister):
     )
   else:
     # Create the new user
-    query = ''' INSERT INTO users (username, hashed_password, admin, created, email, activity, characters)
-              VALUES (?, ?, ?, ?, ?, ?, ?) '''
+    query = ''' INSERT INTO users (username, hashed_password, admin, created, email, activity)
+              VALUES (?, ?, ?, ?, ?, ?) '''
     try:
       db_user = [
         user.username,
@@ -29,7 +29,6 @@ def create_user(user: UserRegister):
         int(datetime.utcnow().timestamp()),
         user.email,
         int(datetime.utcnow().timestamp()),
-        ""
       ]
       db_connection = connect_db(DATABASE_PATH)
       cur = db_connection.execute(query, db_user)

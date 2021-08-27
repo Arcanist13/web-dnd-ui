@@ -15,7 +15,6 @@ export interface IUser {
   admin: number;
   created: number;
   activity: number;
-  characters: string;
 }
 
 /**

@@ -6,7 +6,6 @@
         <th class="align-middle col-md-3 d-none d-md-table-cell">Email</th>
         <th class="align-middle col-md-2 d-none d-md-table-cell">Created</th>
         <th class="align-middle col-md-2 col-2">Activity</th>
-        <th class="align-middle col-md-1 col-1">Chars</th>
         <th class="col-md-1 col-1"></th>
       </tr>
     </thead>
@@ -16,7 +15,6 @@
         <td class="align-middle col-md-3 d-none d-md-table-cell">{{ user.email }}</td>
         <td class="align-middle col-md-2 d-none d-md-table-cell">{{ user.created * 1000 | date }}</td>
         <td class="align-middle col-md-2 col-2">{{ user.activity * 1000 | date }}</td>
-        <td class="align-middle col-md-1 col-1">{{ user.characters | stringListCount }}</td>
         <td class="align-middle col-md-1 col-1 text-center">
           <button mat-icon-button aria-label="Delete campaign" (click)="confirmDeleteDialog(user.id)">
             <mat-icon>delete_forever</mat-icon>

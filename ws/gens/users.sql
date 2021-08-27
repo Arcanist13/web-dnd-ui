@@ -6,6 +6,5 @@ CREATE TABLE users(
   admin INTEGER NOT NULL,
   created INTEGER NOT NULL,
   email TEXT NOT NULL,
-  activity INTEGER,
-  characters TEXT
+  activity INTEGER
 );

@@ -10,7 +10,6 @@ class User(BaseModel):
   admin:            int
   created:          int
   activity:         int
-  characters:       str
 
 class UserInDB(User):
   '''Database user information'''
