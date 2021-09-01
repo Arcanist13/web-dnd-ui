@@ -19,12 +19,20 @@ export class AdminComponent {
     // Subscribe to logouts
     this._observableService.subscribe(
       this._userService.loginUpdate,
-      (state: boolean) => {
-        if (!state) {
-          this._router.navigate(['/']);
-        }
-      }
+      (state: boolean) => { this.checkLoggedIn(state); },
+      () => { this.checkLoggedIn(false); }
     );
+  }
+
+  /**
+   * Check if the user is logged in, redirect if they aren't
+   *
+   * @param state log in state
+   */
+  checkLoggedIn(state: boolean): void {
+    if (!state) {
+      this._router.navigate(['/spells']);
+    }
   }
 
 }

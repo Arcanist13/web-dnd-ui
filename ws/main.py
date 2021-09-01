@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes import spells, classes, users, feats, campaign
+from routes import spells, classes, users, feats, campaign, character, race
 
 app = FastAPI()
 
@@ -11,6 +11,8 @@ app.include_router(spells.router)
 app.include_router(classes.router)
 app.include_router(feats.router)
 app.include_router(campaign.router)
+app.include_router(character.router)
+app.include_router(race.router)
 
 # Setup CORS
 origins = [

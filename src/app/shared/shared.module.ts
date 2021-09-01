@@ -13,6 +13,7 @@ import { SpellLevelPipe } from './pipes/spell-level.pipe';
 import { SpellComponentsPipe } from './pipes/spell-components.pipe';
 import { SpellCasttimePipe } from './pipes/spell-casttime.pipe';
 import { ListSplitPipe } from './pipes/list-split.pipe';
+import { ClassFromIdPipe } from './pipes/class-from-id.pipe';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -66,6 +67,7 @@ const SHARED_PIPES = [
   ListSplitPipe,
   SpellLevelPipe,
   StringListCountPipe,
+  ClassFromIdPipe,
 ];
 
 @NgModule({

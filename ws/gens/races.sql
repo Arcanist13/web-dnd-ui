@@ -9,7 +9,6 @@ CREATE TABLE sub_races (
 	id INTEGER PRIMARY KEY,
 	race_id INTEGER NOT NULL,
 	name TEXT NOT NULL,
-	description TEXT,
 	FOREIGN KEY (race_id) REFERENCES race(id)
 );
 
@@ -90,30 +89,30 @@ INSERT INTO races VALUES (NULL, "Reborn"); -- 35
 -- SUBRACE
 DELETE FROM sub_races;
 -- Dwarf
-INSERT INTO sub_races VALUES (NULL, 1, "Hill Dwarf", NULL); -- 1
-INSERT INTO sub_races VALUES (NULL, 1, "Mountain Dwarf", NULL); -- 2
-INSERT INTO sub_races VALUES (NULL, 1, "Duergar", NULL); -- 3
+INSERT INTO sub_races VALUES (NULL, 1, "Hill Dwarf"); -- 1
+INSERT INTO sub_races VALUES (NULL, 1, "Mountain Dwarf"); -- 2
+INSERT INTO sub_races VALUES (NULL, 1, "Duergar"); -- 3
 -- Elf
-INSERT INTO sub_races VALUES (NULL, 2, "High Elf", NULL); -- 4
-INSERT INTO sub_races VALUES (NULL, 2, "Wood Elf", NULL); -- 5
-INSERT INTO sub_races VALUES (NULL, 2, "Dark Elf (Drow)", NULL); -- 6
-INSERT INTO sub_races VALUES (NULL, 2, "Eladrin", NULL); -- 7
-INSERT INTO sub_races VALUES (NULL, 2, "Sea Elf", NULL); -- 8
-INSERT INTO sub_races VALUES (NULL, 2, "Shadar-kai", NULL); --9
+INSERT INTO sub_races VALUES (NULL, 2, "High Elf"); -- 4
+INSERT INTO sub_races VALUES (NULL, 2, "Wood Elf"); -- 5
+INSERT INTO sub_races VALUES (NULL, 2, "Dark Elf (Drow)"); -- 6
+INSERT INTO sub_races VALUES (NULL, 2, "Eladrin"); -- 7
+INSERT INTO sub_races VALUES (NULL, 2, "Sea Elf"); -- 8
+INSERT INTO sub_races VALUES (NULL, 2, "Shadar-kai"); --9
 -- Halfling
-INSERT INTO sub_races VALUES (NULL, 3, "Lightfoot", NULL); -- 10
-INSERT INTO sub_races VALUES (NULL, 3, "Stout", NULL); -- 11
+INSERT INTO sub_races VALUES (NULL, 3, "Lightfoot"); -- 10
+INSERT INTO sub_races VALUES (NULL, 3, "Stout"); -- 11
 -- Gnome
-INSERT INTO sub_races VALUES (NULL, 6, "Forest Gnome", NULL); -- 12
-INSERT INTO sub_races VALUES (NULL, 6, "Rock Gnome", NULL); -- 13
-INSERT INTO sub_races VALUES (NULL, 6, "Deep Gnome", NULL); -- 14
+INSERT INTO sub_races VALUES (NULL, 6, "Forest Gnome"); -- 12
+INSERT INTO sub_races VALUES (NULL, 6, "Rock Gnome"); -- 13
+INSERT INTO sub_races VALUES (NULL, 6, "Deep Gnome"); -- 14
 -- Aasimar
-INSERT INTO sub_races VALUES (NULL, 10, "Protector Aasimar", NULL); -- 15
-INSERT INTO sub_races VALUES (NULL, 10, "Scourge Aasimar", NULL); -- 16
-INSERT INTO sub_races VALUES (NULL, 10, "Fallen Aasimar", NULL); -- 17
+INSERT INTO sub_races VALUES (NULL, 10, "Protector Aasimar"); -- 15
+INSERT INTO sub_races VALUES (NULL, 10, "Scourge Aasimar"); -- 16
+INSERT INTO sub_races VALUES (NULL, 10, "Fallen Aasimar"); -- 17
 -- Gith
-INSERT INTO sub_races VALUES (NULL, 23, "Githyanki", NULL); -- 18
-INSERT INTO sub_races VALUES (NULL, 23, "Githzerai", NULL); -- 19
+INSERT INTO sub_races VALUES (NULL, 23, "Githyanki"); -- 18
+INSERT INTO sub_races VALUES (NULL, 23, "Githzerai"); -- 19
 
 -- RACE FEATURES
 DELETE FROM race_features;

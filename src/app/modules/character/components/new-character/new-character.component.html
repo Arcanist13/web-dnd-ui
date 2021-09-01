@@ -1,1 +1,82 @@
-<p>new-character works!</p>
+<h1 mat-dialog-title>New Campaign</h1>
+<div mat-dialog-content>
+  <!-- Character name -->
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput [formControl]="name">
+    <mat-error *ngIf="name.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Level</mat-label>
+    <mat-select [formControl]="level">
+      <mat-option *ngFor="let lvl of level_options" [value]="lvl">
+        {{ lvl }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="name.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+
+  <!-- Campaign option -->
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Campaign</mat-label>
+    <mat-select [formControl]="campaign_id">
+      <mat-option *ngFor="let camp of campaign_options" [value]="camp.id">
+        {{ camp.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="name.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+
+  <!-- Race options -->
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Race</mat-label>
+    <mat-select [formControl]="race_id">
+      <mat-option *ngFor="let race of race_options" [value]="race.id">
+        {{ race.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="name.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Sub Race</mat-label>
+    <mat-select [formControl]="sub_race_id">
+      <mat-option *ngFor="let sub_race of sub_race_options" [value]="sub_race.id">
+        {{ sub_race.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="name.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+
+  <!-- Class options -->
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Class</mat-label>
+    <mat-select [formControl]="class_id">
+      <mat-option *ngFor="let class of class_options" [value]="class.id">
+        {{ class.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="name.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Archetype</mat-label>
+    <mat-select [formControl]="archetype_id">
+      <mat-option *ngFor="let archetype of archetype_options" [value]="archetype.id">
+        {{ archetype.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="name.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+
+</div>
+
+<!-- Close Dialogue -->
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+  <button mat-button [mat-dialog-close]="getCharacterData()" cdkFocusInitial>{{ data && data.id ? 'Submit' : 'Create' }}</button>
+</div>

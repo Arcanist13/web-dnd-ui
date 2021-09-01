@@ -10,13 +10,11 @@ CREATE TABLE characters (
   race_id                 INTEGER,
   sub_race_id             INTEGER,
   class_id                INTEGER,
-  archetyp_id             INTEGER,
-  class_sub_feature       TEXT, -- List of choosen class sub features
-  archetype_sub_feature   TEXT, -- List of choosen archetype sub features
+  archetype_id            INTEGER,
   FOREIGN KEY   (user_id)         REFERENCES users(id),
-  FOREIGN KEY   (campaigns_id)    REFERENCES campaigns(id),
-  FOREIGN KEY   (races_id)        REFERENCES races(id),
-  FOREIGN KEY   (sub_races_id)    REFERENCES sub_races(id),
-  FOREIGN KEY   (classes_id)      REFERENCES classes(id),
-  FOREIGN KEY   (archetypes_id)   REFERENCES archetypes(id)
+  FOREIGN KEY   (campaign_id)     REFERENCES campaigns(id),
+  FOREIGN KEY   (race_id)         REFERENCES races(id),
+  FOREIGN KEY   (sub_race_id)     REFERENCES sub_races(id),
+  FOREIGN KEY   (class_id)        REFERENCES classes(id),
+  FOREIGN KEY   (archetype_id)    REFERENCES archetypes(id)
 );

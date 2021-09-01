@@ -7,55 +7,54 @@ CREATE TABLE classes (
 DROP TABLE archetypes; --
 CREATE TABLE archetypes (
 	id INTEGER PRIMARY KEY,
-	classes_id INTEGER NOT NULL,
+	class_id INTEGER NOT NULL,
 	name TEXT NOT NULL,
-	description TEXT,
-	FOREIGN KEY (classes_id) REFERENCES classes(id)
+	FOREIGN KEY (class_id) REFERENCES classes(id)
 ); --
 
 DROP TABLE class_features; --
 CREATE TABLE class_features (
 	id INTEGER PRIMARY KEY,
-	classes_id INTEGER NOT NULL,
+	class_id INTEGER NOT NULL,
 	name TEXT NOT NULL,
 	summary TEXT,
 	description TEXT,
 	level INTEGER,
   optional INTEGER,
-	FOREIGN KEY (classes_id) REFERENCES classes(id)
+	FOREIGN KEY (class_id) REFERENCES classes(id)
 ); --
 
 DROP TABLE archetype_features; --
 CREATE TABLE archetype_features (
 	id INTEGER PRIMARY KEY,
-	archetypes_id INTEGER NOT NULL,
+	archetype_id INTEGER NOT NULL,
 	name TEXT NOT NULL,
 	summary TEXT,
 	description TEXT,
 	level INTEGER,
-	FOREIGN KEY (archetypes_id) REFERENCES archetypes(id)
+	FOREIGN KEY (archetype_id) REFERENCES archetypes(id)
 ); --
 
 DROP TABLE archetype_sub_features; --
 CREATE TABLE archetype_sub_features (
 	id INTEGER PRIMARY KEY,
-	archetype_features_id INTEGER NOT NULL,
+	archetype_feature_id INTEGER NOT NULL,
 	name TEXT NOT NULL,
 	prerequisite TEXT,
 	description TEXT,
   optional INTEGER,
-	FOREIGN KEY	 (archetype_features_id) REFERENCES archetype_features(id)
+	FOREIGN KEY	 (archetype_feature_id) REFERENCES archetype_features(id)
 ); --
 
 DROP TABLE class_sub_features; --
 CREATE TABLE class_sub_features (
 	id INTEGER PRIMARY KEY,
-	class_features_id INTEGER NOT NULL,
+	class_feature_id INTEGER NOT NULL,
 	name TEXT NOT NULL,
 	prerequisite TEXT,
 	description TEXT,
   optional INTEGER,
-	FOREIGN KEY	 (class_features_id) REFERENCES class_features(id)
+	FOREIGN KEY	 (class_feature_id) REFERENCES class_features(id)
 ); --
 
 
@@ -63,131 +62,131 @@ CREATE TABLE class_sub_features (
 -- Barbarian
 DELETE FROM classes; --
 INSERT INTO classes VALUES (NULL, "Barbarian"); -- 1
-INSERT INTO archetypes VALUES (NULL, 1, "Path of the Berserker", NULL); -- PHB -- 1
-INSERT INTO archetypes VALUES (NULL, 1, "Path of the Totem Warrior", NULL); -- PHB -- 2
-INSERT INTO archetypes VALUES (NULL, 1, "Path of the Ancestral Guardian", NULL); -- XGE -- 3
-INSERT INTO archetypes VALUES (NULL, 1, "Path of the Storm Herald", NULL); -- XGE -- 4
-INSERT INTO archetypes VALUES (NULL, 1, "Path of the Zealot", NULL); -- XGE -- 5
-INSERT INTO archetypes VALUES (NULL, 1, "Path of the Beast", NULL); -- TCE -- 6
-INSERT INTO archetypes VALUES (NULL, 1, "Path of Wild Magic", NULL); -- TCE -- 7
+INSERT INTO archetypes VALUES (NULL, 1, "Path of the Berserker"); -- PHB -- 1
+INSERT INTO archetypes VALUES (NULL, 1, "Path of the Totem Warrior"); -- PHB -- 2
+INSERT INTO archetypes VALUES (NULL, 1, "Path of the Ancestral Guardian"); -- XGE -- 3
+INSERT INTO archetypes VALUES (NULL, 1, "Path of the Storm Herald"); -- XGE -- 4
+INSERT INTO archetypes VALUES (NULL, 1, "Path of the Zealot"); -- XGE -- 5
+INSERT INTO archetypes VALUES (NULL, 1, "Path of the Beast"); -- TCE -- 6
+INSERT INTO archetypes VALUES (NULL, 1, "Path of Wild Magic"); -- TCE -- 7
 -- Bard
 INSERT INTO classes VALUES (NULL, "Bard"); -- 2
-INSERT INTO archetypes VALUES (NULL, 2, "College of Lore", NULL); -- PHB -- 8
-INSERT INTO archetypes VALUES (NULL, 2, "College of Valor", NULL); -- PHB -- 9
-INSERT INTO archetypes VALUES (NULL, 2, "College of Glamour", NULL); -- XGE -- 10
-INSERT INTO archetypes VALUES (NULL, 2, "College of Swords", NULL); -- XGE -- 11
-INSERT INTO archetypes VALUES (NULL, 2, "College of Whispers", NULL); -- XGE -- 12
-INSERT INTO archetypes VALUES (NULL, 2, "College of Creation", NULL); -- TCE -- 13
-INSERT INTO archetypes VALUES (NULL, 2, "College of Eloquence", NULL); -- TCE -- 14
+INSERT INTO archetypes VALUES (NULL, 2, "College of Lore"); -- PHB -- 8
+INSERT INTO archetypes VALUES (NULL, 2, "College of Valor"); -- PHB -- 9
+INSERT INTO archetypes VALUES (NULL, 2, "College of Glamour"); -- XGE -- 10
+INSERT INTO archetypes VALUES (NULL, 2, "College of Swords"); -- XGE -- 11
+INSERT INTO archetypes VALUES (NULL, 2, "College of Whispers"); -- XGE -- 12
+INSERT INTO archetypes VALUES (NULL, 2, "College of Creation"); -- TCE -- 13
+INSERT INTO archetypes VALUES (NULL, 2, "College of Eloquence"); -- TCE -- 14
 -- Cleric
 INSERT INTO classes VALUES (NULL, "Cleric"); -- 3
-INSERT INTO archetypes VALUES (NULL, 3, "Knowledge Domain", NULL); -- PHB -- 15
-INSERT INTO archetypes VALUES (NULL, 3, "Life Domain", NULL); -- PHB -- 16
-INSERT INTO archetypes VALUES (NULL, 3, "Light Domain", NULL); -- PHB -- 17
-INSERT INTO archetypes VALUES (NULL, 3, "Nature Domain", NULL); -- PHB -- 18
-INSERT INTO archetypes VALUES (NULL, 3, "Tempest Domain", NULL); -- PHB -- 19
-INSERT INTO archetypes VALUES (NULL, 3, "Trickery Domain", NULL); -- PHB -- 20
-INSERT INTO archetypes VALUES (NULL, 3, "War Domain", NULL); -- PHB -- 21
-INSERT INTO archetypes VALUES (NULL, 3, "Forge Domain", NULL); -- XGE -- 22
-INSERT INTO archetypes VALUES (NULL, 3, "Grave Domain", NULL); -- XGE -- 23
-INSERT INTO archetypes VALUES (NULL, 3, "Order Domain", NULL); -- TCE -- 24
-INSERT INTO archetypes VALUES (NULL, 3, "Peace Domain", NULL); -- TCE -- 25
-INSERT INTO archetypes VALUES (NULL, 3, "Twilight Domain", NULL); -- TCE -- 26
+INSERT INTO archetypes VALUES (NULL, 3, "Knowledge Domain"); -- PHB -- 15
+INSERT INTO archetypes VALUES (NULL, 3, "Life Domain"); -- PHB -- 16
+INSERT INTO archetypes VALUES (NULL, 3, "Light Domain"); -- PHB -- 17
+INSERT INTO archetypes VALUES (NULL, 3, "Nature Domain"); -- PHB -- 18
+INSERT INTO archetypes VALUES (NULL, 3, "Tempest Domain"); -- PHB -- 19
+INSERT INTO archetypes VALUES (NULL, 3, "Trickery Domain"); -- PHB -- 20
+INSERT INTO archetypes VALUES (NULL, 3, "War Domain"); -- PHB -- 21
+INSERT INTO archetypes VALUES (NULL, 3, "Forge Domain"); -- XGE -- 22
+INSERT INTO archetypes VALUES (NULL, 3, "Grave Domain"); -- XGE -- 23
+INSERT INTO archetypes VALUES (NULL, 3, "Order Domain"); -- TCE -- 24
+INSERT INTO archetypes VALUES (NULL, 3, "Peace Domain"); -- TCE -- 25
+INSERT INTO archetypes VALUES (NULL, 3, "Twilight Domain"); -- TCE -- 26
 -- Druid
 INSERT INTO classes VALUES (NULL, "Druid"); -- 4
-INSERT INTO archetypes VALUES (NULL, 4, "Circle of the Land", NULL); -- PHB -- 27
-INSERT INTO archetypes VALUES (NULL, 4, "Circle of the Moon", NULL); -- PHB -- 28
-INSERT INTO archetypes VALUES (NULL, 4, "Circle of the Dreams", NULL); -- XGE -- 29
-INSERT INTO archetypes VALUES (NULL, 4, "Circle of the Shepherd", NULL); -- XGE -- 30
-INSERT INTO archetypes VALUES (NULL, 4, "Circle of Spores", NULL); -- TCE -- 31
-INSERT INTO archetypes VALUES (NULL, 4, "Circle of Stars", NULL); -- TCE -- 32
-INSERT INTO archetypes VALUES (NULL, 4, "Circle of Wildfire", NULL); -- TCE -- 33
+INSERT INTO archetypes VALUES (NULL, 4, "Circle of the Land"); -- PHB -- 27
+INSERT INTO archetypes VALUES (NULL, 4, "Circle of the Moon"); -- PHB -- 28
+INSERT INTO archetypes VALUES (NULL, 4, "Circle of the Dreams"); -- XGE -- 29
+INSERT INTO archetypes VALUES (NULL, 4, "Circle of the Shepherd"); -- XGE -- 30
+INSERT INTO archetypes VALUES (NULL, 4, "Circle of Spores"); -- TCE -- 31
+INSERT INTO archetypes VALUES (NULL, 4, "Circle of Stars"); -- TCE -- 32
+INSERT INTO archetypes VALUES (NULL, 4, "Circle of Wildfire"); -- TCE -- 33
 -- Fighter
 INSERT INTO classes VALUES (NULL, "Fighter"); -- 5
-INSERT INTO archetypes VALUES (NULL, 5, "Champion", NULL); -- PHB -- 34
-INSERT INTO archetypes VALUES (NULL, 5, "Battle Master", NULL); -- PHB -- 35
-INSERT INTO archetypes VALUES (NULL, 5, "Eldritch Knight", NULL); -- PHB -- 36
-INSERT INTO archetypes VALUES (NULL, 5, "Arcane Archer", NULL); -- XGE -- 37
-INSERT INTO archetypes VALUES (NULL, 5, "Cavalier", NULL); -- XGE -- 38
-INSERT INTO archetypes VALUES (NULL, 5, "Samurai", NULL); -- XGE -- 39
-INSERT INTO archetypes VALUES (NULL, 5, "Psi Warrior", NULL); -- TCE -- 40
-INSERT INTO archetypes VALUES (NULL, 5, "Rune Knight", NULL); -- TCE -- 41
+INSERT INTO archetypes VALUES (NULL, 5, "Champion"); -- PHB -- 34
+INSERT INTO archetypes VALUES (NULL, 5, "Battle Master"); -- PHB -- 35
+INSERT INTO archetypes VALUES (NULL, 5, "Eldritch Knight"); -- PHB -- 36
+INSERT INTO archetypes VALUES (NULL, 5, "Arcane Archer"); -- XGE -- 37
+INSERT INTO archetypes VALUES (NULL, 5, "Cavalier"); -- XGE -- 38
+INSERT INTO archetypes VALUES (NULL, 5, "Samurai"); -- XGE -- 39
+INSERT INTO archetypes VALUES (NULL, 5, "Psi Warrior"); -- TCE -- 40
+INSERT INTO archetypes VALUES (NULL, 5, "Rune Knight"); -- TCE -- 41
 -- Monk
 INSERT INTO classes VALUES (NULL, "Monk"); -- 6
-INSERT INTO archetypes VALUES (NULL, 6, "Way of the Open Hand", NULL); -- PHB -- 42
-INSERT INTO archetypes VALUES (NULL, 6, "Way of Shadow", NULL); -- PHB -- 43
-INSERT INTO archetypes VALUES (NULL, 6, "Way of the Four Elements", NULL); -- PHB -- 44
-INSERT INTO archetypes VALUES (NULL, 6, "Way of the Drunken Master", NULL); -- XGE -- 45
-INSERT INTO archetypes VALUES (NULL, 6, "Way of the Kensei", NULL); -- XGE -- 46
-INSERT INTO archetypes VALUES (NULL, 6, "Way of the Soul Sun", NULL); -- XGE -- 47
-INSERT INTO archetypes VALUES (NULL, 6, "Way of Mercy", NULL); -- TCE -- 48
-INSERT INTO archetypes VALUES (NULL, 6, "Way of the Astral Self", NULL); -- TCE -- 49
+INSERT INTO archetypes VALUES (NULL, 6, "Way of the Open Hand"); -- PHB -- 42
+INSERT INTO archetypes VALUES (NULL, 6, "Way of Shadow"); -- PHB -- 43
+INSERT INTO archetypes VALUES (NULL, 6, "Way of the Four Elements"); -- PHB -- 44
+INSERT INTO archetypes VALUES (NULL, 6, "Way of the Drunken Master"); -- XGE -- 45
+INSERT INTO archetypes VALUES (NULL, 6, "Way of the Kensei"); -- XGE -- 46
+INSERT INTO archetypes VALUES (NULL, 6, "Way of the Soul Sun"); -- XGE -- 47
+INSERT INTO archetypes VALUES (NULL, 6, "Way of Mercy"); -- TCE -- 48
+INSERT INTO archetypes VALUES (NULL, 6, "Way of the Astral Self"); -- TCE -- 49
 -- Paladin
 INSERT INTO classes VALUES (NULL, "Paladin"); -- 7
-INSERT INTO archetypes VALUES (NULL, 7, "Oath of Devotion", NULL); -- PHB -- 50
-INSERT INTO archetypes VALUES (NULL, 7, "Oath of the Ancients", NULL); -- PHB -- 51
-INSERT INTO archetypes VALUES (NULL, 7, "Oath of Vengeance", NULL); -- PHB -- 52
-INSERT INTO archetypes VALUES (NULL, 7, "Oath of Conquest", NULL); -- XGE -- 53
-INSERT INTO archetypes VALUES (NULL, 7, "Oath of Redemption", NULL); -- XGE -- 54
-INSERT INTO archetypes VALUES (NULL, 7, "Oath of Glory", NULL); -- TCE -- 55
-INSERT INTO archetypes VALUES (NULL, 7, "Oath of the Watchers", NULL); -- TCE -- 56
+INSERT INTO archetypes VALUES (NULL, 7, "Oath of Devotion"); -- PHB -- 50
+INSERT INTO archetypes VALUES (NULL, 7, "Oath of the Ancients"); -- PHB -- 51
+INSERT INTO archetypes VALUES (NULL, 7, "Oath of Vengeance"); -- PHB -- 52
+INSERT INTO archetypes VALUES (NULL, 7, "Oath of Conquest"); -- XGE -- 53
+INSERT INTO archetypes VALUES (NULL, 7, "Oath of Redemption"); -- XGE -- 54
+INSERT INTO archetypes VALUES (NULL, 7, "Oath of Glory"); -- TCE -- 55
+INSERT INTO archetypes VALUES (NULL, 7, "Oath of the Watchers"); -- TCE -- 56
 -- Ranger
 INSERT INTO classes VALUES (NULL, "Ranger"); -- 8
-INSERT INTO archetypes VALUES (NULL, 8, "Hunter", NULL); -- PHB -- 57
-INSERT INTO archetypes VALUES (NULL, 8, "Beast Master", NULL); -- PHB -- 58
-INSERT INTO archetypes VALUES (NULL, 8, "Gloom Stalker", NULL); -- XGE -- 59
-INSERT INTO archetypes VALUES (NULL, 8, "Horizon Walker", NULL); -- XGE -- 60
-INSERT INTO archetypes VALUES (NULL, 8, "Monster Slayer", NULL); -- XGE -- 61
-INSERT INTO archetypes VALUES (NULL, 8, "Fey Wanderer", NULL); -- TCE -- 62
-INSERT INTO archetypes VALUES (NULL, 8, "Swarmkeeper", NULL); -- TCE -- 63
+INSERT INTO archetypes VALUES (NULL, 8, "Hunter"); -- PHB -- 57
+INSERT INTO archetypes VALUES (NULL, 8, "Beast Master"); -- PHB -- 58
+INSERT INTO archetypes VALUES (NULL, 8, "Gloom Stalker"); -- XGE -- 59
+INSERT INTO archetypes VALUES (NULL, 8, "Horizon Walker"); -- XGE -- 60
+INSERT INTO archetypes VALUES (NULL, 8, "Monster Slayer"); -- XGE -- 61
+INSERT INTO archetypes VALUES (NULL, 8, "Fey Wanderer"); -- TCE -- 62
+INSERT INTO archetypes VALUES (NULL, 8, "Swarmkeeper"); -- TCE -- 63
 -- Rogue
 INSERT INTO classes VALUES (NULL, "Rogue"); -- 9
-INSERT INTO archetypes VALUES (NULL, 9, "Thief", NULL); -- PHB -- 64
-INSERT INTO archetypes VALUES (NULL, 9, "Assassin", NULL); -- PHB -- 65
-INSERT INTO archetypes VALUES (NULL, 9, "Arcane Trickster", NULL); -- PHB -- 66
-INSERT INTO archetypes VALUES (NULL, 9, "Inquisitive", NULL); -- XGE -- 67
-INSERT INTO archetypes VALUES (NULL, 9, "Mastermind", NULL); -- XGE -- 68
-INSERT INTO archetypes VALUES (NULL, 9, "Scout", NULL); -- XGE -- 69
-INSERT INTO archetypes VALUES (NULL, 9, "Swashbuckler", NULL); -- XGE -- 70
-INSERT INTO archetypes VALUES (NULL, 9, "Phantom", NULL); -- TCE -- 71
-INSERT INTO archetypes VALUES (NULL, 9, "Soulknife", NULL); -- TCE -- 72
+INSERT INTO archetypes VALUES (NULL, 9, "Thief"); -- PHB -- 64
+INSERT INTO archetypes VALUES (NULL, 9, "Assassin"); -- PHB -- 65
+INSERT INTO archetypes VALUES (NULL, 9, "Arcane Trickster"); -- PHB -- 66
+INSERT INTO archetypes VALUES (NULL, 9, "Inquisitive"); -- XGE -- 67
+INSERT INTO archetypes VALUES (NULL, 9, "Mastermind"); -- XGE -- 68
+INSERT INTO archetypes VALUES (NULL, 9, "Scout"); -- XGE -- 69
+INSERT INTO archetypes VALUES (NULL, 9, "Swashbuckler"); -- XGE -- 70
+INSERT INTO archetypes VALUES (NULL, 9, "Phantom"); -- TCE -- 71
+INSERT INTO archetypes VALUES (NULL, 9, "Soulknife"); -- TCE -- 72
 -- Sorcerer
 INSERT INTO classes VALUES (NULL, "Sorcerer"); -- 10
-INSERT INTO archetypes VALUES (NULL, 10, "Draconic Bloodline", NULL); -- PHB -- 73
-INSERT INTO archetypes VALUES (NULL, 10, "Wild Magic", NULL); -- PHB -- 74
-INSERT INTO archetypes VALUES (NULL, 10, "Divine Soul", NULL); -- XGE -- 75
-INSERT INTO archetypes VALUES (NULL, 10, "Shadow Magic", NULL); -- XGE -- 76
-INSERT INTO archetypes VALUES (NULL, 10, "Storm Sorcery", NULL); -- XGE -- 77
-INSERT INTO archetypes VALUES (NULL, 10, "Aberrant Mind", NULL); -- TCE -- 78
-INSERT INTO archetypes VALUES (NULL, 10, "Clockwork Soul", NULL); -- TCE -- 79
+INSERT INTO archetypes VALUES (NULL, 10, "Draconic Bloodline"); -- PHB -- 73
+INSERT INTO archetypes VALUES (NULL, 10, "Wild Magic"); -- PHB -- 74
+INSERT INTO archetypes VALUES (NULL, 10, "Divine Soul"); -- XGE -- 75
+INSERT INTO archetypes VALUES (NULL, 10, "Shadow Magic"); -- XGE -- 76
+INSERT INTO archetypes VALUES (NULL, 10, "Storm Sorcery"); -- XGE -- 77
+INSERT INTO archetypes VALUES (NULL, 10, "Aberrant Mind"); -- TCE -- 78
+INSERT INTO archetypes VALUES (NULL, 10, "Clockwork Soul"); -- TCE -- 79
 -- Warlock
 INSERT INTO classes VALUES (NULL, "Warlock"); -- 11
-INSERT INTO archetypes VALUES (NULL, 11, "The Archfey", NULL); -- PHB -- 80
-INSERT INTO archetypes VALUES (NULL, 11, "The Fiend", NULL); -- PHB -- 81
-INSERT INTO archetypes VALUES (NULL, 11, "The Great Old One", NULL); -- PHB -- 82
-INSERT INTO archetypes VALUES (NULL, 11, "The Celestial", NULL); -- XGE -- 83
-INSERT INTO archetypes VALUES (NULL, 11, "The Hexblade", NULL); -- XGE -- 84
-INSERT INTO archetypes VALUES (NULL, 11, "The Fathomless", NULL); -- TCE -- 85
-INSERT INTO archetypes VALUES (NULL, 11, "The Genie", NULL); -- TCE -- 86
+INSERT INTO archetypes VALUES (NULL, 11, "The Archfey"); -- PHB -- 80
+INSERT INTO archetypes VALUES (NULL, 11, "The Fiend"); -- PHB -- 81
+INSERT INTO archetypes VALUES (NULL, 11, "The Great Old One"); -- PHB -- 82
+INSERT INTO archetypes VALUES (NULL, 11, "The Celestial"); -- XGE -- 83
+INSERT INTO archetypes VALUES (NULL, 11, "The Hexblade"); -- XGE -- 84
+INSERT INTO archetypes VALUES (NULL, 11, "The Fathomless"); -- TCE -- 85
+INSERT INTO archetypes VALUES (NULL, 11, "The Genie"); -- TCE -- 86
 -- Wizard
 INSERT INTO classes VALUES (NULL, "Wizard"); -- 12
-INSERT INTO archetypes VALUES (NULL, 12, "School of Abjuration", NULL); -- PHB -- 87
-INSERT INTO archetypes VALUES (NULL, 12, "School of Conjuration", NULL); -- PHB -- 88
-INSERT INTO archetypes VALUES (NULL, 12, "School of Divination", NULL); -- PHB -- 89
-INSERT INTO archetypes VALUES (NULL, 12, "School of Enchantment", NULL); -- PHB -- 90
-INSERT INTO archetypes VALUES (NULL, 12, "School of Evocation", NULL); -- PHB -- 91
-INSERT INTO archetypes VALUES (NULL, 12, "School of Illusion", NULL); -- PHB -- 92
-INSERT INTO archetypes VALUES (NULL, 12, "School of Necromancy", NULL); -- PHB -- 93
-INSERT INTO archetypes VALUES (NULL, 12, "School of Transmutation", NULL); -- PHB -- 94
-INSERT INTO archetypes VALUES (NULL, 12, "War Magic", NULL); -- XGE -- 95
-INSERT INTO archetypes VALUES (NULL, 12, "Bladesinging", NULL); -- TCE -- 96
-INSERT INTO archetypes VALUES (NULL, 12, "Order of Scribes", NULL); -- TCE -- 97
+INSERT INTO archetypes VALUES (NULL, 12, "School of Abjuration"); -- PHB -- 87
+INSERT INTO archetypes VALUES (NULL, 12, "School of Conjuration"); -- PHB -- 88
+INSERT INTO archetypes VALUES (NULL, 12, "School of Divination"); -- PHB -- 89
+INSERT INTO archetypes VALUES (NULL, 12, "School of Enchantment"); -- PHB -- 90
+INSERT INTO archetypes VALUES (NULL, 12, "School of Evocation"); -- PHB -- 91
+INSERT INTO archetypes VALUES (NULL, 12, "School of Illusion"); -- PHB -- 92
+INSERT INTO archetypes VALUES (NULL, 12, "School of Necromancy"); -- PHB -- 93
+INSERT INTO archetypes VALUES (NULL, 12, "School of Transmutation"); -- PHB -- 94
+INSERT INTO archetypes VALUES (NULL, 12, "War Magic"); -- XGE -- 95
+INSERT INTO archetypes VALUES (NULL, 12, "Bladesinging"); -- TCE -- 96
+INSERT INTO archetypes VALUES (NULL, 12, "Order of Scribes"); -- TCE -- 97
 -- Artificer
 INSERT INTO classes VALUES (NULL, "Artificer"); -- 13
-INSERT INTO archetypes VALUES (NULL, 13, "Alchemist", NULL); -- TCE -- 98
-INSERT INTO archetypes VALUES (NULL, 13, "Armorer", NULL); -- TCE -- 99
-INSERT INTO archetypes VALUES (NULL, 13, "Artillerist", NULL); -- TCE -- 100
-INSERT INTO archetypes VALUES (NULL, 13, "Battle Smith", NULL); -- TCE -- 101
+INSERT INTO archetypes VALUES (NULL, 13, "Alchemist"); -- TCE -- 98
+INSERT INTO archetypes VALUES (NULL, 13, "Armorer"); -- TCE -- 99
+INSERT INTO archetypes VALUES (NULL, 13, "Artillerist"); -- TCE -- 100
+INSERT INTO archetypes VALUES (NULL, 13, "Battle Smith"); -- TCE -- 101
 
 
 -- CLASS FEATURES
