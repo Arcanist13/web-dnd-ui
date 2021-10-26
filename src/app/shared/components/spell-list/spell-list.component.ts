@@ -1,8 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Subject } from 'rxjs';
+import { CharacterDataService } from 'src/app/modules/character/services/character-data.service';
 import { SpellModalService } from 'src/app/modules/spells/services/spell-modal.service';
-import { ISpellFilter, ISpellModel } from '../../models/spell.model';
+import { UserService } from 'src/app/modules/user/services/user.service';
+import { ICharacter } from '../../models/character.model';
+import { IFavouriteSpell, ISpellFilter, ISpellModel } from '../../models/spell.model';
 import { ObservableService } from '../../services/observable.service';
 import { SpellFilterService } from '../../services/spell-filter.service';
 import { SpellService } from '../../services/spell.service';
@@ -21,15 +24,50 @@ export class SpellListComponent {
 
   private sortSettings: Sort | undefined;
   public spells: Array<ISpellModel>;
+  public favSpells: Array<number>;
+  public character: number | undefined;
   baseSpells: Array<ISpellModel> | undefined;
+  public loggedIn: boolean;
 
   constructor(
     private _observableService: ObservableService,
     private _spellModalService: SpellModalService,
     private _spellFilterService: SpellFilterService,
-    private _spellService: SpellService
+    private _characterDataService: CharacterDataService,
+    private _spellService: SpellService,
+    private _userService: UserService,
   ) {
     this.spells = [];
+    this.favSpells = [];
+    this.loggedIn = false;
+
+    // Get the current character information and favourite spells
+    this.character = this._characterDataService.character?.id;
+    this._observableService.subscribe(
+      this._spellService.onFavouriteUpdate,
+      (favs: Array<IFavouriteSpell>) => {
+        this.favSpells = favs.map((fav: IFavouriteSpell) => fav.spell_id);
+      }
+    );
+    if (this.character) {
+      this._spellService.favouriteSpellIds(this.character);
+    }
+
+    // Subscribe to future character changes
+    this._observableService.subscribe(
+      this._characterDataService.onCharacterChange,
+      (char: ICharacter) => {
+        this.character = char.id;
+        this._spellService.favouriteSpellIds(this.character);
+      }
+    );
+
+    // Subscribe to logouts
+    this.loggedIn = this._userService.loggedIn;
+    this._observableService.subscribe(
+      this._userService.loginUpdate,
+      (state: boolean) => { this.loggedIn = state; }
+    );
 
     // Subscribe to filter clear
     this._observableService.subscribe(
@@ -58,6 +96,38 @@ export class SpellListComponent {
         }
       }
     );
+  }
+
+  /**
+   * Favourite a spell prompting the user to select a character if on isn't selected
+   *
+   * @param spell_id  spell to favourite
+   * @param state     favourite state (set, unset)
+   */
+  favouriteSpell(spell_id: number, state: boolean): void {
+    if (this.character === undefined) {
+      this._characterDataService.promptSelectCharacter().then((char_id: number | undefined) => {
+        if (char_id !== undefined) {
+          this.character = char_id;
+          this.setFavouriteSpell(spell_id, state);
+        }
+      });
+    } else {
+      this.setFavouriteSpell(spell_id, state);
+    }
+  }
+
+  /**
+   * Internal function to set/unset the favourite spell and request the change in the
+   * backend.
+   *
+   * @param spell_id  favourite spell id
+   * @param state     set or unset state
+   */
+  private setFavouriteSpell(spell_id: number, state: boolean): void {
+    if (this.character) {
+      this._spellService.favouriteSpell(spell_id, this.character, state);
+    }
   }
 
   /**

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpService } from 'src/app/static/services/http.service';
+import { STORAGE_KEY_FEATS } from 'src/app/static/storage_keys.constant';
 import { environment } from 'src/environments/environment';
 import { IFeatModel } from '../models/feat.model';
 
@@ -9,12 +10,19 @@ import { IFeatModel } from '../models/feat.model';
 })
 export class FeatService {
 
-  private _feats?: Array<IFeatModel>;
+  private _feats: Array<IFeatModel>;
   private _featUpdate: Subject<Array<IFeatModel>>;
 
   constructor(
     private _httpService: HttpService,
   ) {
+    const feats = localStorage.getItem(STORAGE_KEY_FEATS);
+    if (feats) {
+      this._feats = JSON.parse(feats) as Array<IFeatModel>;
+    } else {
+      this._feats = [];
+    }
+
     this._featUpdate = new Subject<Array<IFeatModel>>();
   }
 
@@ -23,7 +31,8 @@ export class FeatService {
    * requesting new data.
    */
   getFeats(): void {
-    if (!!this._feats) {
+    console.log(this._feats)
+    if (this._feats.length > 0) {
       this._featUpdate.next(this._feats);
     }
     else {
@@ -31,6 +40,7 @@ export class FeatService {
       .subscribe((res: Array<IFeatModel>) => {
         this._feats = res;
         this._featUpdate.next(this._feats);
+        localStorage.setItem(STORAGE_KEY_FEATS, JSON.stringify(this._feats));
       });
     }
   }

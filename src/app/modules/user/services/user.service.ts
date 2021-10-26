@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { IRegisterUser, IUser } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/static/services/auth.service';
@@ -17,6 +18,7 @@ export class UserService {
   constructor(
     private _authService: AuthService,
     private _http: HttpClient,
+    private _router: Router,
   ) {
     this._loggedIn = false;
     this._loginUpdate = new Subject<boolean>();
@@ -80,6 +82,17 @@ export class UserService {
     this._userInfo = user;
     this._loggedIn = !!this._userInfo;
     this._loginUpdate.next(!!this._userInfo);
+  }
+
+  /**
+   * Check if the user is logged in, redirect if they aren't
+   *
+   * @param state log in state
+   */
+  checkLoggedIn(state: boolean): void {
+    if (!state) {
+      this._router.navigate(['/user/login']);
+    }
   }
 
   /**

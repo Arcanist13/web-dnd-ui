@@ -8,6 +8,7 @@ from models.race import Race, SubRace
 from database.sqlite3 import get_db_all
 
 router = APIRouter()
+version = '1.0.0'
 
 @router.get('/races', tags=['races'], response_model=List[Race])
 async def get_races():

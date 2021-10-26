@@ -4,14 +4,6 @@ CREATE TABLE classes (
 	name TEXT NOT NULL
 ); --
 
-DROP TABLE archetypes; --
-CREATE TABLE archetypes (
-	id INTEGER PRIMARY KEY,
-	class_id INTEGER NOT NULL,
-	name TEXT NOT NULL,
-	FOREIGN KEY (class_id) REFERENCES classes(id)
-); --
-
 DROP TABLE class_features; --
 CREATE TABLE class_features (
 	id INTEGER PRIMARY KEY,
@@ -21,6 +13,25 @@ CREATE TABLE class_features (
 	description TEXT,
 	level INTEGER,
   optional INTEGER,
+	FOREIGN KEY (class_id) REFERENCES classes(id)
+); --
+
+DROP TABLE class_sub_features; --
+CREATE TABLE class_sub_features (
+	id INTEGER PRIMARY KEY,
+	class_feature_id INTEGER NOT NULL,
+	name TEXT NOT NULL,
+	prerequisite TEXT,
+	description TEXT,
+  optional INTEGER,
+	FOREIGN KEY	 (class_feature_id) REFERENCES class_features(id)
+); --
+
+DROP TABLE archetypes; --
+CREATE TABLE archetypes (
+	id INTEGER PRIMARY KEY,
+	class_id INTEGER NOT NULL,
+	name TEXT NOT NULL,
 	FOREIGN KEY (class_id) REFERENCES classes(id)
 ); --
 
@@ -46,16 +57,6 @@ CREATE TABLE archetype_sub_features (
 	FOREIGN KEY	 (archetype_feature_id) REFERENCES archetype_features(id)
 ); --
 
-DROP TABLE class_sub_features; --
-CREATE TABLE class_sub_features (
-	id INTEGER PRIMARY KEY,
-	class_feature_id INTEGER NOT NULL,
-	name TEXT NOT NULL,
-	prerequisite TEXT,
-	description TEXT,
-  optional INTEGER,
-	FOREIGN KEY	 (class_feature_id) REFERENCES class_features(id)
-); --
 
 
 -- CLASS & SUBCLASS

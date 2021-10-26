@@ -16,7 +16,13 @@
     <tbody>
       <tr *ngFor="let spell of spells; index as idx" (click)="openSpellModal(spell.id)" class="d-flex">
         <ng-container *ngIf="checkFilter(spell)">
-          <td class="col-md-3 col-sm-5 col-5">{{ spell.name }}</td>
+          <td class="col-md-3 col-sm-5 col-5">
+            <span *ngIf="loggedIn">
+              <mat-icon *ngIf="!favSpells.includes(spell.id)" class="fav-icon" aria-hidden="false" aria-label="Favourite" (click)="$event.stopPropagation();favouriteSpell(spell.id, true);">star_border</mat-icon>
+              <mat-icon *ngIf="favSpells.includes(spell.id)" class="fav-icon" aria-hidden="false" aria-label="Favourite" (click)="$event.stopPropagation();favouriteSpell(spell.id, false);">star</mat-icon>
+            </span>
+            {{ spell.name }}
+          </td>
           <td class="col-md-1 col-sm-1 col-1">{{ spell.level }}</td>
           <td class="col-md-1 col-sm-3 col-3">{{ spell.cast_time | spellCasttime }}</td>
           <td class="col-md-1 d-none d-md-table-cell">{{ spell.attack_type | listSplit }}</td>
@@ -28,4 +34,7 @@
       </tr>
     </tbody>
   </table>
+</div>
+<div *ngIf="spells.length === 0" class="my-3 text-center">
+  There are no spells in this list!
 </div>

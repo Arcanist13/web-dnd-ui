@@ -22,3 +22,4 @@ class Spell(BaseModel):
   classes:        Optional[str] = None
   attack_type:    Optional[str] = None
   condition_type: Optional[str] = None
+  concentration:  Optional[str] = None

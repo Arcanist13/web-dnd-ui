@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { ITokenUser, IUser } from 'src/app/shared/models/user.model';
+import { environment } from 'src/environments/environment';
 
 export const authCodeFlowConfig: AuthConfig = {
-  tokenEndpoint: "http://192.168.1.21:5000/token",
-  userinfoEndpoint: "http://192.168.1.21:5000/users/me",
-  clientId: "dnd-web-ui",
-  dummyClientSecret: "geheim",
-  scope: "openid profile",
+  tokenEndpoint: environment.backendUri + '/token',
+  userinfoEndpoint: environment.backendUri + '/users/me',
+  clientId: 'dnd-web-ui',
+  dummyClientSecret: 'geheim',
+  scope: 'openid profile',
   oidc: false,
   showDebugInformation: true,
   sessionChecksEnabled: false,

@@ -4,6 +4,7 @@ import { ISpellFilter } from 'src/app/shared/models/spell.model';
 import { FeatService } from 'src/app/shared/services/feat.service';
 import { ObservableService } from 'src/app/shared/services/observable.service';
 import { SpellFilterService } from 'src/app/shared/services/spell-filter.service';
+import { STORAGE_KEY_PREVIOUS_PAGE } from 'src/app/static/storage_keys.constant';
 import { FeatModalService } from './services/feat-modal.service';
 
 @Component({
@@ -42,7 +43,7 @@ export class FeatsComponent implements OnInit {
     );
 
     // Update the previousPage session storage
-    sessionStorage.setItem('previousPage', 'feats');
+    localStorage.setItem(STORAGE_KEY_PREVIOUS_PAGE, 'feats');
   }
 
   ngOnInit(): void {

@@ -14,6 +14,9 @@ import { SpellComponentsPipe } from './pipes/spell-components.pipe';
 import { SpellCasttimePipe } from './pipes/spell-casttime.pipe';
 import { ListSplitPipe } from './pipes/list-split.pipe';
 import { ClassFromIdPipe } from './pipes/class-from-id.pipe';
+import { StringListCountPipe } from './pipes/string-list-count.pipe';
+import { BooleanOptionPipe } from './pipes/boolean-option.pipe';
+import { SpellLevelDisplayPipe } from './pipes/spell-level-display.pipe';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -27,12 +30,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
 import { SearchComponent } from './components/filter/search/search.component';
-import { SpellLevelDisplayPipe } from './pipes/spell-level-display.pipe';
 import { FilterSpellClassComponent } from './components/filter/spell-class/spell-class.component';
 import { FilterSpellListGenericComponent } from './components/filter/spell-list-generic/spell-list-generic.component';
 import { FeatModalComponent } from './components/feat-modal/feat-modal.component';
-import { StringListCountPipe } from './pipes/string-list-count.pipe';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
+import { SelectCharacterComponent } from './dialog/select-character/select-character.component';
 
 const MATERIAL_IMPORTS = [
   MatTabsModule,
@@ -57,7 +59,8 @@ const SHARED_COMPONENTS = [
 ];
 
 const SHARED_DIALOG = [
-  ConfirmDialogComponent
+  ConfirmDialogComponent,
+  SelectCharacterComponent,
 ]
 
 const SHARED_PIPES = [
@@ -68,6 +71,7 @@ const SHARED_PIPES = [
   SpellLevelPipe,
   StringListCountPipe,
   ClassFromIdPipe,
+  BooleanOptionPipe,
 ];
 
 @NgModule({
@@ -75,7 +79,6 @@ const SHARED_PIPES = [
     ...SHARED_COMPONENTS,
     ...SHARED_PIPES,
     ...SHARED_DIALOG,
-    StringListCountPipe,
   ],
   imports: [
     CommonModule,

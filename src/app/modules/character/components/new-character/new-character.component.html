@@ -78,5 +78,5 @@
 <!-- Close Dialogue -->
 <div mat-dialog-actions>
   <button mat-button (click)="close()">Close</button>
-  <button mat-button [mat-dialog-close]="getCharacterData()" cdkFocusInitial>{{ data && data.id ? 'Submit' : 'Create' }}</button>
+  <button mat-button class="mat-create" [disabled]="!validData()" [mat-dialog-close]="getCharacterData()" cdkFocusInitial>{{ data && data.id ? 'Submit' : 'Create' }}</button>
 </div>

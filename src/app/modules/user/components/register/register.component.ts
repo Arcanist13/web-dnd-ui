@@ -21,7 +21,7 @@ export class RegisterComponent {
   form: FormGroup;
   public registerInvalid = false;
   public registerInvalidText = '';
-  public readonly MIN_PW = 8;
+  public readonly MIN_PW = 5;
   private formSubmitAttempt = false;
 
   constructor(

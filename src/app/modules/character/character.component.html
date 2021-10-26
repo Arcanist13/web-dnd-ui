@@ -11,8 +11,8 @@
 
   <mat-card *ngFor="let char of characters" class="mt-1">
     <mat-card-header>
-      <mat-card-title>{{ char.name }}</mat-card-title>
-      <mat-card-subtitle>Level {{ char.level }} {{ char.class_id | classFromId | async }}</mat-card-subtitle>
+      <mat-card-title [routerLink]="'/character/' + char.id">{{ char.name }}</mat-card-title>
+      <mat-card-subtitle [routerLink]="'/character/' + char.id">Level {{ char.level }} {{ char.class_id | classFromId | async }}</mat-card-subtitle>
       <div class="ml-auto">
         <button mat-mini-fab color="primary" aria-label="Edit Character" (click)="createCharacterDialog(char)">
           <mat-icon>edit</mat-icon>

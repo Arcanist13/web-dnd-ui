@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { SelectCharacterComponent } from 'src/app/shared/dialog/select-character/select-character.component';
 import { ICampaign } from 'src/app/shared/models/campaign.model';
 import { ICharacter } from 'src/app/shared/models/character.model';
 import { IClass, IClassArchetype } from 'src/app/shared/models/class.model';
 import { IRace, ISubRace } from 'src/app/shared/models/race.model';
 import { HttpService } from 'src/app/static/services/http.service';
 import { environment } from 'src/environments/environment';
+import { UserService } from '../../user/services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +17,19 @@ export class CharacterDataService {
 
   private _campaigns: Array<ICampaign>;
   private _characters: Array<ICharacter>;
+  private _character: ICharacter | undefined;
   private _races: Array<IRace>;
   private _subRaces: Array<ISubRace>;
   private _classes: Array<IClass>;
   private _archetypes: Array<IClassArchetype>;
 
+  private _onCharacterChange: Subject<ICharacter>;
+  private _onCharactersUpdate: Subject<Array<ICharacter>>;
+
   constructor(
-    private _httpService: HttpService
+    private _httpService: HttpService,
+    public _dialog: MatDialog,
+    private _userService: UserService
   ) {
     this._campaigns = [];
     this._characters = [];
@@ -27,6 +37,9 @@ export class CharacterDataService {
     this._subRaces = [];
     this._classes = [];
     this._archetypes = [];
+
+    this._onCharacterChange = new Subject<ICharacter>();
+    this._onCharactersUpdate = new Subject<Array<ICharacter>>();
   }
 
   /**
@@ -66,6 +79,55 @@ export class CharacterDataService {
   }
 
   /**
+   * Prompt the user to select and active character
+   *
+   * @returns character id or undefined if none selected
+   */
+  public promptSelectCharacter(): Promise<number | undefined> {
+    return new Promise((resolve) => {
+      if (this._userService.loggedIn) {
+        // Prompt to select a character
+        const dialogRef = this._dialog.open(SelectCharacterComponent, { data: this.characters });
+        dialogRef.afterClosed().subscribe((char_id: number | undefined) => {
+          if (char_id) {
+            this.selectCharacter(char_id);
+          }
+          resolve(char_id);
+        });
+      } else {
+        resolve(undefined);
+      }
+    });
+  }
+
+  /**
+   * Select a character
+   *
+   * @param id  character id
+   * @returns   character information
+   */
+  public selectCharacter(id: number) : Promise<ICharacter> {
+    return new Promise((resolve) => {
+      const findChar = this._characters.find((char: ICharacter) => char.id === id);
+      if (findChar !== undefined) {
+        this._character = findChar;
+        this._onCharacterChange.next(this._character);
+        resolve(findChar);
+      } else {
+        this._httpService.get<ICharacter>(
+          environment.backendUri + '/character/' + id
+        ).subscribe((res: ICharacter) => {
+          if (res) {
+            this._character = res;
+            this._onCharacterChange.next(this._character);
+          }
+          resolve(res);
+        });
+      }
+    })
+  }
+
+  /**
    * Add a created character to the character list. This avoids having to
    * send another character list request.
    *
@@ -80,6 +142,7 @@ export class CharacterDataService {
       else {
         this._characters.push(char);
       }
+      this._onCharactersUpdate.next(this._characters);
     }
   }
 
@@ -89,9 +152,31 @@ export class CharacterDataService {
    * @param char_id character to remove
    */
   removeCharacter(char_id: number): void {
-    this._characters.filter((char: ICharacter) =>
+    this._characters = this._characters.filter((char: ICharacter) =>
       char.id !== char_id
     );
+    this._onCharactersUpdate.next(this._characters);
+  }
+
+  /**
+   * Get the current selected character
+   */
+  public get character() : ICharacter | undefined {
+    return this._character;
+  }
+
+  /**
+   * Character change event
+   */
+  public get onCharacterChange() : Subject<ICharacter> {
+    return this._onCharacterChange;
+  }
+
+  /**
+   * Event for character changes
+   */
+  public get onCharactersUpdate() : Subject<Array<ICharacter>> {
+    return this._onCharactersUpdate;
   }
 
   /**

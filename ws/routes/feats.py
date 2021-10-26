@@ -8,6 +8,7 @@ from models.feat import Feat
 from database.sqlite3 import get_db_all
 
 router = APIRouter()
+version = '1.0.0'
 
 @router.get('/feats', tags=['feats'], response_model=List[Feat])
 async def get_feats():

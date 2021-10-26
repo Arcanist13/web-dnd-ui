@@ -7,8 +7,10 @@ from database.sqlite3 import get_db_all, get_db_one
 from models.spell import Spell
 
 router = APIRouter()
+version = '1.0.0'
 
-spell_partial = 'id, name, school, level, ritual, cast_time, range, components, duration, damage_type, save_type, attack_type, condition_type'
+spell_partial = 'id, name, school, level, ritual, cast_time, range, components, duration, damage_type, save_type, attack_type, condition_type, concentration'
+spell_classes = ['All Spells', 'Artificer', 'Bard', 'Cleric', 'Druid', 'Paladin', 'Ranger', 'Sorcerer', 'Warlock', 'Wizard']
 
 ### Spells
 @router.get('/spells', tags=["spell"], response_model=List[Spell])
@@ -29,6 +31,11 @@ async def get_spell_id(spell_id: int):
   raise HTTPException(status_code=500, detail=msg)
 
 ### Classes
+@router.get('/spell/class/list', tags=["spell"], response_model=List[str])
+async def get_spell_classes():
+  '''Get the list of classes with spells'''
+  return spell_classes
+
 @router.get('/spell/class/{class_str}', tags=["spell"], response_model=List[Spell])
 async def get_class_spells(class_str: str):
   '''Get spell list by class.'''

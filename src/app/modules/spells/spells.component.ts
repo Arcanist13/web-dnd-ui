@@ -1,9 +1,12 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { ISpellModel, CSpellAttack, CSpellCasttime, CSpellDamage, CSpellSave, CSpellCondition, CSpellLevel } from 'src/app/shared/models/spell.model';
+import { Subscription } from 'rxjs';
+import { CSpellAttack, CSpellCasttime, CSpellDamage, CSpellSave, CSpellCondition, CSpellLevel, CSpellSchool, CSpellBoolean } from 'src/app/shared/models/spell.model';
+import { BooleanOptionPipe } from 'src/app/shared/pipes/boolean-option.pipe';
 import { SpellLevelPipe } from 'src/app/shared/pipes/spell-level.pipe';
+import { DndClassService } from 'src/app/shared/services/dnd-class.service';
 import { SpellFilterService } from 'src/app/shared/services/spell-filter.service';
 import { SpellService } from 'src/app/shared/services/spell.service';
+import { STORAGE_KEY_PREVIOUS_PAGE } from 'src/app/static/storage_keys.constant';
 
 @Component({
   selector: 'app-spells',
@@ -24,16 +27,20 @@ export class SpellsComponent implements AfterViewInit, OnDestroy {
     {title: 'Save Type', key: 'save_type', list: CSpellSave},
     {title: 'Damage Type', key: 'damage_type', list: CSpellDamage},
     {title: 'Condition', key: 'condition_type', list: CSpellCondition},
+    {title: 'School', key: 'school', list: CSpellSchool},
+    {title: 'Ritual', key: 'ritual', list: CSpellBoolean, pipe: new BooleanOptionPipe()},
+    {title: 'Concentration', key: 'concentration', list: CSpellBoolean, pipe: new BooleanOptionPipe()},
   ]
 
   constructor(
     private _spellService: SpellService,
-    private _spellFilterService: SpellFilterService
+    private _spellFilterService: SpellFilterService,
+    private _classService: DndClassService,
   ) {
     this._subscriptions = [];
 
     // Update the previousPage session storage
-    sessionStorage.setItem('previousPage', 'spells');
+    localStorage.setItem(STORAGE_KEY_PREVIOUS_PAGE, 'spells');
   }
 
   /**
@@ -47,7 +54,7 @@ export class SpellsComponent implements AfterViewInit, OnDestroy {
    * Get the initial spell set
    */
   ngAfterViewInit(): void {
-    this._spellService.getSpells('All Spells');
+    this._spellService.getSpells(this._classService.getCurrentSpellClass());
   }
 
   /**

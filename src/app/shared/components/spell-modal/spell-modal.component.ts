@@ -31,6 +31,7 @@ export class SpellModalComponent {
             if (res) {
               this.spell = res;
               this.startModal();
+              this._spellService.storeSpell(res);
             }
           }
         );

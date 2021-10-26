@@ -26,8 +26,7 @@
           <td class="modal-row-data">{{ spell.duration }}</td>
         </tr>
         <tr>
-          <td class="modal-row-title">Description</td>
-          <td [innerHTML]="spell.description"></td>
+          <td colspan="2" [innerHTML]="spell.description"></td>
         </tr>
         <tr *ngIf="spell.visual">
           <td class="modal-row-title">Visual</td>

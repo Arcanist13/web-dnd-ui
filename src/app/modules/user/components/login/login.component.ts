@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/modules/user/services/user.service';
 import { ObservableService } from 'src/app/shared/services/observable.service';
+import { STORAGE_KEY_PREVIOUS_PAGE } from 'src/app/static/storage_keys.constant';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent {
       this._userService.loginUpdate,
       (state: boolean) => {
         if (state) {
-          this._router.navigate([sessionStorage.getItem('previousPage')]);
+          this._router.navigate([localStorage.getItem(STORAGE_KEY_PREVIOUS_PAGE)]);
         }
       }
     );
@@ -53,7 +54,7 @@ export class LoginComponent {
         const password = this.form.get('password')?.value;
         await this._userService.login(username, password);
         // Navigate to the previous page
-        const previousPage = sessionStorage.getItem('previousPage');
+        const previousPage = localStorage.getItem(STORAGE_KEY_PREVIOUS_PAGE);
         if (!!previousPage) {
           this._router.navigate([previousPage]);
         }

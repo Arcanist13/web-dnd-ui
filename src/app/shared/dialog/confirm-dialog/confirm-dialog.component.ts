@@ -10,7 +10,7 @@ import { CampaignDialogComponent } from 'src/app/modules/admin/components/campai
 export class ConfirmDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<CampaignDialogComponent>,
+    public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string
   ) { }
 

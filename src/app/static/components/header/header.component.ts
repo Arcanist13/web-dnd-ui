@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { CharacterDataService } from 'src/app/modules/character/services/character-data.service';
 import { UserService } from 'src/app/modules/user/services/user.service';
+import { ICharacter } from 'src/app/shared/models/character.model';
 import { ObservableService } from 'src/app/shared/services/observable.service';
 
 @Component({
@@ -13,9 +15,11 @@ export class HeaderComponent {
   navCollapsed: boolean;
   loggedIn: boolean;
   admin: boolean;
+  selectedCharacter: ICharacter | undefined;
 
   constructor(
     private _observableService: ObservableService,
+    private _characterDataService: CharacterDataService,
     private _userService: UserService
   ) {
     this.navCollapsed = true;
@@ -28,8 +32,21 @@ export class HeaderComponent {
       (state: boolean) => {
         this.loggedIn = state;
         this.admin = this._userService.isAdmin;
+        this.selectedCharacter = undefined;
       }
     );
+
+    // Listen for character selection events
+    this._observableService.subscribe(
+      this._characterDataService.onCharacterChange,
+      (char: ICharacter) => {
+        if (char) {
+          this.selectedCharacter = char;
+        } else {
+          this.selectedCharacter = undefined;
+        }
+      }
+    )
   }
 
   /**
@@ -37,6 +54,10 @@ export class HeaderComponent {
    */
   logout(): void {
     this._userService.logout();
+  }
+
+  selectCharacter(): void {
+    this._characterDataService.promptSelectCharacter();
   }
 
 }

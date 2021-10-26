@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendUri: 'https://thearcanerepository.com:5000'
+  backendUri: 'https://backend.thearcanerepository.com'
 };

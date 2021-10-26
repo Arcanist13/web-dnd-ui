@@ -59,4 +59,5 @@ export class CharacterService {
       this._characterDataService.removeCharacter(char_id);
     });
   }
+
 }

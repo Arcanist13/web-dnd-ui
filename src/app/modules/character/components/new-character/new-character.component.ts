@@ -101,7 +101,11 @@ export class NewCharacterComponent {
     this._characterDataService.subRaces.then((res: Array<ISubRace>) => {
       this.sub_race_options = res.filter((subRace: ISubRace) => subRace.race_id === this.race_id.value);
       if (this.sub_race_options.length > 0) {
-        this.sub_race_id.setValue(this.sub_race_options[0].id);
+        if (this.data.sub_race_id !== undefined) {
+          this.sub_race_id.setValue(this.data.sub_race_id);
+        } else {
+          this.sub_race_id.setValue(this.sub_race_options[0].id);
+        }
       }
       else {
         this.sub_race_id.reset();
@@ -119,6 +123,19 @@ export class NewCharacterComponent {
         this.archetype_id.reset();
       }
     })
+  }
+
+  /**
+   * Check if the form is valid
+   *
+   * @returns form valid
+   */
+  validData(): boolean {
+    return this.name.valid &&
+    this.campaign_id.valid &&
+    this.race_id.valid &&
+    this.class_id.valid &&
+    this.level.valid
   }
 
   /**

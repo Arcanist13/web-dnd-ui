@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0 --disable-host-check=true",
     "build": "ng build",
+    "buildProd": "ng build --configuration production",
     "test": "ng test --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"

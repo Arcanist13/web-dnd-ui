@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException, Depends
 
 from database.sqlite3 import delete_id, execute, get_db_all, get_db_one
 
-from auth.auth import get_current_user, get_current_admin_user
+from auth.auth import get_current_user
 from models.user_model import User
 from models.character import Character, NewCharacter
 
@@ -18,12 +18,22 @@ async def get_all_characters(user: User = Depends(get_current_user)):
   characters = get_db_all("SELECT * FROM characters WHERE user_id = ? ORDER BY id ASC", [user.id])
   return characters
 
+@router.get('/character/{character_id}', response_model=Character, tags=["character"])
+async def get_character(character_id: int, user: User = Depends(get_current_user)):
+  '''Get a specific character'''
+  character = get_db_one("SELECT * FROM characters WHERE user_id = ? AND id = ? ORDER BY id ASC", [user.id, character_id])
+  return character
+
 @router.delete("/character/remove/{character_id}", tags=["character"])
 async def remove_character(character_id: int, user: User = Depends(get_current_user)):
   '''Remove a character'''
   if character_id is not None and check_character(character_id, user.id):
     if not delete_id('characters', character_id):
       raise HTTPException(status_code=500, detail='Failed to delete character')
+    # Delete all associated things
+    execute('''
+      DELETE FROM favourite_spells WHERE character_id = ?
+    ''', [character_id])
   else:
     raise HTTPException(status_code=500, detail='Failed to delete a character that is not yours')
   return
@@ -37,6 +47,7 @@ async def edit_character(character_id: int, char: NewCharacter, user: User = Dep
       name = ?, level = ?, campaign_id = ?, description = ?, age = ?, race_id = ?, sub_race_id = ?, class_id = ?, archetype_id = ?
       WHERE id = ?
     ''', [char.name, char.level, char.campaign_id, char.description, char.age, char.race_id, char.sub_race_id, char.class_id, char.archetype_id, character_id])
+    return get_db_one('SELECT * FROM characters WHERE id = ?', [character_id])
   else:
     raise HTTPException(status_code=500, detail='Failed to modify a character that is not yours')
   return

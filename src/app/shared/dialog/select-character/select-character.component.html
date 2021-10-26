@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Select Active Character</h1>
+<div mat-dialog-content>
+  <mat-card *ngFor="let char of characters" mat-button [mat-dialog-close]="setCharacter(char)">{{ char.name }}</mat-card>
+  <div *ngIf="characters.length === 0" class="my-3 text-center">
+    You have no characters!
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Cancel</button>
+</div>

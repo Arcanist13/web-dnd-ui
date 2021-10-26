@@ -51,3 +51,6 @@ UPDATE spells SET condition_type = condition_type || ',Prone' WHERE description 
 UPDATE spells SET condition_type = condition_type || ',Restrained' WHERE description LIKE '%Restrained%';
 UPDATE spells SET condition_type = condition_type || ',Stunned' WHERE description LIKE '%Stunned%';
 UPDATE spells SET condition_type = condition_type || ',Unconscious' WHERE description LIKE '%Unconscious%';
+
+UPDATE spells SET concentration = 0;
+UPDATE spells SET concentration = 1 WHERE duration LIKE '%Concentration%';

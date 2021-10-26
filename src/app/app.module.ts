@@ -11,6 +11,7 @@ import { FeatsModule } from './modules/feats/feats.module';
 import { CharacterModule } from './modules/character/character.module';
 import { UserModule } from './modules/user/user.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { environment } from 'src/environments/environment';
 
 const APP_MODULES = [
   AdminModule,
@@ -30,7 +31,7 @@ const APP_MODULES = [
     StaticModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://192.168.1.21:5000/'],
+        allowedUrls: [environment.backendUri],
         sendAccessToken: true
       }
     }),
