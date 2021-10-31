@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CharacterDataService } from 'src/app/modules/character/services/character-data.service';
 import { UserService } from 'src/app/modules/user/services/user.service';
 import { ICharacter } from 'src/app/shared/models/character.model';
@@ -20,7 +21,8 @@ export class HeaderComponent {
   constructor(
     private _observableService: ObservableService,
     private _characterDataService: CharacterDataService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _router: Router,
   ) {
     this.navCollapsed = true;
     this.loggedIn = this._userService.userInfo ? true : false;
@@ -50,14 +52,28 @@ export class HeaderComponent {
   }
 
   /**
+   * Navigate and close the menu bar
+   *
+   * @param route path string
+   */
+  navigate(route: string): void {
+    this.navCollapsed = true;
+    this._router.navigate([route]);
+  }
+
+  /**
    * Trigger a user logout event
    */
   logout(): void {
+    this.navCollapsed = true;
     this._userService.logout();
   }
 
+  /**
+   * Select an active character
+   */
   selectCharacter(): void {
-    this._characterDataService.promptSelectCharacter();
+    this._characterDataService.promptSelectCharacter().then(() => this.navCollapsed = true);
   }
 
 }

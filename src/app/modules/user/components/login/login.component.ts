@@ -52,15 +52,22 @@ export class LoginComponent {
       try {
         const username = this.form.get('username')?.value;
         const password = this.form.get('password')?.value;
-        await this._userService.login(username, password);
-        // Navigate to the previous page
-        const previousPage = localStorage.getItem(STORAGE_KEY_PREVIOUS_PAGE);
-        if (!!previousPage) {
-          this._router.navigate([previousPage]);
-        }
-        else {
-          this._router.navigate(['spells']);
-        }
+        this._userService.login(username, password)
+        .then(() => {
+          // Navigate to the previous page
+          console.log("Succeeded")
+          const previousPage = localStorage.getItem(STORAGE_KEY_PREVIOUS_PAGE);
+          if (!!previousPage) {
+            this._router.navigate([previousPage]);
+          }
+          else {
+            this._router.navigate(['spells']);
+          }
+        })
+        .catch(() => {
+          console.log("Caught error");
+          this.loginInvalid = true;
+        });
       } catch (err) {
         this.loginInvalid = true;
       }

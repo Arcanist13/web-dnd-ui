@@ -1,0 +1,12 @@
+.nav-link {
+  cursor: pointer;
+}
+
+.navbar-brand {
+  cursor: pointer;
+}
+
+.mat-success {
+  background-color: #28a745;
+  color: #fff;
+}

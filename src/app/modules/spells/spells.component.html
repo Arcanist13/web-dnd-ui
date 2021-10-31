@@ -19,7 +19,7 @@
 
 <div id="collapse-filter" class="row justify-content-center collapse d-lg-flex">
   <!-- Dynamic filters -->
-  <div *ngFor="let filter of filterArray" class="col-lg-2 col-4">
+  <div *ngFor="let filter of filterArray" class="col-lg-2 col-4 filter-grid">
     <app-filter-spell-list-generic
       [filterTitle]="filter.title"
       [filterKey]="filter.key"

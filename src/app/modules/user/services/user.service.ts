@@ -38,8 +38,9 @@ export class UserService {
   login(username?: string, password?: string): Promise<void> {
     return this._authService.login(username, password).then((user: {info: IUser}) => {
       this.updateUser(user.info);
-    }).catch(() => {
+    }).catch((error) => {
       this.logout();
+      throw error;
     });
   }
 

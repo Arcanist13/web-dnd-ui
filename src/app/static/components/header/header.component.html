@@ -1,5 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" [routerLink]="'/spells'">Arcane Repository</a>
+  <a class="navbar-brand" (click)="navigate('/spells')">Arcane Repository</a>
+
+  <button mat-stroked-button class="d-lg-none ml-auto mr-3" [ngClass]="{'mat-success': selectedCharacter}" aria-label="Select Character" (click)="selectCharacter()">
+    <mat-icon>people</mat-icon>
+  </button>
 
   <button class="navbar-toggler" type="button" (click)="navCollapsed = !navCollapsed" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -9,27 +13,32 @@
   <div class="collapse navbar-collapse" [ngbCollapse]="navCollapsed">
     <ul class="navbar-nav mr-auto">
       <li *ngIf="admin" class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="'/admin'">Admin</a>
+        <a class="nav-link" (click)="navigate('/admin')">Admin</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="'/character'">Characters</a>
+        <a class="nav-link" (click)="navigate('/character')">Characters</a>
       </li>
       <li *ngIf="selectedCharacter" class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="'/character/' + selectedCharacter.id.toString()">{{ selectedCharacter.name }}</a>
+        <a class="nav-link" (click)="navigate('/character/' + selectedCharacter.id.toString())">{{ selectedCharacter.name }}</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="'/spells'">Spells</a>
+        <a class="nav-link" (click)="navigate('/spells')">Spells</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="'/feats'">Feats</a>
+        <a class="nav-link" (click)="navigate('/feats')">Feats</a>
       </li>
     </ul>
 
-    <div class="navbar-nav ml-auto">
-      <button mat-stroked-button *ngIf="selectedCharacter" (click)="selectCharacter()" class="mr-1">Character: {{ selectedCharacter.name }}</button>
-      <button *ngIf="!loggedIn" class="btn btn-outline-primary navbar-btn mr-1" [routerLink]="'/user/login'">Login</button>
-      <button *ngIf="loggedIn" class="btn btn-outline-primary navbar-btn mr-1" (click)="logout()">Logout</button>
-      <button *ngIf="!loggedIn" class="btn btn-outline-primary navbar-btn" [routerLink]="'/user/register'">Register</button>
+    <hr>
+
+    <div class="navbar-nav ml-auto text-center">
+      <button *ngIf="loggedIn" mat-stroked-button (click)="selectCharacter()" [ngClass]="{'mb-2': !navCollapsed}" class="mr-1">
+        <span *ngIf="selectedCharacter">Character: {{ selectedCharacter.name }}</span>
+        <span *ngIf="!selectedCharacter">Select Character</span>
+      </button>
+      <button *ngIf="!loggedIn" mat-stroked-button [ngClass]="{'mx-5': !navCollapsed, 'mb-2': !navCollapsed, 'mr-1': navCollapsed}" (click)="navigate('/user/login')">Login</button>
+      <button *ngIf="loggedIn" mat-stroked-button [ngClass]="{'mx-5': !navCollapsed, 'mr-1': navCollapsed}" (click)="logout()">Logout</button>
+      <button *ngIf="!loggedIn" mat-stroked-button [ngClass]="{'mx-5': !navCollapsed}" (click)="navigate('/user/register')">Register</button>
     </div>
   </div>
 </nav>
