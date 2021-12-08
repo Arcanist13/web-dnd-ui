@@ -149,6 +149,8 @@ INSERT INTO artificer_spells VALUES (NULL, "Greater Restoration");
 INSERT INTO artificer_spells VALUES (NULL, "Skill Empowerment");
 INSERT INTO artificer_spells VALUES (NULL, "Transmute Rock");
 INSERT INTO artificer_spells VALUES (NULL, "Wall of Stone");
+-- FTD
+INSERT INTO artificer_spells VALUES (NULL, "Ashardalon's Stride");
 
 -- bard_spells SPELLS
 -- PHB
@@ -288,6 +290,9 @@ INSERT INTO bard_spells VALUES (NULL, "Psychic scream");
 -- TCE
 INSERT INTO bard_spells VALUES (NULL, "Intellect Fortress");
 INSERT INTO bard_spells VALUES (NULL, "Dream of the Blue Veil");
+-- FTD
+INSERT INTO bard_spells VALUES (NULL, "Nathair's Mischief");
+INSERT INTO bard_spells VALUES (NULL, "Raulothim's Psychic Lance");
 
 -- cleric_spells SPELLS
 -- PHB
@@ -566,6 +571,9 @@ INSERT INTO druid_spells VALUES (NULL, "Whirlwind");
 INSERT INTO druid_spells VALUES (NULL, "Summon Beast");
 INSERT INTO druid_spells VALUES (NULL, "Summon Fey");
 INSERT INTO druid_spells VALUES (NULL, "Summon Elemental");
+-- FTD
+INSERT INTO druid_spells VALUES (NULL, "Summon Draconic Spirit");
+INSERT INTO druid_spells VALUES (NULL, "Draconic Transformation");
 
 -- paladin_spells SPELLS
 -- PHB
@@ -684,6 +692,8 @@ INSERT INTO ranger_spells VALUES (NULL, "Wrath of Nature");
 INSERT INTO ranger_spells VALUES (NULL, "Summon Beast");
 INSERT INTO ranger_spells VALUES (NULL, "Summon Fey");
 INSERT INTO ranger_spells VALUES (NULL, "Summon Elemental");
+-- FTD
+INSERT INTO ranger_spells VALUES (NULL, "Ashardalon's Stride");
 
 -- sorcerer_spells SPELLS
 -- PHB
@@ -884,6 +894,14 @@ INSERT INTO sorcerer_spells VALUES (NULL, "Intellect Fortress");
 INSERT INTO sorcerer_spells VALUES (NULL, "Tasha's Otherworldly Guise");
 INSERT INTO sorcerer_spells VALUES (NULL, "Dream of the Blue Veil");
 INSERT INTO sorcerer_spells VALUES (NULL, "Blade of Disaster");
+-- FTD
+INSERT INTO sorcerer_spells VALUES (NULL, "Ashardalon's Stride");
+INSERT INTO sorcerer_spells VALUES (NULL, "Draconic Transformation");
+INSERT INTO sorcerer_spells VALUES (NULL, "Fizban's Platinum Shield");
+INSERT INTO sorcerer_spells VALUES (NULL, "Nathair's Mischief");
+INSERT INTO sorcerer_spells VALUES (NULL, "Raulothim's Psychic Lance");
+INSERT INTO sorcerer_spells VALUES (NULL, "Rime's Binding Ice");
+INSERT INTO sorcerer_spells VALUES (NULL, "Summon Draconic Spirit");
 
 -- warlock_spells SPELLS
 -- PHB
@@ -1044,6 +1062,8 @@ INSERT INTO warlock_spells VALUES (NULL, "Summon Fiend");
 INSERT INTO warlock_spells VALUES (NULL, "Tasha's Otherworldly Guise");
 INSERT INTO warlock_spells VALUES (NULL, "Dream of the Blue Veil");
 INSERT INTO warlock_spells VALUES (NULL, "Blade of Disaster");
+-- FTD
+INSERT INTO warlock_spells VALUES (NULL, "Summon Draconic Spirit");
 
 -- wizard_spells SPELLS
 -- PHB
@@ -1360,3 +1380,11 @@ INSERT INTO wizard_spells VALUES (NULL, "Summon Fiend");
 INSERT INTO wizard_spells VALUES (NULL, "Tasha's Otherworldly Guise");
 INSERT INTO wizard_spells VALUES (NULL, "Dream of the Blue Veil");
 INSERT INTO wizard_spells VALUES (NULL, "Blade of Disaster");
+-- FTD
+INSERT INTO wizard_spells VALUES (NULL, "Ashardalon's Stride");
+INSERT INTO wizard_spells VALUES (NULL, "Draconic Transformation");
+INSERT INTO wizard_spells VALUES (NULL, "Fizban's Platinum Shield");
+INSERT INTO wizard_spells VALUES (NULL, "Nathair's Mischief");
+INSERT INTO wizard_spells VALUES (NULL, "Raulothim's Psychic Lance");
+INSERT INTO wizard_spells VALUES (NULL, "Rime's Binding Ice");
+INSERT INTO wizard_spells VALUES (NULL, "Summon Draconic Spirit");

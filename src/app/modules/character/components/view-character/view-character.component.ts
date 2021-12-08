@@ -66,8 +66,10 @@ export class ViewCharacterComponent implements OnInit {
    * Navigate to the spell list of the given class
    */
   classSpells(): void {
-    if (this.className) {
+    if (this.className && this.className in this._classService.getSpellClasses()) {
       this._classService.setCurrentSpellClass(this.className);
+    } else {
+      this._classService.setCurrentSpellClass('All Spells');
     }
     this._router.navigate(['/spells']);
   }

@@ -7,7 +7,7 @@ from database.sqlite3 import get_db_all, get_db_one
 from models.spell import Spell
 
 router = APIRouter()
-version = '1.0.0'
+version = '1.0.1'
 
 spell_partial = 'id, name, school, level, ritual, cast_time, range, components, duration, damage_type, save_type, attack_type, condition_type, concentration'
 spell_classes = ['All Spells', 'Artificer', 'Bard', 'Cleric', 'Druid', 'Paladin', 'Ranger', 'Sorcerer', 'Warlock', 'Wizard']
@@ -16,7 +16,7 @@ spell_classes = ['All Spells', 'Artificer', 'Bard', 'Cleric', 'Druid', 'Paladin'
 @router.get('/spells', tags=["spell"], response_model=List[Spell])
 async def get_spells():
   '''Get all spells.'''
-  spells = get_db_all("SELECT " + spell_partial + " FROM spells ORDER BY name ASC")
+  spells = get_db_all("SELECT " + spell_partial + " FROM spells ORDER BY level ASC, name ASC")
   if spells is not None:
     return spells
   raise HTTPException(status_code=500, detail="An error occurred. Unable to load spells.")
@@ -24,7 +24,7 @@ async def get_spells():
 @router.get('/spell/{spell_id}', tags=["spell"], response_model=Spell)
 async def get_spell_id(spell_id: int):
   '''Get spell by id.'''
-  spell = get_db_one("SELECT * FROM spells WHERE id = ? ORDER BY name ASC", [str(spell_id)])
+  spell = get_db_one("SELECT * FROM spells WHERE id = ? ORDER BY level ASC, name ASC", [str(spell_id)])
   if spell is not None:
     return spell
   msg = "Spell with id=" + str(spell_id) + " not found."
@@ -45,7 +45,7 @@ async def get_class_spells(class_str: str):
 
   spell = get_db_all('''
     SELECT {partial} FROM spells
-    WHERE name IN (SELECT name FROM {class_name}_spells NOCASE) COLLATE NOCASE ORDER BY name ASC
+    WHERE name IN (SELECT name FROM {class_name}_spells NOCASE) COLLATE NOCASE ORDER BY level ASC, name ASC
     '''.format(partial=spell_partial,class_name=class_str.lower()))
 
   if spell is not None:
