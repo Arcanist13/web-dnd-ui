@@ -31,7 +31,6 @@ export class FeatService {
    * requesting new data.
    */
   getFeats(): void {
-    console.log(this._feats)
     if (this._feats.length > 0) {
       this._featUpdate.next(this._feats);
     }

@@ -55,7 +55,6 @@ export class LoginComponent {
         this._userService.login(username, password)
         .then(() => {
           // Navigate to the previous page
-          console.log("Succeeded")
           const previousPage = localStorage.getItem(STORAGE_KEY_PREVIOUS_PAGE);
           if (!!previousPage) {
             this._router.navigate([previousPage]);
@@ -65,7 +64,6 @@ export class LoginComponent {
           }
         })
         .catch(() => {
-          console.log("Caught error");
           this.loginInvalid = true;
         });
       } catch (err) {

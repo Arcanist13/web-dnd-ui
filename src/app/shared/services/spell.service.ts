@@ -168,7 +168,7 @@ export class SpellService extends ObservableService {
    * @return    spell list observable
    */
   public get onSpellUpdate() : Subject<Array<ISpellModel>> {
-    return this._spellUpdate
+    return this._spellUpdate;
   }
 
   /**
