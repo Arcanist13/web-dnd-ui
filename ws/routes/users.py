@@ -1,6 +1,7 @@
 '''Router class for user related queries.'''
 
 from datetime import timedelta
+from datetime import datetime
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -8,7 +9,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from auth.auth import authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, get_current_user, get_current_admin_user
 from database.user import create_user
-from database.sqlite3 import delete_id, get_db_all
+from database.sqlite3 import delete_id, execute, get_db_all
 from models.user_model import User, UserRegister
 from models.auth import Token
 
@@ -63,3 +64,13 @@ async def register_user(user_data: UserRegister):
   if res is not None:
     return {"res": res}
   raise HTTPException(status_code=500, detail='Failed to create user')
+
+@router.post("/user/touch", tags=['user'])
+async def touch_user(current_user: User = Depends(get_current_user)):
+  '''Update the user active time'''
+  if current_user.username is not None:
+    execute('''
+      UPDATE users SET activity = ?
+      WHERE username = ?
+    ''', [int(datetime.utcnow().timestamp()), current_user.username])
+  return

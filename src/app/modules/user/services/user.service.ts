@@ -38,6 +38,7 @@ export class UserService {
   login(username?: string, password?: string): Promise<void> {
     return this._authService.login(username, password).then((user: {info: IUser}) => {
       this.updateUser(user.info);
+      this.touch();
     }).catch((error) => {
       this.logout();
       throw error;
@@ -50,6 +51,7 @@ export class UserService {
    * @returns promise result
    */
   logout(): Promise<void> {
+    this.touch();
     return this._authService.logout().then(() => {
       this.updateUser();
     });
@@ -72,6 +74,16 @@ export class UserService {
     ).toPromise().then(() => {
       this.login(username, password);
     });
+  }
+
+  /**
+   * Update the activity of the user
+   */
+  public touch(): void {
+    this._http.post<void>(
+      environment.backendUri + '/user/touch',
+      {}
+    ).subscribe()
   }
 
   /**
