@@ -6,6 +6,7 @@ import { ICampaign } from 'src/app/shared/models/campaign.model';
 import { ICharacter } from 'src/app/shared/models/character.model';
 import { IClass, IClassArchetype } from 'src/app/shared/models/class.model';
 import { IRace, ISubRace } from 'src/app/shared/models/race.model';
+import { ObservableService } from 'src/app/shared/services/observable.service';
 import { HttpService } from 'src/app/static/services/http.service';
 import { STORAGE_KEY_CURRENT_CHAR } from 'src/app/static/storage_keys.constant';
 import { environment } from 'src/environments/environment';
@@ -14,7 +15,7 @@ import { UserService } from '../../user/services/user.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CharacterDataService {
+export class CharacterDataService extends ObservableService {
 
   private _campaigns: Array<ICampaign>;
   private _characters: Array<ICharacter>;
@@ -32,6 +33,8 @@ export class CharacterDataService {
     public _dialog: MatDialog,
     private _userService: UserService
   ) {
+    super();
+
     this._campaigns = [];
     this._characters = [];
     this._races = [];
@@ -43,7 +46,13 @@ export class CharacterDataService {
     this._onCharactersUpdate = new Subject<Array<ICharacter>>();
 
     // Attempt to load a stored character
-    this.loadCharacter();
+    this.subscribe(
+      this._userService.loginUpdate,
+      (res: boolean) => {
+        if (res) { this.loadCharacter(); }
+        else { this.clearCharacter(); }
+      }
+    );
   }
 
   /**
@@ -136,18 +145,26 @@ export class CharacterDataService {
   /**
    * Store the current character to the local session
    */
-  saveCharacter(): void {
+  private saveCharacter(): void {
     localStorage.setItem(STORAGE_KEY_CURRENT_CHAR, JSON.stringify(this._character));
   }
 
   /**
    * Load a character from storage
    */
-  loadCharacter(): void {
+  private loadCharacter(): void {
     const charString = localStorage.getItem(STORAGE_KEY_CURRENT_CHAR);
     if (charString) {
       this._character = JSON.parse(charString) as ICharacter;
     }
+  }
+
+  /**
+   * Remove the stored character
+   */
+  public clearCharacter(): void {
+    this._character = undefined;
+    localStorage.removeItem(STORAGE_KEY_CURRENT_CHAR);
   }
 
   /**
