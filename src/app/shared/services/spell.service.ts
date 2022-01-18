@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable, of, Subject } from 'rxjs';
-import { IFavouriteSpell, ISpellModel } from 'src/app/shared/models/spell.model';
+import { Observable, Subject } from 'rxjs';
+import { ISpellModel } from 'src/app/shared/models/spell.model';
 import { DndClassService } from './dnd-class.service';
 import { HttpService } from 'src/app/static/services/http.service';
 import { ObservableService } from './observable.service';
@@ -13,7 +13,6 @@ import { STORAGE_KEY_SPELLS } from 'src/app/static/storage_keys.constant';
 export class SpellService extends ObservableService {
 
   private _spellUpdate: Subject<Array<ISpellModel>>;
-  private _favouriteUpdate: Subject<Array<IFavouriteSpell>>;
 
   // Memory storage
   private _classSpellMap: Map<string, Array<ISpellModel>>;
@@ -25,7 +24,6 @@ export class SpellService extends ObservableService {
     super();
 
     this._spellUpdate = new Subject<Array<ISpellModel>>();
-    this._favouriteUpdate = new Subject<Array<IFavouriteSpell>>();
 
     this._classSpellMap = new Map<string, Array<ISpellModel>>();
 
@@ -87,47 +85,6 @@ export class SpellService extends ObservableService {
   }
 
   /**
-   * Get the list of favourite spell ids
-   *
-   * @param char_id character to get fav spells of
-   */
-  public favouriteSpellIds(char_id: number): void {
-    this._httpService.get<Array<IFavouriteSpell>>(
-      environment.backendUri + '/favourite/spell_ids/' + char_id.toString()
-    ).subscribe((result: Array<IFavouriteSpell>) => {
-      this._favouriteUpdate.next(result);
-    });
-  }
-
-  /**
-   * Favourite or unfavourite a spell for a character
-   *
-   * @param spell_id  spell id
-   * @param char_id   character id
-   */
-  public favouriteSpell(spell_id: number, char_id: number, state: boolean): void {
-    const data = {
-      character_id: char_id,
-      spell_id
-    };
-
-    if (state) {
-      this._httpService.post<void>(
-        environment.backendUri + '/favourite/spell',
-        data
-      ).subscribe(() => {
-        this.favouriteSpellIds(char_id);
-      });
-    } else {
-      this._httpService.delete<void>(
-        environment.backendUri + '/favourite/spell/' + char_id.toString() + '/' + spell_id.toString(),
-      ).subscribe(() => {
-        this.favouriteSpellIds(char_id);
-      });
-    }
-  }
-
-  /**
    * Get a spell by it's ID
    *
    * @param id  spell id
@@ -170,15 +127,5 @@ export class SpellService extends ObservableService {
   public get onSpellUpdate() : Subject<Array<ISpellModel>> {
     return this._spellUpdate;
   }
-
-  /**
-   * Event for favourite spell list update
-   *
-   * @return  favourite spell observable
-   */
-  public get onFavouriteUpdate() : Subject<Array<IFavouriteSpell>> {
-    return this._favouriteUpdate;
-  }
-
 
 }

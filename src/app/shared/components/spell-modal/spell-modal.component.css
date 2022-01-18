@@ -15,3 +15,9 @@
 .modal-row-level {
   font-style: italic;
 }
+
+.fav-icon {
+  transform: scale(2);
+  vertical-align: text-top;
+  cursor: pointer;
+}

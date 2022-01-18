@@ -7,6 +7,7 @@ import { ICharacter } from 'src/app/shared/models/character.model';
 import { IClass, IClassArchetype } from 'src/app/shared/models/class.model';
 import { IRace, ISubRace } from 'src/app/shared/models/race.model';
 import { HttpService } from 'src/app/static/services/http.service';
+import { STORAGE_KEY_CURRENT_CHAR } from 'src/app/static/storage_keys.constant';
 import { environment } from 'src/environments/environment';
 import { UserService } from '../../user/services/user.service';
 
@@ -40,6 +41,9 @@ export class CharacterDataService {
 
     this._onCharacterChange = new Subject<ICharacter>();
     this._onCharactersUpdate = new Subject<Array<ICharacter>>();
+
+    // Attempt to load a stored character
+    this.loadCharacter();
   }
 
   /**
@@ -111,6 +115,7 @@ export class CharacterDataService {
       const findChar = this._characters.find((char: ICharacter) => char.id === id);
       if (findChar !== undefined) {
         this._character = findChar;
+        this.saveCharacter();
         this._onCharacterChange.next(this._character);
         resolve(findChar);
       } else {
@@ -119,12 +124,30 @@ export class CharacterDataService {
         ).subscribe((res: ICharacter) => {
           if (res) {
             this._character = res;
+            this.saveCharacter();
             this._onCharacterChange.next(this._character);
           }
           resolve(res);
         });
       }
     })
+  }
+
+  /**
+   * Store the current character to the local session
+   */
+  saveCharacter(): void {
+    localStorage.setItem(STORAGE_KEY_CURRENT_CHAR, JSON.stringify(this._character));
+  }
+
+  /**
+   * Load a character from storage
+   */
+  loadCharacter(): void {
+    const charString = localStorage.getItem(STORAGE_KEY_CURRENT_CHAR);
+    if (charString) {
+      this._character = JSON.parse(charString) as ICharacter;
+    }
   }
 
   /**

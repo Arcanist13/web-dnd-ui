@@ -1,6 +1,10 @@
 <ng-template #spellModalContent let-modal>
   <div class="modal-header align-text-bottom">
-    <h4 class="modal-title my-0">{{ spell.name }}</h4>
+    <span *ngIf="loggedIn">
+      <mat-icon *ngIf="!favourite" class="fav-icon" aria-hidden="false" aria-label="Favourite" (click)="$event.stopPropagation();favouriteSpell(spell.id, true);">star_border</mat-icon>
+      <mat-icon *ngIf="favourite" class="fav-icon" aria-hidden="false" aria-label="Favourite" (click)="$event.stopPropagation();favouriteSpell(spell.id, false);">star</mat-icon>
+    </span>
+    <h4 class="modal-title ml-4 my-0">{{ spell.name }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>

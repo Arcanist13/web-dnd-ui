@@ -1,6 +1,7 @@
 export const STORAGE_KEY_PREVIOUS_PAGE = '_previous_page';
 
 export const STORAGE_KEY_CURRENT_CLASS = '_current_class';
+export const STORAGE_KEY_CURRENT_CHAR = '_current_char'
 
 export const STORAGE_KEY_VERSIONS = '_versions';
 export const STORAGE_KEY_SPELLS = '_spells';

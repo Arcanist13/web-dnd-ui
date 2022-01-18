@@ -34,7 +34,7 @@ export class HeaderComponent {
       (state: boolean) => {
         this.loggedIn = state;
         this.admin = this._userService.isAdmin;
-        this.selectedCharacter = undefined;
+        this.selectedCharacter = this._characterDataService.character;
       }
     );
 

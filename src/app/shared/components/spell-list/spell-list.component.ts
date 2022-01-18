@@ -6,6 +6,7 @@ import { SpellModalService } from 'src/app/modules/spells/services/spell-modal.s
 import { UserService } from 'src/app/modules/user/services/user.service';
 import { ICharacter } from '../../models/character.model';
 import { IFavouriteSpell, ISpellFilter, ISpellModel } from '../../models/spell.model';
+import { FavouriteService } from '../../services/favourite.service';
 import { ObservableService } from '../../services/observable.service';
 import { SpellFilterService } from '../../services/spell-filter.service';
 import { SpellService } from '../../services/spell.service';
@@ -35,6 +36,7 @@ export class SpellListComponent {
     private _spellFilterService: SpellFilterService,
     private _characterDataService: CharacterDataService,
     private _spellService: SpellService,
+    private _favouriteService: FavouriteService,
     private _userService: UserService,
   ) {
     this.spells = [];
@@ -44,13 +46,13 @@ export class SpellListComponent {
     // Get the current character information and favourite spells
     this.character = this._characterDataService.character?.id;
     this._observableService.subscribe(
-      this._spellService.onFavouriteUpdate,
+      this._favouriteService.onFavouriteUpdate,
       (favs: Array<IFavouriteSpell>) => {
         this.favSpells = favs.map((fav: IFavouriteSpell) => fav.spell_id);
       }
     );
     if (this.character) {
-      this._spellService.favouriteSpellIds(this.character);
+      this._favouriteService.favouriteSpellIds(this.character);
     }
 
     // Subscribe to future character changes
@@ -58,7 +60,7 @@ export class SpellListComponent {
       this._characterDataService.onCharacterChange,
       (char: ICharacter) => {
         this.character = char.id;
-        this._spellService.favouriteSpellIds(this.character);
+        this._favouriteService.favouriteSpellIds(this.character);
       }
     );
 
@@ -105,29 +107,7 @@ export class SpellListComponent {
    * @param state     favourite state (set, unset)
    */
   favouriteSpell(spell_id: number, state: boolean): void {
-    if (this.character === undefined) {
-      this._characterDataService.promptSelectCharacter().then((char_id: number | undefined) => {
-        if (char_id !== undefined) {
-          this.character = char_id;
-          this.setFavouriteSpell(spell_id, state);
-        }
-      });
-    } else {
-      this.setFavouriteSpell(spell_id, state);
-    }
-  }
-
-  /**
-   * Internal function to set/unset the favourite spell and request the change in the
-   * backend.
-   *
-   * @param spell_id  favourite spell id
-   * @param state     set or unset state
-   */
-  private setFavouriteSpell(spell_id: number, state: boolean): void {
-    if (this.character) {
-      this._spellService.favouriteSpell(spell_id, this.character, state);
-    }
+    this._favouriteService.favouriteSpell(spell_id, state);
   }
 
   /**
