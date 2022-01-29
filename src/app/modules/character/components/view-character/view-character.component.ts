@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/modules/user/services/user.service';
 import { ICharacter } from 'src/app/shared/models/character.model';
-import { ISpellModel } from 'src/app/shared/models/spell.model';
 import { DndClassService } from 'src/app/shared/services/dnd-class.service';
 import { ObservableService } from 'src/app/shared/services/observable.service';
 import { SpellService } from 'src/app/shared/services/spell.service';
 import { STORAGE_KEY_PREVIOUS_PAGE } from 'src/app/static/storage_keys.constant';
 import { CharacterDataService } from '../../services/character-data.service';
-import { CharacterViewService } from '../../services/character-view.service';
 
 @Component({
   selector: 'app-view-character',
@@ -25,12 +23,18 @@ export class ViewCharacterComponent implements OnInit {
     private _observableService: ObservableService,
     private _classService: DndClassService,
     private _characterDataService: CharacterDataService,
-    private _characterViewService: CharacterViewService,
     private _spellService: SpellService,
     private _activatedRoute: ActivatedRoute,
     private _userService: UserService,
     private _router: Router,
-  ) {}
+  ) {
+    this._observableService.subscribe(
+      this._characterDataService.onCharacterChange,
+      (newChar: ICharacter) => {
+        this._router.navigate(['/character/' + newChar.id]);
+      }
+    );
+  }
 
   ngOnInit(): void {
     const charID = +(this._activatedRoute.snapshot.url[0].path);
@@ -66,7 +70,7 @@ export class ViewCharacterComponent implements OnInit {
    * Navigate to the spell list of the given class
    */
   classSpells(): void {
-    if (this.className && this.className in this._classService.getSpellClasses()) {
+    if (this.className && this._classService.getSpellClasses().includes(this.className)) {
       this._classService.setCurrentSpellClass(this.className);
     } else {
       this._classService.setCurrentSpellClass('All Spells');

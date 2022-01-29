@@ -22,8 +22,7 @@ export class FilterSpellClassComponent implements Filter<string> {
     private _spellFilterService: SpellFilterService,
   ) {
     this.classes = this._dndClassService.getSpellClasses();
-    const stored = localStorage.getItem(STORAGE_KEY_CURRENT_CLASS);
-    this.currentClass = stored ? stored : this.classes[0];
+    this.currentClass = this._dndClassService.getCurrentSpellClass();
 
     // Subscribe to filter clears
     this._observableService.subscribe(
