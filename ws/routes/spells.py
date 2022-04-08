@@ -7,7 +7,7 @@ from database.sqlite3 import get_db_all, get_db_one
 from models.spell import Spell
 
 router = APIRouter()
-version = '1.0.2'
+version = '1.0.3'
 
 spell_partial = 'id, name, school, level, ritual, cast_time, range, components, duration, damage_type, save_type, attack_type, condition_type, concentration'
 spell_classes = ['All Spells', 'Artificer', 'Bard', 'Cleric', 'Druid', 'Paladin', 'Ranger', 'Sorcerer', 'Warlock', 'Wizard']

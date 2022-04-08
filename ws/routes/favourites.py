@@ -3,7 +3,7 @@
 from typing import List
 from fastapi import APIRouter, HTTPException, Depends
 
-from database.sqlite3 import delete_id, get_db_all, execute
+from database.sqlite3 import get_db_all, execute
 from auth.auth import get_current_user
 
 from models.favourite import FavouriteSpell

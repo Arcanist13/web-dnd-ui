@@ -156,6 +156,7 @@ export class CharacterDataService extends ObservableService {
     const charString = localStorage.getItem(STORAGE_KEY_CURRENT_CHAR);
     if (charString) {
       this._character = JSON.parse(charString) as ICharacter;
+      this._onCharacterChange.next(this._character);
     }
   }
 

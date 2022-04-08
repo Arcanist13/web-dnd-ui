@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { LabelService } from './shared/services/label.service';
 import { HttpService } from './static/services/http.service';
 import { STORAGE_KEY_VERSIONS } from './static/storage_keys.constant';
 
@@ -17,7 +18,8 @@ export class AppComponent {
   title = 'web-dnd-ui';
 
   constructor(
-    private _httpService: HttpService
+    private _httpService: HttpService,
+    private _labelService: LabelService,
   ) {
     // Get the current versions from the backend
     this._httpService.get<Array<IVersion>>(environment.backendUri + '/versions').subscribe((backendVersions: Array<IVersion>) => {

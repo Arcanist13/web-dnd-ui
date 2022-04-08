@@ -7,10 +7,9 @@ export const authCodeFlowConfig: AuthConfig = {
   tokenEndpoint: environment.backendUri + '/token',
   userinfoEndpoint: environment.backendUri + '/users/me',
   clientId: 'dnd-web-ui',
-  dummyClientSecret: 'geheim',
+  dummyClientSecret: 'null',
   scope: 'openid profile',
   oidc: false,
-  showDebugInformation: true,
   sessionChecksEnabled: false,
   requireHttps: false
 };
@@ -26,11 +25,11 @@ export const authCodeFlowConfig: AuthConfig = {
 export class AuthService {
 
   constructor(
-    private oAuthService: OAuthService,
+    private _oAuthService: OAuthService,
   ) {
     // Configure the oauth service
-    this.oAuthService.configure(authCodeFlowConfig);
-    this.oAuthService.setStorage(localStorage);
+    this._oAuthService.configure(authCodeFlowConfig);
+    this._oAuthService.setStorage(localStorage);
   }
 
   /**
@@ -43,10 +42,13 @@ export class AuthService {
    */
   async login(username?: string, password?: string): Promise<{info: IUser}> {
     if (username !== undefined && password !== undefined) {
-      const res: ITokenUser = await this.oAuthService.fetchTokenUsingPasswordFlowAndLoadUserProfile(username, password) as ITokenUser;
+      const res: ITokenUser = await this._oAuthService.fetchTokenUsingPasswordFlowAndLoadUserProfile(username, password) as ITokenUser;
       return res;
     }
-    return this.oAuthService.loadUserProfile() as Promise<{info: IUser}>;
+    if (this._oAuthService.getAccessToken()) {
+      return this._oAuthService.loadUserProfile() as Promise<{info: IUser}>;
+    }
+    throw Error('No profile loaded');
   }
 
   /**
@@ -55,7 +57,7 @@ export class AuthService {
    * @returns logout result
    */
   async logout(): Promise<void> {
-    return this.oAuthService.logOut();
+    return this._oAuthService.logOut();
   }
 
   /**
@@ -64,6 +66,6 @@ export class AuthService {
    * @returns user information
    */
   getCurrentUserInfo(): IUser {
-    return this.oAuthService.getIdentityClaims() as IUser;
+    return this._oAuthService.getIdentityClaims() as IUser;
   }
 }

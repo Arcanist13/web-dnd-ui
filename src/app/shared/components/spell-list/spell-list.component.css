@@ -4,3 +4,11 @@
   width: auto;
   vertical-align: text-top;
 }
+
+.mat-standard-chip {
+  min-height: 1rem;
+}
+
+.no-border {
+  border-top: none;
+}

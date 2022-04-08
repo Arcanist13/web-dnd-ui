@@ -5,8 +5,10 @@ import { CharacterDataService } from 'src/app/modules/character/services/charact
 import { SpellModalService } from 'src/app/modules/spells/services/spell-modal.service';
 import { UserService } from 'src/app/modules/user/services/user.service';
 import { ICharacter } from '../../models/character.model';
+import { ILabel } from '../../models/label.model';
 import { IFavouriteSpell, ISpellFilter, ISpellModel } from '../../models/spell.model';
 import { FavouriteService } from '../../services/favourite.service';
+import { LabelService } from '../../services/label.service';
 import { ObservableService } from '../../services/observable.service';
 import { SpellFilterService } from '../../services/spell-filter.service';
 import { SpellService } from '../../services/spell.service';
@@ -38,6 +40,7 @@ export class SpellListComponent {
     private _spellService: SpellService,
     private _favouriteService: FavouriteService,
     private _userService: UserService,
+    private _labelService: LabelService,
   ) {
     this.spells = [];
     this.favSpells = [];
@@ -118,6 +121,26 @@ export class SpellListComponent {
    */
   checkFilter(spell: ISpellModel): boolean {
     return this._spellFilterService.checkSpellFilter(spell, this.filter);
+  }
+
+  /**
+   * Get the spells labels
+   *
+   * @param spellId spell id
+   * @returns       spell labels
+   */
+  getLabels(spellId: number): Array<ILabel> | undefined {
+    return this._labelService.getLabelsForSpell(spellId);
+  }
+
+  /**
+   * Check if a spell has labels
+   *
+   * @param spellId spell id
+   * @returns       has labels
+   */
+  hasLabels(spellId: number): boolean {
+    return this._labelService.hasLabelsForSpell(spellId);
   }
 
   /**

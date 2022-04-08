@@ -32,6 +32,24 @@
         <tr>
           <td colspan="2" [innerHTML]="spell.description"></td>
         </tr>
+        <tr *ngIf="loggedIn">
+          <td colspan="2">
+            <mat-form-field class="label-list" appearance="fill">
+              <mat-label>Spell Labels</mat-label>
+              <mat-chip-list #labelList aria-label="Spell labels">
+                <mat-chip *ngFor="let label of labels" (removed)="removeLabel(label)">
+                  {{label.description}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Add label..."
+                       [matChipInputFor]="labelList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addLabel($event)">
+              </mat-chip-list>
+            </mat-form-field>
+          </td>
+        </tr>
         <tr *ngIf="spell.visual">
           <td class="modal-row-title">Visual</td>
           <td [innerHTML]="spell.visual"></td>

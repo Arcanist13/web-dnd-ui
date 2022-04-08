@@ -14,24 +14,35 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let spell of spells; index as idx" (click)="openSpellModal(spell.id)" class="d-flex">
-        <ng-container *ngIf="checkFilter(spell)">
-          <td class="col-md-3 col-sm-5 col-5">
-            <span *ngIf="loggedIn">
-              <mat-icon *ngIf="!favSpells.includes(spell.id)" class="fav-icon" aria-hidden="false" aria-label="Favourite" (click)="$event.stopPropagation();favouriteSpell(spell.id, true);">star_border</mat-icon>
-              <mat-icon *ngIf="favSpells.includes(spell.id)" class="fav-icon" aria-hidden="false" aria-label="Favourite" (click)="$event.stopPropagation();favouriteSpell(spell.id, false);">star</mat-icon>
-            </span>
-            {{ spell.name }}
-          </td>
-          <td class="col-md-1 col-sm-1 col-1">{{ spell.level }}</td>
-          <td class="col-md-1 col-sm-3 col-3">{{ spell.cast_time | spellCasttime }}</td>
-          <td class="col-md-1 d-none d-md-table-cell">{{ spell.attack_type | listSplit }}</td>
-          <td class="col-md-2 d-none d-md-table-cell">{{ spell.save_type | listSplit }}</td>
-          <td class="col-md-1 d-none d-md-table-cell">{{ spell.damage_type | listSplit }}</td>
-          <td class="col-md-2 d-none d-md-table-cell">{{ spell.condition_type | listSplit }}</td>
-          <td class="col-md-1 col-sm-3 col-3">{{ spell.components | spellComponents }}</td>
-        </ng-container>
-      </tr>
+      <div *ngFor="let spell of spells; index as idx" (click)="openSpellModal(spell.id)">
+        <div *ngIf="checkFilter(spell)">
+          <tr class="d-flex">
+            <td class="col-md-3 col-sm-5 col-5">
+              <span *ngIf="loggedIn">
+                <mat-icon *ngIf="!favSpells.includes(spell.id)" class="fav-icon" aria-hidden="false" aria-label="Favourite" (click)="$event.stopPropagation();favouriteSpell(spell.id, true);">star_border</mat-icon>
+                <mat-icon *ngIf="favSpells.includes(spell.id)" class="fav-icon" aria-hidden="false" aria-label="Favourite" (click)="$event.stopPropagation();favouriteSpell(spell.id, false);">star</mat-icon>
+              </span>
+              {{ spell.name }}
+            </td>
+            <td class="col-md-1 col-sm-1 col-1">{{ spell.level }}</td>
+            <td class="col-md-1 col-sm-3 col-3">{{ spell.cast_time | spellCasttime }}</td>
+            <td class="col-md-1 d-none d-md-table-cell">{{ spell.attack_type | listSplit }}</td>
+            <td class="col-md-2 d-none d-md-table-cell">{{ spell.save_type | listSplit }}</td>
+            <td class="col-md-1 d-none d-md-table-cell">{{ spell.damage_type | listSplit }}</td>
+            <td class="col-md-2 d-none d-md-table-cell">{{ spell.condition_type | listSplit }}</td>
+            <td class="col-md-1 col-sm-3 col-3">{{ spell.components | spellComponents }}</td>
+          </tr>
+          <tr class="d-flex" *ngIf="loggedIn && hasLabels(spell.id)">
+            <td class="col-12 no-border">
+              <mat-chip-list #labelList aria-label="Spell labels">
+                <mat-chip *ngFor="let label of getLabels(spell.id)">
+                  {{label.description}}
+                </mat-chip>
+              </mat-chip-list>
+            </td>
+          </tr>
+        </div>
+      </div>
     </tbody>
   </table>
 </div>

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes import spells, classes, users, feats, campaign, character, race, favourites
+from routes import spells, classes, users, feats, campaign, character, race, favourites, labels
 
 app = FastAPI()
 
@@ -14,6 +14,7 @@ app.include_router(campaign.router)
 app.include_router(character.router)
 app.include_router(race.router)
 app.include_router(favourites.router)
+app.include_router(labels.router)
 
 @app.get('/versions', tags=["general"])
 async def get_versions():
@@ -28,7 +29,7 @@ async def get_versions():
 origins = [
   "https://thearcanerepository.com",
   "https://www.thearcanerepository.com",
-  "http://192.168.1.21:4200",
+  "http://192.168.2.3:4200",
   "http://localhost:4200"
 ]
 app.add_middleware(

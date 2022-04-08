@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { UserService } from 'src/app/modules/user/services/user.service';
 import { ConfirmDialogComponent } from 'src/app/shared/dialog/confirm-dialog/confirm-dialog.component';
 import { ICharacter, ICharacterData } from 'src/app/shared/models/character.model';
 import { ObservableService } from 'src/app/shared/services/observable.service';
-import { HttpService } from 'src/app/static/services/http.service';
 import { STORAGE_KEY_PREVIOUS_PAGE } from 'src/app/static/storage_keys.constant';
 import { NewCharacterComponent } from './components/new-character/new-character.component';
 import { CharacterDataService } from './services/character-data.service';

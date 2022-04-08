@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { IRegisterUser, IUser } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/static/services/auth.service';
+import { STORAGE_KEY_ACCESS_TOKEN } from 'src/app/static/storage_keys.constant';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -36,13 +37,17 @@ export class UserService {
    * @returns         promise result
    */
   login(username?: string, password?: string): Promise<void> {
-    return this._authService.login(username, password).then((user: {info: IUser}) => {
-      this.updateUser(user.info);
-      this.touch();
-    }).catch((error) => {
-      this.logout();
-      throw error;
-    });
+    if (localStorage.getItem(STORAGE_KEY_ACCESS_TOKEN) !== null || (username !== undefined && password !== undefined)) {
+      return this._authService.login(username, password).then((user: {info: IUser}) => {
+        this.updateUser(user.info);
+        this.touch();
+      }).catch((error) => {
+        this.logout();
+        throw error;
+      });
+    } else {
+      return new Promise((resolve, reject) => { resolve(); });
+    }
   }
 
   /**

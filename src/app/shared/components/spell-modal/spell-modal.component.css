@@ -21,3 +21,7 @@
   vertical-align: text-top;
   cursor: pointer;
 }
+
+.label-list {
+  width: 100%;
+}

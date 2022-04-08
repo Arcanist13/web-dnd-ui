@@ -9,3 +9,5 @@ export const STORAGE_KEY_CLASSES = '_classes';
 export const STORAGE_KEY_SPELL_CLASSES = '_spell_classes';
 export const STORAGE_KEY_RACES = '_races';
 export const STORAGE_KEY_FEATS = '_feats';
+
+export const STORAGE_KEY_ACCESS_TOKEN = 'access_token';

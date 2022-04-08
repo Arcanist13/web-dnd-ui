@@ -28,6 +28,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { SearchComponent } from './components/filter/search/search.component';
 import { FilterSpellClassComponent } from './components/filter/spell-class/spell-class.component';
@@ -47,6 +48,7 @@ const MATERIAL_IMPORTS = [
   MatOptionModule,
   MatButtonModule,
   MatDialogModule,
+  MatChipsModule,
 ];
 
 const SHARED_COMPONENTS = [

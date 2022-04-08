@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CampaignDialogComponent } from 'src/app/modules/admin/components/campaign/campaign-dialog/campaign-dialog.component';
 
 @Component({
   selector: 'app-confirm-dialog',
