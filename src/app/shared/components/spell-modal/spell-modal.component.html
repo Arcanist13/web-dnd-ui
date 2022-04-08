@@ -33,8 +33,8 @@
           <td colspan="2" [innerHTML]="spell.description"></td>
         </tr>
         <tr *ngIf="loggedIn">
-          <td colspan="2">
-            <mat-form-field class="label-list" appearance="fill">
+          <td colspan="2" class="p-0">
+            <mat-form-field class="label-list p-0" appearance="fill">
               <mat-label>Spell Labels</mat-label>
               <mat-chip-list #labelList aria-label="Spell labels">
                 <mat-chip *ngFor="let label of labels" (removed)="removeLabel(label)">
